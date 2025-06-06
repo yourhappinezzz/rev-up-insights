@@ -97,6 +97,185 @@
   }
 }
 
+/* Modern Gloss and Hover Animations */
+@keyframes gloss {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(79, 70, 229, 0.6); }
+}
+
+/* Card Hover Effects */
+.card-hover {
+  @apply relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2;
+  background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%);
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.card-hover:hover::before {
+  left: 100%;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(79, 70, 229, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced Button Hover Effects */
+.button-hover {
+  @apply relative overflow-hidden transition-all duration-300;
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
+}
+
+.button-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s ease-in-out;
+  z-index: 1;
+}
+
+.button-hover:hover::before {
+  left: 100%;
+}
+
+.button-hover:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 10px 25px rgba(79, 70, 229, 0.4),
+    0 0 0 1px rgba(79, 70, 229, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.button-hover:active {
+  transform: translateY(0) scale(1.02);
+}
+
+/* Interactive Element Gloss */
+.interactive-gloss {
+  @apply relative overflow-hidden;
+}
+
+.interactive-gloss::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transition: left 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.interactive-gloss:hover::after {
+  left: 100%;
+}
+
+/* Metric Card Glow Effect */
+.metric-glow {
+  @apply transition-all duration-300;
+}
+
+.metric-glow:hover {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Navigation Item Hover */
+.nav-item-hover {
+  @apply relative transition-all duration-300;
+}
+
+.nav-item-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)));
+  transform: scaleY(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-item-hover:hover::before,
+.nav-item-hover.active::before {
+  transform: scaleY(1);
+}
+
+/* Input Focus Effects */
+.input-focus {
+  @apply transition-all duration-300;
+}
+
+.input-focus:focus {
+  box-shadow: 
+    0 0 0 3px rgba(79, 70, 229, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Avatar Glow */
+.avatar-glow {
+  @apply transition-all duration-300;
+}
+
+.avatar-glow:hover {
+  box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+  transform: scale(1.1);
+}
+
+/* Badge Pulse */
+.badge-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Custom animations for the lost revenue ticker */
 @keyframes pulse-red {
   0%, 100% {
@@ -126,7 +305,19 @@
   background-clip: text;
 }
 
-/* Custom scrollbar for dark mode */
+/* Glass morphism effect */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-morphism {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced scrollbar */
 .dark ::-webkit-scrollbar {
   width: 8px;
 }
@@ -137,15 +328,14 @@
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent));
+  background: hsl(var(--primary));
 }
 
-/* Light mode scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -156,20 +346,22 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.3);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.5);
+  background: hsl(var(--primary));
 }
 
-/* Modern card hover effects */
-.card-hover {
-  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
-}
-
-/* Button hover effects */
-.button-hover {
-  @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+/* Loading shimmer effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--accent)) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
