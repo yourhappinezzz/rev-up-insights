@@ -10,6 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import {
   Search,
   Globe,
@@ -20,7 +22,10 @@ import {
   AlertTriangle,
   Target,
   Users,
-  MousePointer
+  MousePointer,
+  BarChart3,
+  PieChart as PieChartIcon,
+  Activity
 } from "lucide-react";
 
 export default function Analysis() {
@@ -35,6 +40,31 @@ export default function Analysis() {
       setIsAnalyzing(false);
     }, 3000);
   };
+
+  // Chart data
+  const conversionData = [
+    { month: 'Jan', rate: 1.2, visitors: 8500, conversions: 102 },
+    { month: 'Feb', rate: 1.4, visitors: 9200, conversions: 129 },
+    { month: 'Mar', rate: 1.6, visitors: 10500, conversions: 168 },
+    { month: 'Apr', rate: 1.8, visitors: 11800, conversions: 212 },
+    { month: 'May', rate: 1.9, visitors: 12500, conversions: 238 },
+    { month: 'Jun', rate: 2.1, visitors: 14500, conversions: 305 },
+  ];
+
+  const deviceData = [
+    { name: 'Desktop', value: 45, color: '#3b82f6' },
+    { name: 'Mobile', value: 35, color: '#10b981' },
+    { name: 'Tablet', value: 20, color: '#f59e0b' },
+  ];
+
+  const revenueData = [
+    { month: 'Jan', revenue: 85000, costs: 32000 },
+    { month: 'Feb', revenue: 92000, costs: 35000 },
+    { month: 'Mar', revenue: 105000, costs: 38000 },
+    { month: 'Apr', revenue: 118000, costs: 42000 },
+    { month: 'May', revenue: 125000, costs: 45000 },
+    { month: 'Jun', revenue: 145000, costs: 48000 },
+  ];
 
   const recommendations = [
     {
@@ -128,7 +158,7 @@ export default function Analysis() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="space-y-6">
             {/* URL Analysis Section */}
-            <Card>
+            <Card className="card-shake">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Search className="w-5 h-5" />
@@ -174,7 +204,7 @@ export default function Analysis() {
 
             {/* Site Overview */}
             {siteId && (
-              <Card>
+              <Card className="card-shake">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
@@ -220,8 +250,114 @@ export default function Analysis() {
               </Card>
             )}
 
+            {/* Analytics Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="card-shake">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Activity className="w-5 h-5" />
+                    <span>Conversion Trends</span>
+                  </CardTitle>
+                  <CardDescription>Monthly conversion rate performance</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer
+                    config={{
+                      rate: { label: "Conversion Rate", color: "hsl(var(--primary))" },
+                      visitors: { label: "Visitors", color: "hsl(var(--muted))" }
+                    }}
+                    className="h-[300px]"
+                  >
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={conversionData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Line
+                          type="monotone"
+                          dataKey="rate"
+                          stroke="hsl(var(--primary))"
+                          strokeWidth={3}
+                          dot={{ fill: "hsl(var(--primary))" }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              <Card className="card-shake">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <PieChartIcon className="w-5 h-5" />
+                    <span>Traffic by Device</span>
+                  </CardTitle>
+                  <CardDescription>Visitor distribution across devices</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer
+                    config={{
+                      desktop: { label: "Desktop", color: "#3b82f6" },
+                      mobile: { label: "Mobile", color: "#10b981" },
+                      tablet: { label: "Tablet", color: "#f59e0b" }
+                    }}
+                    className="h-[300px]"
+                  >
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={deviceData}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={80}
+                          dataKey="value"
+                          label={({ name, value }) => `${name}: ${value}%`}
+                        >
+                          {deviceData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="card-shake">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <BarChart3 className="w-5 h-5" />
+                  <span>Revenue Analytics</span>
+                </CardTitle>
+                <CardDescription>Monthly revenue vs costs comparison</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  config={{
+                    revenue: { label: "Revenue", color: "hsl(var(--primary))" },
+                    costs: { label: "Costs", color: "hsl(var(--destructive))" }
+                  }}
+                  className="h-[400px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={revenueData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Bar dataKey="revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="costs" fill="hsl(var(--destructive))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+
             {/* Recommendations */}
-            <Card>
+            <Card className="card-shake">
               <CardHeader>
                 <CardTitle>AI Recommendations</CardTitle>
                 <CardDescription>
@@ -240,7 +376,7 @@ export default function Analysis() {
                   <TabsContent value="all" className="mt-6">
                     <div className="space-y-4">
                       {recommendations.map((rec) => (
-                        <Card key={rec.id} className={`transition-all hover:shadow-lg ${rec.implemented ? 'bg-green-50 dark:bg-green-950/20' : ''}`}>
+                        <Card key={rec.id} className={`transition-all hover:shadow-lg card-shake ${rec.implemented ? 'bg-green-50 dark:bg-green-950/20' : ''}`}>
                           <CardContent className="p-6">
                             <div className="flex items-start justify-between mb-4">
                               <div className="flex items-start space-x-3">
