@@ -1,5 +1,6 @@
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,6 +9,10 @@ import { Switch } from "@/components/ui/switch";
 import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useForm } from "react-hook-form";
+import { toast } from "@/hooks/use-toast";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { mockSites } from "@/lib/mockData";
 import {
   BarChart3,
   ShoppingCart,
@@ -16,10 +21,15 @@ import {
   Bell,
   Shield,
   Key,
-  Webhook
+  Webhook,
+  Globe,
+  Trash2,
+  Plus
 } from "lucide-react";
 
 export default function Settings() {
+  const [sites, setSites] = useState(mockSites);
+  
   const integrations = [
     {
       name: "Google Analytics 4",
@@ -44,6 +54,52 @@ export default function Settings() {
     }
   ];
 
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      siteName: "",
+      siteUrl: ""
+    }
+  });
+
+  const onSubmit = (data: { siteName: string, siteUrl: string }) => {
+    // Generate a unique ID for the new site
+    const newSiteId = `${sites.length + 1}`;
+    
+    // Create the new site object
+    const newSite = {
+      id: newSiteId,
+      name: data.siteName,
+      url: data.siteUrl,
+      score: 0,
+      conversionRate: 0,
+      revenue: 0,
+      change: 0,
+      status: "pending",
+      lastAnalyzed: "Never"
+    };
+
+    // Add the new site to the sites array
+    setSites([...sites, newSite]);
+    
+    // Show success message
+    toast({
+      title: "Site added",
+      description: `${data.siteName} was successfully added.`,
+    });
+    
+    // Reset the form
+    reset();
+  };
+
+  const deleteSite = (siteId: string) => {
+    setSites(sites.filter(site => site.id !== siteId));
+    toast({
+      title: "Site removed",
+      description: "The site was successfully removed.",
+      variant: "destructive"
+    });
+  };
+
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />
@@ -58,13 +114,113 @@ export default function Settings() {
               </p>
             </div>
 
-            <Tabs defaultValue="integrations" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+            <Tabs defaultValue="sites" className="w-full">
+              <TabsList className="grid w-full grid-cols-5">
+                <TabsTrigger value="sites">Sites</TabsTrigger>
                 <TabsTrigger value="integrations">Integrations</TabsTrigger>
                 <TabsTrigger value="notifications">Notifications</TabsTrigger>
                 <TabsTrigger value="api">API & Webhooks</TabsTrigger>
                 <TabsTrigger value="billing">Billing</TabsTrigger>
               </TabsList>
+
+              <TabsContent value="sites" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Managed Sites</CardTitle>
+                    <CardDescription>
+                      View and manage the websites AICO is monitoring for conversion optimization
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Name</TableHead>
+                          <TableHead>URL</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Conversion Rate</TableHead>
+                          <TableHead>Last Analyzed</TableHead>
+                          <TableHead></TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {sites.length > 0 ? (
+                          sites.map((site) => (
+                            <TableRow key={site.id}>
+                              <TableCell className="font-medium">{site.name}</TableCell>
+                              <TableCell>{site.url}</TableCell>
+                              <TableCell>
+                                <Badge variant={site.status === "improving" ? "default" : site.status === "declining" ? "destructive" : "secondary"}>
+                                  {site.status}
+                                </Badge>
+                              </TableCell>
+                              <TableCell>{site.conversionRate}%</TableCell>
+                              <TableCell>{site.lastAnalyzed}</TableCell>
+                              <TableCell>
+                                <Button variant="ghost" size="icon" onClick={() => deleteSite(site.id)}>
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
+                              No sites added yet. Add your first site below.
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Add New Site</CardTitle>
+                    <CardDescription>
+                      Add a website to monitor for conversion optimization opportunities
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="siteName">Site Name</Label>
+                          <Input 
+                            id="siteName" 
+                            placeholder="My E-commerce Store" 
+                            {...register("siteName", { required: "Site name is required" })}
+                          />
+                          {errors.siteName && (
+                            <p className="text-sm text-destructive">{errors.siteName.message}</p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="siteUrl">Site URL</Label>
+                          <Input 
+                            id="siteUrl" 
+                            placeholder="https://example.com" 
+                            {...register("siteUrl", { 
+                              required: "Site URL is required",
+                              pattern: {
+                                value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+                                message: "Please enter a valid URL"
+                              }
+                            })}
+                          />
+                          {errors.siteUrl && (
+                            <p className="text-sm text-destructive">{errors.siteUrl.message}</p>
+                          )}
+                        </div>
+                      </div>
+                      <Button type="submit" className="flex items-center">
+                        <Plus className="mr-2 h-4 w-4" /> Add Site
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
               <TabsContent value="integrations" className="space-y-6">
                 <Card>
