@@ -1,0 +1,315 @@
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Sidebar } from "@/components/Layout/Sidebar";
+import { Header } from "@/components/Layout/Header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BarChart3,
+  ShoppingCart,
+  CreditCard,
+  Mail,
+  Bell,
+  Shield,
+  Key,
+  Webhook
+} from "lucide-react";
+
+export default function Settings() {
+  const integrations = [
+    {
+      name: "Google Analytics 4",
+      icon: BarChart3,
+      description: "Connect GA4 to track conversion metrics and user behavior",
+      status: "connected",
+      lastSync: "2 hours ago"
+    },
+    {
+      name: "Shopify",
+      icon: ShoppingCart, 
+      description: "Sync e-commerce data, orders, and revenue metrics",
+      status: "disconnected",
+      lastSync: null
+    },
+    {
+      name: "Stripe",
+      icon: CreditCard,
+      description: "Track payment conversions and revenue attribution",
+      status: "connected",
+      lastSync: "5 minutes ago"
+    }
+  ];
+
+  return (
+    <div className="flex h-screen bg-background">
+      <Sidebar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header />
+        <main className="flex-1 overflow-y-auto p-6">
+          <div className="max-w-4xl mx-auto space-y-6">
+            <div>
+              <h1 className="text-3xl font-bold">Settings</h1>
+              <p className="text-muted-foreground">
+                Manage your account, integrations, and preferences
+              </p>
+            </div>
+
+            <Tabs defaultValue="integrations" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="integrations">Integrations</TabsTrigger>
+                <TabsTrigger value="notifications">Notifications</TabsTrigger>
+                <TabsTrigger value="api">API & Webhooks</TabsTrigger>
+                <TabsTrigger value="billing">Billing</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="integrations" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Data Integrations</CardTitle>
+                    <CardDescription>
+                      Connect your analytics and e-commerce platforms to enable accurate conversion tracking
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {integrations.map((integration) => (
+                      <div key={integration.name} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center space-x-4">
+                          <div className="p-2 bg-muted rounded-lg">
+                            <integration.icon className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">{integration.name}</h3>
+                            <p className="text-sm text-muted-foreground">{integration.description}</p>
+                            {integration.lastSync && (
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Last sync: {integration.lastSync}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <Badge variant={integration.status === "connected" ? "default" : "secondary"}>
+                            {integration.status}
+                          </Badge>
+                          <Button variant="outline" size="sm">
+                            {integration.status === "connected" ? "Configure" : "Connect"}
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Connection Test</CardTitle>
+                    <CardDescription>
+                      Test your integrations to ensure data is flowing correctly
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button>Run Connection Test</Button>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="notifications" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Email Notifications</CardTitle>
+                    <CardDescription>
+                      Configure when you want to receive email updates
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">Weekly CRO Reports</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Summary of conversion improvements and recommendations
+                        </p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">Critical Issues</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Immediate alerts for significant conversion drops
+                        </p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">New Recommendations</h4>
+                        <p className="text-sm text-muted-foreground">
+                          When AI identifies new optimization opportunities
+                        </p>
+                      </div>
+                      <Switch />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Push Notifications</CardTitle>
+                    <CardDescription>
+                      Real-time browser notifications for urgent updates
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium">Conversion Anomalies</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Unusual patterns in conversion data
+                        </p>
+                      </div>
+                      <Switch />
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="api" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>API Keys</CardTitle>
+                    <CardDescription>
+                      Manage API keys for programmatic access to AICO
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Key className="w-5 h-5" />
+                        <div>
+                          <h4 className="font-medium">Production API Key</h4>
+                          <p className="text-sm text-muted-foreground">aico_prod_********************************</p>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm">Regenerate</Button>
+                    </div>
+                    <Button>Create New API Key</Button>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Webhooks</CardTitle>
+                    <CardDescription>
+                      Configure webhooks to receive real-time updates
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="webhook-url">Webhook URL</Label>
+                      <Input
+                        id="webhook-url"
+                        placeholder="https://your-app.com/webhooks/aico"
+                      />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Webhook className="w-4 h-4" />
+                      <span className="text-sm">Events: Recommendations, Metric Updates, Alerts</span>
+                    </div>
+                    <Button>Save Webhook</Button>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="billing" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Current Plan</CardTitle>
+                    <CardDescription>
+                      You're currently on the Professional plan
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="p-4 border rounded-lg">
+                        <h3 className="font-semibold">Starter</h3>
+                        <p className="text-2xl font-bold mt-2">$29<span className="text-sm font-normal">/month</span></p>
+                        <ul className="mt-4 space-y-2 text-sm">
+                          <li>• 3 websites</li>
+                          <li>• Basic recommendations</li>
+                          <li>• Email support</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="p-4 border-2 border-blue-500 rounded-lg bg-blue-50 dark:bg-blue-950/20">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-semibold">Professional</h3>
+                          <Badge>Current</Badge>
+                        </div>
+                        <p className="text-2xl font-bold mt-2">$99<span className="text-sm font-normal">/month</span></p>
+                        <ul className="mt-4 space-y-2 text-sm">
+                          <li>• 10 websites</li>
+                          <li>• Advanced AI recommendations</li>
+                          <li>• Real-time metrics</li>
+                          <li>• Priority support</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="p-4 border rounded-lg">
+                        <h3 className="font-semibold">Agency</h3>
+                        <p className="text-2xl font-bold mt-2">$299<span className="text-sm font-normal">/month</span></p>
+                        <ul className="mt-4 space-y-2 text-sm">
+                          <li>• Unlimited websites</li>
+                          <li>• White-label reports</li>
+                          <li>• Multi-client management</li>
+                          <li>• Dedicated support</li>
+                        </ul>
+                        <Button className="w-full mt-4">Upgrade</Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Billing History</CardTitle>
+                    <CardDescription>
+                      Download invoices and view payment history
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 border rounded">
+                        <div>
+                          <p className="font-medium">Dec 2024 - Professional Plan</p>
+                          <p className="text-sm text-muted-foreground">Paid on Dec 1, 2024</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium">$99.00</span>
+                          <Button variant="outline" size="sm">Download</Button>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 border rounded">
+                        <div>
+                          <p className="font-medium">Nov 2024 - Professional Plan</p>
+                          <p className="text-sm text-muted-foreground">Paid on Nov 1, 2024</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium">$99.00</span>
+                          <Button variant="outline" size="sm">Download</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
