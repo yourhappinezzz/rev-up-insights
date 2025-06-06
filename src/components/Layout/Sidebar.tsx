@@ -8,10 +8,12 @@ import {
   LayoutDashboard,
   Search,
   Settings,
-  BarChart3,
+  ChevronRight,
   Zap,
   Menu,
-  X
+  X,
+  BarChart3,
+  PieChart
 } from "lucide-react";
 
 const navigation = [
@@ -26,16 +28,16 @@ export function Sidebar() {
 
   return (
     <div className={cn(
-      "relative flex flex-col h-screen bg-card border-r transition-all duration-300",
+      "relative flex flex-col h-screen bg-sidebar border-r transition-all duration-300 shadow-sm",
       collapsed ? "w-16" : "w-64"
     )}>
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between p-4 h-[61px] border-b border-sidebar-border">
         {!collapsed && (
           <div className="flex items-center space-x-2">
-            <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
+            <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-indigo-600 to-violet-500 rounded-lg shadow-lg">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">
               AICO
             </span>
           </div>
@@ -44,14 +46,14 @@ export function Sidebar() {
           variant="ghost"
           size="sm"
           onClick={() => setCollapsed(!collapsed)}
-          className="p-2"
+          className="p-1.5 h-8 w-8 rounded-full hover:bg-sidebar-accent"
         >
           {collapsed ? <Menu className="w-4 h-4" /> : <X className="w-4 h-4" />}
         </Button>
       </div>
 
-      <ScrollArea className="flex-1 px-3">
-        <nav className="space-y-2">
+      <ScrollArea className="flex-1 px-3 py-4">
+        <nav className="space-y-1.5">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href || 
               (item.href !== "/" && location.pathname.startsWith(item.href));
@@ -60,27 +62,30 @@ export function Sidebar() {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  "flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                  collapsed && "justify-center px-2"
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                  collapsed ? "justify-center px-2" : "justify-between"
                 )}
               >
-                <item.icon className={cn("w-5 h-5", !collapsed && "mr-3")} />
-                {!collapsed && <span>{item.name}</span>}
+                <div className="flex items-center">
+                  <item.icon className={cn("w-5 h-5", !collapsed && "mr-3")} />
+                  {!collapsed && <span>{item.name}</span>}
+                </div>
+                {!collapsed && isActive && <ChevronRight className="w-4 h-4 opacity-70" />}
               </Link>
             );
           })}
         </nav>
       </ScrollArea>
 
-      <div className="p-4 border-t">
+      <div className="p-4 border-t border-sidebar-border">
         <div className={cn(
           "flex items-center space-x-3",
           collapsed && "justify-center"
         )}>
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+          <div className="w-9 h-9 bg-gradient-to-r from-indigo-600 to-violet-500 rounded-full flex items-center justify-center shadow-md">
             <span className="text-white text-sm font-medium">AI</span>
           </div>
           {!collapsed && (
