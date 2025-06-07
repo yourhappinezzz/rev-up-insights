@@ -128,8 +128,6 @@ export function CompetitorAnalysis() {
         mobileScore: 92,
         uxScore: 82,
         contentScore: 88,
-        uxScore: 82,
-        contentScore: 88,
         ctaCount: 10,
         loadTime: 2.5,
         conversionRate: 2.8,
