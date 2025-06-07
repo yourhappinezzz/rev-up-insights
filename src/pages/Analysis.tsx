@@ -12,6 +12,7 @@ import { Header } from "@/components/Layout/Header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
+import { BeforeAfterComparison } from "@/components/Analysis/BeforeAfterComparison";
 import {
   Search,
   Globe,
@@ -204,50 +205,55 @@ export default function Analysis() {
 
             {/* Site Overview */}
             {siteId && (
-              <Card className="card-shake">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle>{siteData.name}</CardTitle>
-                      <CardDescription>{siteData.url}</CardDescription>
+              <>
+                <Card className="card-shake">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle>{siteData.name}</CardTitle>
+                        <CardDescription>{siteData.url}</CardDescription>
+                      </div>
+                      <Badge variant="outline">Last analyzed: {siteData.lastAnalyzed}</Badge>
                     </div>
-                    <Badge variant="outline">Last analyzed: {siteData.lastAnalyzed}</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <div className="lg:col-span-1">
-                      <div className="text-center p-4 border rounded-lg">
-                        <div className="text-3xl font-bold mb-2">{siteData.score}</div>
-                        <Progress value={siteData.score} className="h-2 mb-2" />
-                        <p className="text-sm text-muted-foreground">CRO Score</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                      <div className="lg:col-span-1">
+                        <div className="text-center p-4 border rounded-lg">
+                          <div className="text-3xl font-bold mb-2">{siteData.score}</div>
+                          <Progress value={siteData.score} className="h-2 mb-2" />
+                          <p className="text-sm text-muted-foreground">CRO Score</p>
+                        </div>
+                      </div>
+                      <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="text-center p-4 border rounded-lg">
+                          <MousePointer className="w-6 h-6 mx-auto mb-2 text-blue-500" />
+                          <div className="text-lg font-semibold">{siteData.metrics.conversionRate}%</div>
+                          <p className="text-sm text-muted-foreground">Conversion Rate</p>
+                        </div>
+                        <div className="text-center p-4 border rounded-lg">
+                          <TrendingUp className="w-6 h-6 mx-auto mb-2 text-green-500" />
+                          <div className="text-lg font-semibold">{siteData.metrics.bounceRate}%</div>
+                          <p className="text-sm text-muted-foreground">Bounce Rate</p>
+                        </div>
+                        <div className="text-center p-4 border rounded-lg">
+                          <Clock className="w-6 h-6 mx-auto mb-2 text-purple-500" />
+                          <div className="text-lg font-semibold">{siteData.metrics.avgSessionDuration}</div>
+                          <p className="text-sm text-muted-foreground">Avg. Session</p>
+                        </div>
+                        <div className="text-center p-4 border rounded-lg">
+                          <Users className="w-6 h-6 mx-auto mb-2 text-orange-500" />
+                          <div className="text-lg font-semibold">{siteData.metrics.pageViews.toLocaleString()}</div>
+                          <p className="text-sm text-muted-foreground">Page Views</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div className="text-center p-4 border rounded-lg">
-                        <MousePointer className="w-6 h-6 mx-auto mb-2 text-blue-500" />
-                        <div className="text-lg font-semibold">{siteData.metrics.conversionRate}%</div>
-                        <p className="text-sm text-muted-foreground">Conversion Rate</p>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <TrendingUp className="w-6 h-6 mx-auto mb-2 text-green-500" />
-                        <div className="text-lg font-semibold">{siteData.metrics.bounceRate}%</div>
-                        <p className="text-sm text-muted-foreground">Bounce Rate</p>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <Clock className="w-6 h-6 mx-auto mb-2 text-purple-500" />
-                        <div className="text-lg font-semibold">{siteData.metrics.avgSessionDuration}</div>
-                        <p className="text-sm text-muted-foreground">Avg. Session</p>
-                      </div>
-                      <div className="text-center p-4 border rounded-lg">
-                        <Users className="w-6 h-6 mx-auto mb-2 text-orange-500" />
-                        <div className="text-lg font-semibold">{siteData.metrics.pageViews.toLocaleString()}</div>
-                        <p className="text-sm text-muted-foreground">Page Views</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                {/* Before vs After Comparison */}
+                <BeforeAfterComparison />
+              </>
             )}
 
             {/* Analytics Charts */}
