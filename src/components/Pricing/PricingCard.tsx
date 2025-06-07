@@ -24,10 +24,10 @@ export default function PricingCard({ plan }: PricingCardProps) {
         plan.badge === "Most Popular" 
           ? "ring-2 ring-primary scale-105 shadow-xl" 
           : "hover:scale-105"
-      }`}
+      } ${plan.badge ? "mt-6" : ""}`}
     >
       {plan.badge && (
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
           <Badge 
             className={`px-3 py-1 text-sm font-medium ${
               plan.badge === "Most Popular"
