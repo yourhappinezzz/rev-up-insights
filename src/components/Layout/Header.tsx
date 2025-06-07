@@ -28,15 +28,55 @@ export function Header() {
       </div>
 
       <div className="flex items-center space-x-3">
-        <Button variant="ghost" size="sm" className="rounded-full relative animate-fade-in">
-          <Bell className="w-5 h-5" />
-          <Badge 
-            variant="destructive" 
-            className="absolute -top-1 -right-1 px-1.5 min-w-[18px] h-5 flex items-center justify-center text-xs rounded-full"
-          >
-            3
-          </Badge>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="rounded-full relative animate-fade-in hover:bg-accent/50 transition-all duration-300 group"
+            >
+              <Bell className="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:text-primary" />
+              <Badge 
+                variant="destructive" 
+                className="absolute -top-1 -right-1 px-1.5 min-w-[18px] h-5 flex items-center justify-center text-xs rounded-full animate-pulse shadow-sm border-2 border-background group-hover:scale-110 transition-transform duration-300"
+              >
+                3
+              </Badge>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80 animate-scale-in">
+            <div className="p-3 border-b">
+              <h4 className="font-medium text-sm">Notifications</h4>
+              <p className="text-xs text-muted-foreground">You have 3 unread notifications</p>
+            </div>
+            <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">New recommendation available</p>
+                <p className="text-xs text-muted-foreground">Site optimization suggestions for your homepage</p>
+                <p className="text-xs text-muted-foreground">2 minutes ago</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">Analysis completed</p>
+                <p className="text-xs text-muted-foreground">Your site analysis has finished processing</p>
+                <p className="text-xs text-muted-foreground">1 hour ago</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">Weekly report ready</p>
+                <p className="text-xs text-muted-foreground">Your weekly performance report is available</p>
+                <p className="text-xs text-muted-foreground">3 hours ago</p>
+              </div>
+            </DropdownMenuItem>
+            <div className="p-3 border-t">
+              <Button variant="ghost" size="sm" className="w-full text-xs">
+                View all notifications
+              </Button>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
