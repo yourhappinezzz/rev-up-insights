@@ -62,6 +62,7 @@ export default function Analysis() {
     { month: 'Jun', revenue: 145000, costs: 48000 },
   ];
 
+  // Recommendations state
   const [recommendations, setRecommendations] = useState([
     {
       id: "1",
@@ -133,6 +134,7 @@ export default function Analysis() {
     }
   ]);
 
+  // Site data
   const siteData = {
     name: "E-commerce Store",
     url: "shop.example.com",
@@ -146,6 +148,7 @@ export default function Analysis() {
     }
   };
 
+  // Handle analyze function
   const handleAnalyze = async () => {
     if (!url.trim()) {
       toast({
@@ -180,6 +183,7 @@ export default function Analysis() {
     }, 3000);
   };
 
+  // Handle mark as done function
   const handleMarkAsDone = (recommendationId: string) => {
     setRecommendations(prev => 
       prev.map(rec => 
@@ -195,6 +199,7 @@ export default function Analysis() {
     });
   };
 
+  // Handle toggle recommendation function
   const handleToggleRecommendation = (recommendationId: string) => {
     setRecommendations(prev => 
       prev.map(rec => 
@@ -205,6 +210,7 @@ export default function Analysis() {
     );
   };
 
+  // Get filtered recommendations function
   const getFilteredRecommendations = () => {
     switch (activeTab) {
       case "pending":
