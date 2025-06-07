@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -77,6 +78,9 @@ export default function Landing() {
             </span>
           </div>
           <div className="flex items-center space-x-4">
+            <Link to="/pricing">
+              <Button variant="ghost">Pricing</Button>
+            </Link>
             <Link to="/login">
               <Button variant="ghost">Sign In</Button>
             </Link>
@@ -108,9 +112,9 @@ export default function Landing() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Link to="/login">
+            <Link to="/pricing">
               <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-                Watch Demo
+                View Pricing
               </Button>
             </Link>
           </div>
