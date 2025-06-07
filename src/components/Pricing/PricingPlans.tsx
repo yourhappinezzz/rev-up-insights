@@ -8,7 +8,6 @@ export default function PricingPlans() {
       name: "Starter",
       price: 29,
       description: "Perfect for small businesses and personal websites",
-      badge: null,
       features: [
         "1 website analysis",
         "Basic AI recommendations",
@@ -23,7 +22,6 @@ export default function PricingPlans() {
       name: "Pro",
       price: 99,
       description: "Ideal for growing businesses and marketing teams",
-      badge: "Most Popular",
       features: [
         "5 website analyses",
         "Advanced AI recommendations",
@@ -40,7 +38,6 @@ export default function PricingPlans() {
       name: "Agency",
       price: 299,
       description: "For agencies and enterprises managing multiple clients",
-      badge: "Enterprise",
       features: [
         "Unlimited website analyses",
         "White-label reports",

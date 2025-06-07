@@ -2,15 +2,13 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Check, ArrowRight, Star } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 
 interface PricingCardProps {
   plan: {
     name: string;
     price: number;
     description: string;
-    badge: string | null;
     features: string[];
     buttonText: string;
     buttonVariant: "default" | "outline";
@@ -19,30 +17,9 @@ interface PricingCardProps {
 
 export default function PricingCard({ plan }: PricingCardProps) {
   return (
-    <Card 
-      className={`transition-all duration-300 hover:shadow-lg h-full flex flex-col ${
-        plan.badge === "Most Popular" 
-          ? "ring-2 ring-primary scale-105 shadow-xl" 
-          : "hover:scale-105"
-      }`}
-    >
-      <CardHeader className="text-center pb-4 relative">
-        {plan.badge && (
-          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <Badge 
-              className={`px-3 py-1 text-sm font-medium ${
-                plan.badge === "Most Popular"
-                  ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                  : "bg-gradient-to-r from-purple-500 to-pink-600 text-white"
-              }`}
-            >
-              {plan.badge === "Most Popular" && <Star className="w-4 h-4 mr-1" />}
-              {plan.badge}
-            </Badge>
-          </div>
-        )}
-        
-        <CardTitle className="text-2xl font-bold mt-4">{plan.name}</CardTitle>
+    <Card className="transition-all duration-300 hover:shadow-lg hover:scale-105 h-full flex flex-col">
+      <CardHeader className="text-center pb-4">
+        <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
         <CardDescription className="text-base">{plan.description}</CardDescription>
         <div className="mt-4">
           <div className="flex items-baseline justify-center">
