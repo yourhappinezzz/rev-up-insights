@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import { BeforeAfterComparison } from "@/components/Analysis/BeforeAfterComparison";
+import { useToast } from "@/hooks/use-toast";
 import {
   Search,
   Globe,
@@ -32,14 +33,8 @@ export default function Analysis() {
   const { siteId } = useParams();
   const [url, setUrl] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-
-  const handleAnalyze = async () => {
-    setIsAnalyzing(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsAnalyzing(false);
-    }, 3000);
-  };
+  const [activeTab, setActiveTab] = useState("all");
+  const { toast } = useToast();
 
   // Chart data
   const conversionData = [
@@ -66,7 +61,7 @@ export default function Analysis() {
     { month: 'Jun', revenue: 145000, costs: 48000 },
   ];
 
-  const recommendations = [
+  const [recommendations, setRecommendations] = useState([
     {
       id: "1",
       title: "Add trust badges and security certificates",
@@ -135,7 +130,7 @@ export default function Analysis() {
         "Add progress indicators"
       ]
     }
-  ];
+  ]);
 
   const siteData = {
     name: "E-commerce Store",
@@ -147,6 +142,78 @@ export default function Analysis() {
       bounceRate: 45,
       avgSessionDuration: "3:24",
       pageViews: 15420
+    }
+  };
+
+  const handleAnalyze = async () => {
+    if (!url.trim()) {
+      toast({
+        title: "URL Required",
+        description: "Please enter a valid URL to analyze.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Basic URL validation
+    try {
+      new URL(url.startsWith('http') ? url : `https://${url}`);
+    } catch {
+      toast({
+        title: "Invalid URL",
+        description: "Please enter a valid URL (e.g., https://example.com).",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsAnalyzing(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsAnalyzing(false);
+      toast({
+        title: "Analysis Complete",
+        description: `Successfully analyzed ${url}`,
+      });
+    }, 3000);
+  };
+
+  const handleMarkAsDone = (recommendationId: string) => {
+    setRecommendations(prev => 
+      prev.map(rec => 
+        rec.id === recommendationId 
+          ? { ...rec, implemented: true }
+          : rec
+      )
+    );
+    
+    toast({
+      title: "Recommendation Completed",
+      description: "Marked recommendation as implemented.",
+    });
+  };
+
+  const handleToggleRecommendation = (recommendationId: string) => {
+    setRecommendations(prev => 
+      prev.map(rec => 
+        rec.id === recommendationId 
+          ? { ...rec, implemented: !rec.implemented }
+          : rec
+      )
+    );
+  };
+
+  const getFilteredRecommendations = () => {
+    switch (activeTab) {
+      case "pending":
+        return recommendations.filter(r => !r.implemented);
+      case "implemented":
+        return recommendations.filter(r => r.implemented);
+      case "high":
+        return recommendations.filter(r => r.impact === "High");
+      default:
+        return recommendations;
     }
   };
 
@@ -175,9 +242,10 @@ export default function Analysis() {
                       placeholder="https://example.com"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
                     />
                   </div>
-                  <Button onClick={handleAnalyze} disabled={isAnalyzing || !url}>
+                  <Button onClick={handleAnalyze} disabled={isAnalyzing || !url.trim()}>
                     {isAnalyzing ? (
                       <>
                         <Zap className="w-4 h-4 mr-2 animate-spin" />
@@ -366,7 +434,7 @@ export default function Analysis() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Tabs defaultValue="all" className="w-full">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-4">
                     <TabsTrigger value="all">All ({recommendations.length})</TabsTrigger>
                     <TabsTrigger value="pending">Pending ({recommendations.filter(r => !r.implemented).length})</TabsTrigger>
@@ -374,15 +442,16 @@ export default function Analysis() {
                     <TabsTrigger value="high">High Impact</TabsTrigger>
                   </TabsList>
                   
-                  <TabsContent value="all" className="mt-6">
+                  <TabsContent value={activeTab} className="mt-6">
                     <div className="space-y-4">
-                      {recommendations.map((rec) => (
+                      {getFilteredRecommendations().map((rec) => (
                         <Card key={rec.id} className={`transition-all hover:shadow-lg card-shake ${rec.implemented ? 'bg-green-50 dark:bg-green-950/20' : ''}`}>
                           <CardContent className="p-6">
                             <div className="flex items-start justify-between mb-4">
                               <div className="flex items-start space-x-3">
                                 <Checkbox
                                   checked={rec.implemented}
+                                  onCheckedChange={() => handleToggleRecommendation(rec.id)}
                                   className="mt-1"
                                 />
                                 <div className="flex-1">
@@ -417,52 +486,17 @@ export default function Analysis() {
                                 {rec.implemented ? (
                                   <CheckCircle className="w-5 h-5 text-green-500" />
                                 ) : (
-                                  <Button size="sm">Mark as Done</Button>
+                                  <Button 
+                                    size="sm" 
+                                    onClick={() => handleMarkAsDone(rec.id)}
+                                  >
+                                    Mark as Done
+                                  </Button>
                                 )}
                               </div>
                             </div>
                           </CardContent>
                         </Card>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="pending">
-                    <div className="space-y-4">
-                      {recommendations.filter(r => !r.implemented).map((rec) => (
-                        <div key={rec.id} className="p-4 border rounded-lg">
-                          <h3 className="font-semibold">{rec.title}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">{rec.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="implemented">
-                    <div className="space-y-4">
-                      {recommendations.filter(r => r.implemented).map((rec) => (
-                        <div key={rec.id} className="p-4 border rounded-lg bg-green-50 dark:bg-green-950/20">
-                          <div className="flex items-center space-x-2">
-                            <CheckCircle className="w-5 h-5 text-green-500" />
-                            <h3 className="font-semibold">{rec.title}</h3>
-                          </div>
-                          <p className="text-sm text-muted-foreground mt-1">{rec.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="high">
-                    <div className="space-y-4">
-                      {recommendations.filter(r => r.impact === "High").map((rec) => (
-                        <div key={rec.id} className="p-4 border rounded-lg border-red-200 dark:border-red-800">
-                          <div className="flex items-center space-x-2 mb-2">
-                            <AlertTriangle className="w-5 h-5 text-red-500" />
-                            <h3 className="font-semibold">{rec.title}</h3>
-                            <Badge variant="destructive">High Impact</Badge>
-                          </div>
-                          <p className="text-sm text-muted-foreground">{rec.description}</p>
-                        </div>
                       ))}
                     </div>
                   </TabsContent>
