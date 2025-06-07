@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +13,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import { BeforeAfterComparison } from "@/components/Analysis/BeforeAfterComparison";
-import { CompetitorAnalysis } from "@/components/Analysis/CompetitorAnalysis";
 import { useToast } from "@/hooks/use-toast";
 import {
   Search,
@@ -277,10 +277,7 @@ export default function Analysis() {
               </CardContent>
             </Card>
 
-            {/* Competitor Analysis Section */}
-            <CompetitorAnalysis />
-
-            {/* Site Overview - now always visible */}
+            {/* Site Overview */}
             <Card className="card-shake">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -326,7 +323,7 @@ export default function Analysis() {
               </CardContent>
             </Card>
 
-            {/* Before vs After Comparison - now always visible */}
+            {/* Before vs After Comparison */}
             <BeforeAfterComparison />
 
             {/* Analytics Charts */}
