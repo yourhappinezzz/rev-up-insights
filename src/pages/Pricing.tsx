@@ -105,7 +105,7 @@ export default function Pricing() {
           {plans.map((plan, index) => (
             <Card 
               key={plan.name}
-              className={`relative transition-all duration-300 hover:shadow-lg ${
+              className={`relative transition-all duration-300 hover:shadow-lg flex flex-col ${
                 plan.badge === "Most Popular" 
                   ? "ring-2 ring-primary scale-105 shadow-xl" 
                   : "hover:scale-105"
@@ -138,8 +138,8 @@ export default function Pricing() {
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
+              <CardContent className="flex flex-col flex-grow">
+                <ul className="space-y-3 flex-grow">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start space-x-3">
                       <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -148,7 +148,7 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <div className="pt-4">
+                <div className="pt-6 mt-auto">
                   {plan.name === "Agency" ? (
                     <Link to="/contact">
                       <Button 
