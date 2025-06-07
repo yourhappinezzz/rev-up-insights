@@ -57,7 +57,7 @@ export default function PricingPlans() {
   ];
 
   return (
-    <section className="container mx-auto px-4 pb-20 pt-6">
+    <section className="container mx-auto px-4 pb-20 pt-10">
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
         {plans.map((plan) => (
           <PricingCard key={plan.name} plan={plan} />
