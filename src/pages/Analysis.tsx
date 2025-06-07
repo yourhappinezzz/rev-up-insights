@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import { BeforeAfterComparison } from "@/components/Analysis/BeforeAfterComparison";
+import { CompetitorAnalysis } from "@/components/Analysis/CompetitorAnalysis";
 import { useToast } from "@/hooks/use-toast";
 import {
   Search,
@@ -269,6 +270,9 @@ export default function Analysis() {
                 )}
               </CardContent>
             </Card>
+
+            {/* Competitor Analysis Section */}
+            <CompetitorAnalysis />
 
             {/* Site Overview - now always visible */}
             <Card className="card-shake">
