@@ -6,20 +6,77 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Zap, Mail, Lock, User, Github } from "lucide-react";
+import { Zap, Mail, Lock, User, Github, CheckCircle } from "lucide-react";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate signup
+    // Simulate signup and email confirmation
     setTimeout(() => {
       setIsLoading(false);
-      window.location.href = "/";
+      setEmailSent(true);
     }, 2000);
   };
+
+  if (emailSent) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center">
+            <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl mx-auto mb-4">
+              <CheckCircle className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-green-500 to-blue-600 bg-clip-text text-transparent">
+              Check Your Email
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              We've sent you a confirmation link
+            </p>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Confirmation Email Sent</CardTitle>
+              <CardDescription>
+                Please check your email and click the confirmation link to activate your account
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    <strong>Didn't receive the email?</strong> Check your spam folder or click the button below to resend.
+                  </p>
+                </div>
+                
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => {
+                    // Simulate resending email
+                    console.log("Resending confirmation email...");
+                  }}
+                >
+                  Resend Confirmation Email
+                </Button>
+
+                <div className="text-center text-sm">
+                  <span className="text-muted-foreground">Already confirmed? </span>
+                  <Link to="/login" className="text-blue-600 hover:text-blue-500 font-medium">
+                    Sign in to your account
+                  </Link>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4">
