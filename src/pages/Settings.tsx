@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,12 +23,48 @@ import {
   Webhook,
   Globe,
   Trash2,
-  Plus
+  Plus,
+  Check
 } from "lucide-react";
 
 export default function Settings() {
   const [sites, setSites] = useState(mockSites);
+  const [currentPlan, setCurrentPlan] = useState("Professional");
+  const [selectedPlan, setSelectedPlan] = useState("Professional");
+  const [isChangingPlan, setIsChangingPlan] = useState(false);
   
+  const plans = [
+    {
+      name: "Starter",
+      price: 29,
+      features: [
+        "3 websites",
+        "Basic recommendations", 
+        "Email support"
+      ]
+    },
+    {
+      name: "Professional",
+      price: 99,
+      features: [
+        "10 websites",
+        "Advanced AI recommendations",
+        "Real-time metrics",
+        "Priority support"
+      ]
+    },
+    {
+      name: "Agency",
+      price: 299,
+      features: [
+        "Unlimited websites",
+        "White-label reports",
+        "Multi-client management",
+        "Dedicated support"
+      ]
+    }
+  ];
+
   const integrations = [
     {
       name: "Google Analytics 4",
@@ -98,6 +133,37 @@ export default function Settings() {
       description: "The site was successfully removed.",
       variant: "destructive"
     });
+  };
+
+  const handlePlanChange = (planName: string) => {
+    if (planName === currentPlan) return;
+    
+    setIsChangingPlan(true);
+    setSelectedPlan(planName);
+    
+    // Simulate plan change
+    setTimeout(() => {
+      setCurrentPlan(planName);
+      setIsChangingPlan(false);
+      
+      if (planName === "Agency") {
+        toast({
+          title: "Plan upgraded!",
+          description: `Successfully upgraded to ${planName} plan.`,
+        });
+      } else if (planName === "Starter") {
+        toast({
+          title: "Plan downgraded",
+          description: `Successfully changed to ${planName} plan.`,
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Plan changed",
+          description: `Successfully changed to ${planName} plan.`,
+        });
+      }
+    }, 2000);
   };
 
   return (
@@ -383,48 +449,63 @@ export default function Settings() {
               <TabsContent value="billing" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Current Plan</CardTitle>
+                    <CardTitle>Choose Your Plan</CardTitle>
                     <CardDescription>
-                      You're currently on the Professional plan
+                      Select the plan that best fits your conversion optimization needs
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="p-4 border rounded-lg">
-                        <h3 className="font-semibold">Starter</h3>
-                        <p className="text-2xl font-bold mt-2">$29<span className="text-sm font-normal">/month</span></p>
-                        <ul className="mt-4 space-y-2 text-sm">
-                          <li>• 3 websites</li>
-                          <li>• Basic recommendations</li>
-                          <li>• Email support</li>
-                        </ul>
-                      </div>
-                      
-                      <div className="p-4 border-2 border-blue-500 rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-semibold">Professional</h3>
-                          <Badge>Current</Badge>
+                      {plans.map((plan) => (
+                        <div 
+                          key={plan.name}
+                          className={`relative p-6 border rounded-lg transition-all ${
+                            currentPlan === plan.name 
+                              ? "border-2 border-blue-500 bg-blue-50 dark:bg-blue-950/20" 
+                              : "border hover:border-gray-300"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-semibold text-lg">{plan.name}</h3>
+                            {currentPlan === plan.name && (
+                              <Badge className="bg-blue-500">Current</Badge>
+                            )}
+                          </div>
+                          
+                          <p className="text-3xl font-bold mb-4">
+                            ${plan.price}
+                            <span className="text-sm font-normal text-muted-foreground">/month</span>
+                          </p>
+                          
+                          <ul className="space-y-3 mb-6">
+                            {plan.features.map((feature, index) => (
+                              <li key={index} className="flex items-center text-sm">
+                                <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                          
+                          <Button 
+                            className="w-full" 
+                            variant={currentPlan === plan.name ? "secondary" : "default"}
+                            disabled={currentPlan === plan.name || isChangingPlan}
+                            onClick={() => handlePlanChange(plan.name)}
+                          >
+                            {isChangingPlan && selectedPlan === plan.name ? (
+                              "Changing Plan..."
+                            ) : currentPlan === plan.name ? (
+                              "Current Plan"
+                            ) : currentPlan === "Professional" && plan.name === "Agency" ? (
+                              "Upgrade"
+                            ) : currentPlan === "Professional" && plan.name === "Starter" ? (
+                              "Downgrade"
+                            ) : (
+                              "Select Plan"
+                            )}
+                          </Button>
                         </div>
-                        <p className="text-2xl font-bold mt-2">$99<span className="text-sm font-normal">/month</span></p>
-                        <ul className="mt-4 space-y-2 text-sm">
-                          <li>• 10 websites</li>
-                          <li>• Advanced AI recommendations</li>
-                          <li>• Real-time metrics</li>
-                          <li>• Priority support</li>
-                        </ul>
-                      </div>
-                      
-                      <div className="p-4 border rounded-lg">
-                        <h3 className="font-semibold">Agency</h3>
-                        <p className="text-2xl font-bold mt-2">$299<span className="text-sm font-normal">/month</span></p>
-                        <ul className="mt-4 space-y-2 text-sm">
-                          <li>• Unlimited websites</li>
-                          <li>• White-label reports</li>
-                          <li>• Multi-client management</li>
-                          <li>• Dedicated support</li>
-                        </ul>
-                        <Button className="w-full mt-4">Upgrade</Button>
-                      </div>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
@@ -440,21 +521,25 @@ export default function Settings() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between p-3 border rounded">
                         <div>
-                          <p className="font-medium">Dec 2024 - Professional Plan</p>
+                          <p className="font-medium">Dec 2024 - {currentPlan} Plan</p>
                           <p className="text-sm text-muted-foreground">Paid on Dec 1, 2024</p>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span className="font-medium">$99.00</span>
+                          <span className="font-medium">
+                            ${plans.find(p => p.name === currentPlan)?.price}.00
+                          </span>
                           <Button variant="outline" size="sm">Download</Button>
                         </div>
                       </div>
                       <div className="flex items-center justify-between p-3 border rounded">
                         <div>
-                          <p className="font-medium">Nov 2024 - Professional Plan</p>
+                          <p className="font-medium">Nov 2024 - {currentPlan} Plan</p>
                           <p className="text-sm text-muted-foreground">Paid on Nov 1, 2024</p>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span className="font-medium">$99.00</span>
+                          <span className="font-medium">
+                            ${plans.find(p => p.name === currentPlan)?.price}.00
+                          </span>
                           <Button variant="outline" size="sm">Download</Button>
                         </div>
                       </div>
