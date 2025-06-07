@@ -44,66 +44,69 @@ export function CompetitorAnalysis() {
   console.log("Current competitor sites:", competitorSites);
   console.log("Analysis data:", analysisData);
 
-  const mockAnalysisData: CompetitorData[] = [
-    {
-      id: "your-site",
-      url: "your-website.com",
-      name: "Your Website",
-      isYourSite: true,
-      metrics: {
-        seoScore: 72,
-        pageSpeed: 68,
-        mobileScore: 85,
-        uxScore: 78,
-        contentScore: 80,
-        ctaCount: 8,
-        loadTime: 2.8,
-        conversionRate: 2.4,
-        trustSignals: 6
-      },
-      strengths: ["Strong mobile optimization", "Good content quality", "Effective trust signals"],
-      weaknesses: ["Slow page speed", "Limited CTAs", "SEO optimization needed"],
-      recommendations: ["Optimize images to improve page speed", "Add more strategic CTAs", "Improve meta tags and keywords"]
-    },
-    {
-      id: "comp-1",
-      url: "competitor-a.com",
-      name: "Competitor A",
-      metrics: {
-        seoScore: 88,
-        pageSpeed: 82,
-        mobileScore: 79,
-        uxScore: 85,
-        contentScore: 75,
-        ctaCount: 12,
-        loadTime: 2.1,
-        conversionRate: 3.2,
-        trustSignals: 9
-      },
-      strengths: ["Excellent SEO optimization", "Fast loading speed", "Multiple effective CTAs"],
-      weaknesses: ["Mobile experience could improve", "Content engagement lower"],
-      recommendations: ["Learn from their SEO strategy", "Implement similar CTA placement", "Study their page speed optimizations"]
-    },
-    {
-      id: "comp-2",
-      url: "competitor-b.com",
-      name: "Competitor B",
-      metrics: {
-        seoScore: 65,
-        pageSpeed: 75,
-        mobileScore: 92,
-        uxScore: 82,
-        contentScore: 88,
-        ctaCount: 10,
-        loadTime: 2.5,
-        conversionRate: 2.8,
-        trustSignals: 7
-      },
-      strengths: ["Outstanding mobile experience", "High-quality content", "Good user experience"],
-      weaknesses: ["SEO needs improvement", "Fewer trust signals"],
-      recommendations: ["Capitalize on their weaker SEO", "Match their mobile optimization", "Learn from their content strategy"]
+  const generateMockDataForSite = (site: CompetitorSite): CompetitorData => {
+    if (site.isYourSite) {
+      return {
+        ...site,
+        metrics: {
+          seoScore: 72,
+          pageSpeed: 68,
+          mobileScore: 85,
+          uxScore: 78,
+          contentScore: 80,
+          ctaCount: 8,
+          loadTime: 2.8,
+          conversionRate: 2.4,
+          trustSignals: 6
+        },
+        strengths: ["Strong mobile optimization", "Good content quality", "Effective trust signals"],
+        weaknesses: ["Slow page speed", "Limited CTAs", "SEO optimization needed"],
+        recommendations: ["Optimize images to improve page speed", "Add more strategic CTAs", "Improve meta tags and keywords"]
+      };
     }
-  ];
+
+    // Generate varied mock data for competitors
+    const baseMetrics = {
+      seoScore: Math.floor(Math.random() * 40) + 60, // 60-100
+      pageSpeed: Math.floor(Math.random() * 40) + 60, // 60-100
+      mobileScore: Math.floor(Math.random() * 30) + 70, // 70-100
+      uxScore: Math.floor(Math.random() * 30) + 70, // 70-100
+      contentScore: Math.floor(Math.random() * 30) + 70, // 70-100
+      ctaCount: Math.floor(Math.random() * 8) + 6, // 6-14
+      loadTime: (Math.random() * 2 + 1.5).toFixed(1), // 1.5-3.5
+      conversionRate: (Math.random() * 2 + 1.5).toFixed(1), // 1.5-3.5
+      trustSignals: Math.floor(Math.random() * 6) + 5 // 5-11
+    };
+
+    return {
+      ...site,
+      metrics: {
+        ...baseMetrics,
+        loadTime: parseFloat(baseMetrics.loadTime),
+        conversionRate: parseFloat(baseMetrics.conversionRate)
+      },
+      strengths: [
+        "Excellent SEO optimization",
+        "Fast loading speed", 
+        "Multiple effective CTAs",
+        "Outstanding mobile experience",
+        "High-quality content"
+      ].slice(0, 3),
+      weaknesses: [
+        "Mobile experience could improve",
+        "Content engagement lower",
+        "SEO needs improvement",
+        "Fewer trust signals"
+      ].slice(0, 2),
+      recommendations: [
+        "Learn from their SEO strategy",
+        "Implement similar CTA placement", 
+        "Study their page speed optimizations",
+        "Match their mobile optimization",
+        "Learn from their content strategy"
+      ].slice(0, 3)
+    };
+  };
 
   const runAnalysis = async () => {
     console.log("Starting analysis...");
@@ -137,13 +140,11 @@ export function CompetitorAnalysis() {
       setAnalysisProgress(100);
       setIsAnalyzing(false);
       
-      // Filter mock data to match selected competitors
-      const filteredData = mockAnalysisData.filter(data => 
-        competitorSites.some(site => site.id === data.id)
-      );
-      setAnalysisData(filteredData);
+      // Generate mock data for all competitor sites
+      const generatedData = competitorSites.map(site => generateMockDataForSite(site));
+      setAnalysisData(generatedData);
       
-      console.log("Analysis complete, setting data:", filteredData);
+      console.log("Analysis complete, setting data:", generatedData);
       
       toast({
         title: "Analysis Complete",
