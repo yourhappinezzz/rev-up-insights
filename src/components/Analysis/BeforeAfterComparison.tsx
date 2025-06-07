@@ -81,7 +81,7 @@ export function BeforeAfterComparison() {
   };
 
   return (
-    <Card className="card-shake">
+    <Card className="card-hover">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
@@ -101,7 +101,7 @@ export function BeforeAfterComparison() {
       <CardContent>
         <div className="space-y-6">
           {comparisonData.map((data, index) => (
-            <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+            <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 metric-glow">
               {/* Metric Name */}
               <div className="flex flex-col justify-center">
                 <h3 className="font-semibold text-lg">{data.metric}</h3>
@@ -116,7 +116,7 @@ export function BeforeAfterComparison() {
               {/* Before vs After Values */}
               <div className="grid grid-cols-3 gap-2 items-center">
                 {/* Before */}
-                <div className="text-center p-3 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800">
+                <div className="text-center p-3 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800 interactive-gloss">
                   <p className="text-xs text-muted-foreground mb-1">Before</p>
                   <p className="text-lg font-bold text-red-600">{formatValue(data.before, data.unit)}</p>
                 </div>
@@ -127,7 +127,7 @@ export function BeforeAfterComparison() {
                 </div>
 
                 {/* After */}
-                <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
+                <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800 interactive-gloss">
                   <p className="text-xs text-muted-foreground mb-1">After</p>
                   <p className="text-lg font-bold text-green-600">{formatValue(data.after, data.unit)}</p>
                 </div>
@@ -150,7 +150,7 @@ export function BeforeAfterComparison() {
           ))}
 
           {/* Summary Card */}
-          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-200 dark:border-blue-800 card-hover">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-2xl font-bold text-blue-600">+$47,230</p>
