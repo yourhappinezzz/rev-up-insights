@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -7,13 +6,31 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/providers/ThemeProvider";
 import { Bell, Search, Sun, Moon, User, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
+
+  const handleSettingsClick = () => {
+    navigate("/settings");
+  };
+
+  const handleSignOut = () => {
+    // Clear any authentication tokens/session data here
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <header className="flex items-center justify-between px-6 py-3.5 bg-background border-b shadow-soft">
@@ -130,15 +147,26 @@ export function Header() {
                 <p className="text-xs text-muted-foreground">admin@aico.com</p>
               </div>
             </div>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent/50 transition-colors"
+              onClick={handleProfileClick}
+            >
               <User className="mr-2 h-4 w-4" />
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem 
+              className="cursor-pointer hover:bg-accent/50 transition-colors"
+              onClick={handleSettingsClick}
+            >
               <Settings className="mr-2 h-4 w-4" />
               Settings
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              className="cursor-pointer text-destructive hover:bg-destructive/10 hover:text-destructive focus:text-destructive transition-colors"
+              onClick={handleSignOut}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               Sign out
             </DropdownMenuItem>
