@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Zap, Mail, Lock, Github, User } from "lucide-react";
+import { Zap, Mail, Lock, Github } from "lucide-react";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,15 +22,6 @@ export default function Login() {
       setIsLoading(false);
       navigate("/dashboard");
     }, 2000);
-  };
-
-  const handleDemoLogin = () => {
-    setIsLoading(true);
-    // Simulate demo user login
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/dashboard");
-    }, 1000);
   };
 
   return (
@@ -56,22 +47,6 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 mb-6">
-              <Button 
-                onClick={handleDemoLogin}
-                className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700"
-                disabled={isLoading}
-              >
-                <User className="w-4 h-4 mr-2" />
-                {isLoading ? "Signing in..." : "Sign in with Demo User"}
-              </Button>
-            </div>
-
-            <Separator className="my-4" />
-            <div className="text-center text-sm text-muted-foreground mb-4">
-              Or sign in with your credentials
-            </div>
-
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
