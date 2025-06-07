@@ -20,7 +20,7 @@ interface PricingCardProps {
 export default function PricingCard({ plan }: PricingCardProps) {
   return (
     <Card 
-      className={`relative transition-all duration-300 hover:shadow-lg flex flex-col ${
+      className={`relative transition-all duration-300 hover:shadow-lg h-full flex flex-col ${
         plan.badge === "Most Popular" 
           ? "ring-2 ring-primary scale-105 shadow-xl" 
           : "hover:scale-105"
@@ -53,8 +53,8 @@ export default function PricingCard({ plan }: PricingCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="flex flex-col flex-grow">
-        <ul className="space-y-3 flex-grow">
+      <CardContent className="flex flex-col flex-1">
+        <ul className="space-y-3 flex-1 mb-6">
           {plan.features.map((feature, featureIndex) => (
             <li key={featureIndex} className="flex items-start space-x-3">
               <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -63,7 +63,7 @@ export default function PricingCard({ plan }: PricingCardProps) {
           ))}
         </ul>
 
-        <div className="pt-6 mt-auto">
+        <div className="mt-auto">
           {plan.name === "Agency" ? (
             <Link to="/contact">
               <Button 
