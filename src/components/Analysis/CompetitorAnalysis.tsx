@@ -40,6 +40,10 @@ export function CompetitorAnalysis() {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [analysisData, setAnalysisData] = useState<CompetitorData[]>([]);
 
+  console.log("CompetitorAnalysis component rendered");
+  console.log("Current competitor sites:", competitorSites);
+  console.log("Analysis data:", analysisData);
+
   const mockAnalysisData: CompetitorData[] = [
     {
       id: "your-site",
@@ -102,6 +106,8 @@ export function CompetitorAnalysis() {
   ];
 
   const runAnalysis = async () => {
+    console.log("Starting analysis...");
+    
     if (competitorSites.length < 2) {
       toast({
         title: "Add Competitors",
@@ -137,6 +143,8 @@ export function CompetitorAnalysis() {
       );
       setAnalysisData(filteredData);
       
+      console.log("Analysis complete, setting data:", filteredData);
+      
       toast({
         title: "Analysis Complete",
         description: `Successfully analyzed ${competitorSites.length} websites`,
@@ -145,6 +153,7 @@ export function CompetitorAnalysis() {
   };
 
   const exportReport = () => {
+    console.log("Exporting report...");
     toast({
       title: "Report Exported",
       description: "Competitor analysis report has been generated.",
