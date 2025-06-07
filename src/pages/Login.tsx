@@ -1,15 +1,18 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Zap, Mail, Lock, Github } from "lucide-react";
+import { Zap, Mail, Lock, Github, User } from "lucide-react";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +20,17 @@ export default function Login() {
     // Simulate login
     setTimeout(() => {
       setIsLoading(false);
-      window.location.href = "/";
+      navigate("/dashboard");
     }, 2000);
+  };
+
+  const handleDemoLogin = () => {
+    setIsLoading(true);
+    // Simulate demo user login
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
@@ -44,6 +56,22 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="space-y-4 mb-6">
+              <Button 
+                onClick={handleDemoLogin}
+                className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700"
+                disabled={isLoading}
+              >
+                <User className="w-4 h-4 mr-2" />
+                {isLoading ? "Signing in..." : "Sign in with Demo User"}
+              </Button>
+            </div>
+
+            <Separator className="my-4" />
+            <div className="text-center text-sm text-muted-foreground mb-4">
+              Or sign in with your credentials
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -54,6 +82,8 @@ export default function Login() {
                     type="email"
                     placeholder="you@company.com"
                     className="pl-10"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -68,6 +98,8 @@ export default function Login() {
                     type="password"
                     placeholder="••••••••"
                     className="pl-10"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
