@@ -112,13 +112,15 @@ export function Header() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="rounded-full p-0 animate-fade-in flex items-center justify-center"
+              className="rounded-full p-0 animate-fade-in flex items-center justify-center hover:bg-accent/50 transition-all duration-300 group relative overflow-hidden"
             >
-              <Avatar className="h-8 w-8 border">
-                <AvatarFallback className="bg-primary text-sm font-medium text-primary-foreground">
-                  AI
+              <Avatar className="h-9 w-9 border-2 border-primary/20 shadow-lg transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-xl group-hover:scale-105 relative overflow-hidden">
+                <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-sm font-bold text-primary-foreground transition-all duration-300 group-hover:from-primary/90 group-hover:to-primary relative overflow-hidden">
+                  <span className="relative z-10">AI</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </AvatarFallback>
               </Avatar>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 animate-scale-in">
