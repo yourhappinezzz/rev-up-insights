@@ -3,191 +3,250 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
-import { MetricsChart } from "@/components/Dashboard/MetricsChart";
-import { RecommendationsList } from "@/components/Dashboard/RecommendationsList";
-import { Link } from "react-router-dom";
-import { mockSites } from "@/lib/mockData";
+import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis } from "recharts";
 import {
   TrendingUp,
   TrendingDown,
   DollarSign,
-  Users,
-  MousePointer,
-  AlertTriangle,
   BarChart3,
-  Zap
+  Activity,
+  Lock,
+  Clock
 } from "lucide-react";
 
 export default function Dashboard() {
-  const [lostRevenue, setLostRevenue] = useState(47832);
+  const [metrics, setMetrics] = useState({
+    totalRevenue: 210000,
+    conversionRate: 1.75,
+    activeSites: 2,
+    recommendations: 18
+  });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLostRevenue(prev => prev + Math.floor(Math.random() * 50) + 10);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  // Mock data for charts
+  const tvlData = [
+    { name: 'Daily', value: 10.2, color: '#00D4FF' },
+    { name: 'Weekly', value: 68.7, color: '#0099CC' }
+  ];
 
-  const sites = mockSites;
+  const fearGreedData = [
+    { name: 'Greed', value: 72, color: '#00FF88' },
+    { name: 'Fear', value: 28, color: '#1a1a1a' }
+  ];
 
-  const handleViewDetails = (siteId: string) => {
-    console.log(`Navigating to analysis for site: ${siteId}`);
-  };
+  const trendingProjects = [
+    { name: 'E-commerce Store', type: 'Project', change: 12.4, positive: true },
+    { name: 'SaaS Landing', type: 'Project', change: 8.7, positive: true },
+    { name: 'Marketing Site', type: 'Platform', change: -3.2, positive: false },
+    { name: 'Mobile App', type: 'Platform', change: 15.3, positive: true },
+    { name: 'Blog Site', type: 'Project', change: 9.1, positive: true },
+    { name: 'Portfolio', type: 'Platform', change: 4.3, positive: true },
+    { name: 'Landing Page', type: 'Platform', change: 21.8, positive: true }
+  ];
 
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-900 text-white">
           <div className="space-y-6">
-            {/* Hero Section */}
-            <div className="text-center py-8">
-              <h1 className="text-4xl font-bold mb-4">
-                AI Conversion Optimizer
-              </h1>
-              <p className="text-xl text-muted-foreground mb-6">
-                Analyze. Optimize. Convert. Repeat.
-              </p>
-              
-              {/* Lost Opportunity Ticker */}
-              <Card className="max-w-md mx-auto bg-gradient-to-r from-red-500/10 to-orange-500/10 border-red-200 dark:border-red-800">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <AlertTriangle className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">Lost Opportunity</p>
-                    <p className="text-3xl font-bold text-red-500">
-                      ${lostRevenue.toLocaleString()}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Revenue lost today due to unoptimized conversions
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Header */}
+            <div className="mb-8">
+              <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
+              <p className="text-gray-400">Your CRO insights for {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
 
-            {/* Key Metrics */}
+            {/* Top Metrics Row */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card>
+              <Card className="bg-gray-800 border-gray-700">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">$210,000</div>
-                  <div className="flex items-center text-xs text-green-600">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    +12.5% from last month
+                  <div>
+                    <CardTitle className="text-sm font-medium text-gray-400">Market Cap</CardTitle>
+                    <div className="text-2xl font-bold text-white">$2475.39B</div>
+                    <div className="flex items-center text-xs text-green-400 mt-1">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      2.3% vs yesterday
+                    </div>
                   </div>
-                </CardContent>
+                  <BarChart3 className="h-6 w-6 text-blue-400" />
+                </CardHeader>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-800 border-gray-700">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Avg Conversion Rate</CardTitle>
-                  <MousePointer className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">1.75%</div>
-                  <div className="flex items-center text-xs text-red-600">
-                    <TrendingDown className="w-3 h-3 mr-1" />
-                    -2.1% from last month
+                  <div>
+                    <CardTitle className="text-sm font-medium text-gray-400">Conversion Rate</CardTitle>
+                    <div className="text-2xl font-bold text-white">$61284.23</div>
+                    <div className="flex items-center text-xs text-green-400 mt-1">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      4.2% vs yesterday
+                    </div>
                   </div>
-                </CardContent>
+                  <Activity className="h-6 w-6 text-yellow-400" />
+                </CardHeader>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-800 border-gray-700">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Sites</CardTitle>
-                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">2</div>
-                  <div className="flex items-center text-xs text-muted-foreground">
-                    Sites being monitored
+                  <div>
+                    <CardTitle className="text-sm font-medium text-gray-400">Total Value Locked</CardTitle>
+                    <div className="text-2xl font-bold text-white">$46.89B</div>
+                    <div className="flex items-center text-xs text-green-400 mt-1">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      10.2% vs yesterday
+                    </div>
                   </div>
-                </CardContent>
+                  <DollarSign className="h-6 w-6 text-green-400" />
+                </CardHeader>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-800 border-gray-700">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Recommendations</CardTitle>
-                  <Zap className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">18</div>
-                  <div className="flex items-center text-xs text-blue-600">
-                    12 pending implementation
+                  <div>
+                    <CardTitle className="text-sm font-medium text-gray-400">24h Trading Volume</CardTitle>
+                    <div className="text-2xl font-bold text-white">$87.29B</div>
+                    <div className="flex items-center text-xs text-red-400 mt-1">
+                      <TrendingDown className="w-3 h-3 mr-1" />
+                      2.8% vs yesterday
+                    </div>
                   </div>
-                </CardContent>
+                  <BarChart3 className="h-6 w-6 text-purple-400" />
+                </CardHeader>
               </Card>
             </div>
 
-            {/* Sites Overview */}
+            {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {sites.map((site) => (
-                <Card key={site.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle className="text-lg">{site.name}</CardTitle>
-                        <CardDescription>{site.url}</CardDescription>
-                      </div>
-                      <Badge variant={site.status === "improving" ? "default" : "destructive"}>
-                        {site.status}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium">CRO Score</span>
-                          <span className="text-2xl font-bold">{site.score}</span>
-                        </div>
-                        <Progress value={site.score} className="h-2" />
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4 pt-2">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Conversion Rate</p>
-                          <p className="text-lg font-semibold">{site.conversionRate}%</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Monthly Revenue</p>
-                          <p className="text-lg font-semibold">${site.revenue.toLocaleString()}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between items-center pt-2">
-                        <div className={`flex items-center text-sm ${site.change > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {site.change > 0 ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
-                          {Math.abs(site.change)}% vs last month
-                        </div>
-                        <Link to={`/analysis/${site.id}`}>
-                          <Button 
-                            size="sm"
-                            onClick={() => handleViewDetails(site.id)}
+              {/* TVL Change Chart */}
+              <Card className="bg-gray-800 border-gray-700">
+                <CardHeader>
+                  <div className="flex items-center space-x-2">
+                    <Lock className="h-4 w-4 text-gray-400" />
+                    <CardTitle className="text-white">Total Value Locked</CardTitle>
+                  </div>
+                  <div className="text-2xl font-bold text-white">$46.89B</div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-48 flex items-center justify-center">
+                    <div className="relative">
+                      <ResponsiveContainer width={200} height={200}>
+                        <PieChart>
+                          <Pie
+                            data={tvlData}
+                            cx={100}
+                            cy={100}
+                            innerRadius={60}
+                            outerRadius={80}
+                            startAngle={180}
+                            endAngle={0}
+                            dataKey="value"
                           >
-                            View Details
-                          </Button>
-                        </Link>
+                            {tvlData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-white">TVL Change</div>
+                        </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                  <div className="flex justify-between mt-4">
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400">Daily</div>
+                      <div className="text-green-400 font-semibold">↗ 10.2%</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400">Weekly</div>
+                      <div className="text-green-400 font-semibold">↗ 68.7%</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Fear & Greed Index */}
+              <Card className="bg-gray-800 border-gray-700">
+                <CardHeader>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="h-4 w-4 text-gray-400" />
+                    <CardTitle className="text-white">Fear & Greed Index</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-48 flex items-center justify-center">
+                    <div className="relative">
+                      <ResponsiveContainer width={200} height={200}>
+                        <PieChart>
+                          <Pie
+                            data={fearGreedData}
+                            cx={100}
+                            cy={100}
+                            innerRadius={60}
+                            outerRadius={90}
+                            startAngle={180}
+                            endAngle={0}
+                            dataKey="value"
+                          >
+                            {fearGreedData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-white">72</div>
+                          <div className="text-green-400 font-semibold">Greed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center mt-4">
+                    <div className="text-sm text-gray-400">Yesterday: 65 → 7</div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            {/* Charts and Recent Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <MetricsChart />
-              <RecommendationsList />
-            </div>
+            {/* Trending Section */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <TrendingUp className="h-4 w-4 text-blue-400" />
+                    <CardTitle className="text-white">Trending</CardTitle>
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">All</Button>
+                    <Button size="sm" variant="ghost" className="text-gray-400">Projects</Button>
+                    <Button size="sm" variant="ghost" className="text-gray-400">Platforms</Button>
+                    <Button size="sm" variant="ghost" className="text-gray-400">Funds</Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
+                  {trendingProjects.map((project, index) => (
+                    <Card key={index} className="bg-gray-700 border-gray-600 p-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-semibold text-white text-sm">{project.name}</h3>
+                        </div>
+                        <div className="text-xs text-gray-400">{project.type}</div>
+                        <div className={`text-sm font-semibold ${project.positive ? 'text-green-400' : 'text-red-400'}`}>
+                          {project.positive ? '↗' : '↘'} {Math.abs(project.change)}%
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </main>
       </div>
