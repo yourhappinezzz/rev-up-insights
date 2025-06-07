@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,6 +13,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import { BeforeAfterComparison } from "@/components/Analysis/BeforeAfterComparison";
 import { useToast } from "@/hooks/use-toast";
+import { generateAnalysisReport, generatePdfReport } from "@/utils/reportGenerator";
 import {
   Search,
   Globe,
@@ -27,7 +27,8 @@ import {
   MousePointer,
   BarChart3,
   PieChart as PieChartIcon,
-  Activity
+  Activity,
+  Download
 } from "lucide-react";
 
 export default function Analysis() {
@@ -224,6 +225,34 @@ export default function Analysis() {
     }
   };
 
+  const exportAnalysisReport = () => {
+    console.log("Exporting analysis PDF report...");
+    
+    try {
+      const analysisData = {
+        name: siteData.name,
+        url: siteData.url,
+        score: siteData.score,
+        metrics: siteData.metrics,
+        recommendations: recommendations
+      };
+
+      generatePdfReport(analysisData, 'analysis');
+      
+      toast({
+        title: "PDF Report Downloaded",
+        description: "Comprehensive website analysis report saved as PDF",
+      });
+    } catch (error) {
+      console.error("Failed to generate PDF report:", error);
+      toast({
+        title: "Export Failed",
+        description: "Unable to generate PDF report. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />
@@ -231,6 +260,20 @@ export default function Analysis() {
         <Header />
         <main className="flex-1 overflow-y-auto p-6">
           <div className="space-y-6">
+            {/* Header with Export Button */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight">Website Analysis</h1>
+                <p className="text-muted-foreground">
+                  AI-powered conversion rate optimization analysis and recommendations
+                </p>
+              </div>
+              <Button onClick={exportAnalysisReport} className="flex items-center space-x-2">
+                <Download className="w-4 h-4" />
+                <span>Export PDF Report</span>
+              </Button>
+            </div>
+
             {/* URL Analysis Section */}
             <Card className="card-shake">
               <CardHeader>

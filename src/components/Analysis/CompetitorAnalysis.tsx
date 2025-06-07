@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { CompetitorInput } from "./CompetitorInput";
 import { AnalysisProgress } from "./AnalysisProgress";
 import { AnalysisResults } from "./AnalysisResults";
-import { generateReport, downloadReport } from "@/utils/reportGenerator";
+import { generateReport, downloadReport, generatePdfReport } from "@/utils/reportGenerator";
 
 interface CompetitorSite {
   id: string;
@@ -154,7 +154,7 @@ export function CompetitorAnalysis() {
   };
 
   const exportReport = () => {
-    console.log("Exporting report...");
+    console.log("Exporting PDF report...");
     
     if (analysisData.length === 0) {
       toast({
@@ -166,21 +166,17 @@ export function CompetitorAnalysis() {
     }
 
     try {
-      const reportContent = generateReport(analysisData);
-      const timestamp = new Date().toISOString().split('T')[0];
-      const filename = `competitor-analysis-report-${timestamp}.txt`;
-      
-      downloadReport(reportContent, filename);
+      generatePdfReport(analysisData, 'competitor');
       
       toast({
-        title: "Report Downloaded",
-        description: `Comprehensive analysis report saved as ${filename}`,
+        title: "PDF Report Downloaded",
+        description: "Comprehensive competitor analysis report saved as PDF",
       });
     } catch (error) {
-      console.error("Failed to generate report:", error);
+      console.error("Failed to generate PDF report:", error);
       toast({
         title: "Export Failed",
-        description: "Unable to generate report. Please try again.",
+        description: "Unable to generate PDF report. Please try again.",
         variant: "destructive",
       });
     }
