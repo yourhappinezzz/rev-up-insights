@@ -16,10 +16,22 @@ export function AnalysisProgress({
   onRunAnalysis, 
   canAnalyze 
 }: AnalysisProgressProps) {
+  const handleRunAnalysis = () => {
+    console.log("Button clicked - canAnalyze:", canAnalyze, "isAnalyzing:", isAnalyzing);
+    if (!isAnalyzing && canAnalyze) {
+      console.log("Calling onRunAnalysis function");
+      onRunAnalysis();
+    } else {
+      console.log("Analysis blocked - either already analyzing or can't analyze");
+    }
+  };
+
+  console.log("AnalysisProgress rendered - canAnalyze:", canAnalyze, "isAnalyzing:", isAnalyzing);
+
   return (
     <div className="space-y-4">
       <Button 
-        onClick={onRunAnalysis} 
+        onClick={handleRunAnalysis} 
         disabled={isAnalyzing || !canAnalyze}
         className="w-full"
       >
