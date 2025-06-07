@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Analysis", href: "/analysis", icon: Search },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
@@ -56,7 +56,7 @@ export function Sidebar() {
         <nav className="space-y-1.5">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href || 
-              (item.href !== "/" && location.pathname.startsWith(item.href));
+              (item.href !== "/dashboard" && location.pathname.startsWith(item.href));
             return (
               <Link
                 key={item.name}

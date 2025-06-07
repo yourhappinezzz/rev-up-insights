@@ -9,6 +9,7 @@ import { Header } from "@/components/Layout/Header";
 import { MetricsChart } from "@/components/Dashboard/MetricsChart";
 import { RecommendationsList } from "@/components/Dashboard/RecommendationsList";
 import { Link } from "react-router-dom";
+import { mockSites } from "@/lib/mockData";
 import {
   TrendingUp,
   TrendingDown,
@@ -30,28 +31,11 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  const sites = [
-    {
-      id: "1",
-      name: "E-commerce Store",
-      url: "shop.example.com",
-      score: 72,
-      conversionRate: 2.4,
-      revenue: 125000,
-      change: 8.2,
-      status: "improving"
-    },
-    {
-      id: "2", 
-      name: "SaaS Landing",
-      url: "app.example.com",
-      score: 45,
-      conversionRate: 1.1,
-      revenue: 85000,
-      change: -3.1,
-      status: "declining"
-    }
-  ];
+  const sites = mockSites;
+
+  const handleViewDetails = (siteId: string) => {
+    console.log(`Navigating to analysis for site: ${siteId}`);
+  };
 
   return (
     <div className="flex h-screen bg-background">
@@ -185,7 +169,12 @@ export default function Dashboard() {
                           {Math.abs(site.change)}% vs last month
                         </div>
                         <Link to={`/analysis/${site.id}`}>
-                          <Button size="sm">View Details</Button>
+                          <Button 
+                            size="sm"
+                            onClick={() => handleViewDetails(site.id)}
+                          >
+                            View Details
+                          </Button>
                         </Link>
                       </div>
                     </div>
