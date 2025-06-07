@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { CompetitorInput } from "./CompetitorInput";
 import { AnalysisProgress } from "./AnalysisProgress";
 import { AnalysisResults } from "./AnalysisResults";
+import { generateReport, downloadReport } from "@/utils/reportGenerator";
 
 interface CompetitorSite {
   id: string;
@@ -155,10 +155,35 @@ export function CompetitorAnalysis() {
 
   const exportReport = () => {
     console.log("Exporting report...");
-    toast({
-      title: "Report Exported",
-      description: "Competitor analysis report has been generated.",
-    });
+    
+    if (analysisData.length === 0) {
+      toast({
+        title: "No Data Available",
+        description: "Please run an analysis first before exporting a report.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const reportContent = generateReport(analysisData);
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `competitor-analysis-report-${timestamp}.txt`;
+      
+      downloadReport(reportContent, filename);
+      
+      toast({
+        title: "Report Downloaded",
+        description: `Comprehensive analysis report saved as ${filename}`,
+      });
+    } catch (error) {
+      console.error("Failed to generate report:", error);
+      toast({
+        title: "Export Failed",
+        description: "Unable to generate report. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
