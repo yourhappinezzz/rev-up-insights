@@ -29,7 +29,7 @@ export function Header() {
     // Clear any authentication tokens/session data here
     localStorage.clear();
     sessionStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
