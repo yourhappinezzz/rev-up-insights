@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,7 +19,7 @@ export default function Login() {
     // Simulate login
     setTimeout(() => {
       setIsLoading(false);
-      navigate("/dashboard");
+      navigate("/");
     }, 2000);
   };
 
