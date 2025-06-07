@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +6,7 @@ import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
+import { useNavigate } from "react-router-dom";
 import {
   TrendingUp,
   TrendingDown,
@@ -22,6 +22,7 @@ import {
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState("7d");
+  const navigate = useNavigate();
 
   // CRO-focused metrics
   const metrics = {
@@ -140,6 +141,10 @@ export default function Dashboard() {
       default:
         return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
     }
+  };
+
+  const handleViewAllRecommendations = () => {
+    navigate("/analysis");
   };
 
   return (
@@ -386,7 +391,11 @@ export default function Dashboard() {
                         </div>
                       </div>
                     ))}
-                    <Button variant="outline" className="w-full mt-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full mt-4"
+                      onClick={handleViewAllRecommendations}
+                    >
                       View All Recommendations
                     </Button>
                   </div>
