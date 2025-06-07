@@ -459,7 +459,7 @@ export default function Settings() {
                       {plans.map((plan) => (
                         <div 
                           key={plan.name}
-                          className={`relative p-6 border rounded-lg transition-all ${
+                          className={`relative p-6 border rounded-lg transition-all flex flex-col ${
                             currentPlan === plan.name 
                               ? "border-2 border-blue-500 bg-blue-50 dark:bg-blue-950/20" 
                               : "border hover:border-gray-300"
@@ -477,7 +477,7 @@ export default function Settings() {
                             <span className="text-sm font-normal text-muted-foreground">/month</span>
                           </p>
                           
-                          <ul className="space-y-3 mb-6">
+                          <ul className="space-y-3 mb-6 flex-1">
                             {plan.features.map((feature, index) => (
                               <li key={index} className="flex items-center text-sm">
                                 <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
@@ -487,7 +487,7 @@ export default function Settings() {
                           </ul>
                           
                           <Button 
-                            className="w-full" 
+                            className="w-full mt-auto" 
                             variant={currentPlan === plan.name ? "secondary" : "default"}
                             disabled={currentPlan === plan.name || isChangingPlan}
                             onClick={() => handlePlanChange(plan.name)}
@@ -496,10 +496,6 @@ export default function Settings() {
                               "Changing Plan..."
                             ) : currentPlan === plan.name ? (
                               "Current Plan"
-                            ) : currentPlan === "Professional" && plan.name === "Agency" ? (
-                              "Upgrade"
-                            ) : currentPlan === "Professional" && plan.name === "Starter" ? (
-                              "Downgrade"
                             ) : (
                               "Select Plan"
                             )}
