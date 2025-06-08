@@ -5,8 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { Suspense } from "react";
-import "@/lib/i18n";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
@@ -30,26 +28,24 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/analysis/:siteId?" element={<Analysis />} />
-              <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </Suspense>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/analysis/:siteId?" element={<Analysis />} />
+            <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -13,12 +12,9 @@ import { useTheme } from "@/providers/ThemeProvider";
 import { Bell, Search, Sun, Moon, User, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -42,7 +38,7 @@ export function Header() {
         <div className="relative w-80 max-w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
           <Input
-            placeholder={t('common.searchPlaceholder')}
+            placeholder="Search sites, recommendations..."
             className="pl-10 rounded-full bg-background border-muted"
           />
         </div>
@@ -67,39 +63,37 @@ export function Header() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-80 animate-scale-in">
             <div className="p-3 border-b">
-              <h4 className="font-medium text-sm">{t('common.notifications')}</h4>
-              <p className="text-xs text-muted-foreground">{t('notifications.unreadNotifications', { count: 3 })}</p>
+              <h4 className="font-medium text-sm">Notifications</h4>
+              <p className="text-xs text-muted-foreground">You have 3 unread notifications</p>
             </div>
             <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium">{t('notifications.newRecommendation')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.newRecommendationDesc')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.minutesAgo', { count: 2 })}</p>
+                <p className="text-sm font-medium">New recommendation available</p>
+                <p className="text-xs text-muted-foreground">Site optimization suggestions for your homepage</p>
+                <p className="text-xs text-muted-foreground">2 minutes ago</p>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium">{t('notifications.analysisCompleted')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.analysisCompletedDesc')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.hoursAgo', { count: 1 })}</p>
+                <p className="text-sm font-medium">Analysis completed</p>
+                <p className="text-xs text-muted-foreground">Your site analysis has finished processing</p>
+                <p className="text-xs text-muted-foreground">1 hour ago</p>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer p-3 hover:bg-accent/50">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium">{t('notifications.weeklyReport')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.weeklyReportDesc')}</p>
-                <p className="text-xs text-muted-foreground">{t('notifications.hoursAgo', { count: 3 })}</p>
+                <p className="text-sm font-medium">Weekly report ready</p>
+                <p className="text-xs text-muted-foreground">Your weekly performance report is available</p>
+                <p className="text-xs text-muted-foreground">3 hours ago</p>
               </div>
             </DropdownMenuItem>
             <div className="p-3 border-t">
               <Button variant="ghost" size="sm" className="w-full text-xs">
-                {t('common.viewAllNotifications')}
+                View all notifications
               </Button>
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <LanguageSwitcher />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -159,14 +153,14 @@ export function Header() {
               onClick={handleProfileClick}
             >
               <User className="mr-2 h-4 w-4" />
-              {t('common.profile')}
+              Profile
             </DropdownMenuItem>
             <DropdownMenuItem 
               className="cursor-pointer hover:bg-accent/50 transition-colors"
               onClick={handleSettingsClick}
             >
               <Settings className="mr-2 h-4 w-4" />
-              {t('common.settings')}
+              Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 
@@ -174,7 +168,7 @@ export function Header() {
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              {t('common.signOut')}
+              Sign out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

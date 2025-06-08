@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 import { CompetitorInput } from "./CompetitorInput";
 import { AnalysisProgress } from "./AnalysisProgress";
@@ -34,7 +32,6 @@ interface CompetitorData extends CompetitorSite {
 }
 
 export function CompetitorAnalysis() {
-  const { t } = useTranslation();
   const { toast } = useToast();
   const [competitorSites, setCompetitorSites] = useState<CompetitorSite[]>([
     { id: "your-site", url: "your-website.com", name: "Your Website", isYourSite: true }
@@ -116,8 +113,8 @@ export function CompetitorAnalysis() {
     
     if (competitorSites.length < 2) {
       toast({
-        title: t('competitorAnalysis.addCompetitors'),
-        description: t('competitorAnalysis.addCompetitorsDesc'),
+        title: "Add Competitors",
+        description: "Please add at least one competitor to analyze.",
         variant: "destructive",
       });
       return;
@@ -150,8 +147,8 @@ export function CompetitorAnalysis() {
       console.log("Analysis complete, setting data:", generatedData);
       
       toast({
-        title: t('analysis.analysisComplete'),
-        description: t('competitorAnalysis.analysisCompleteCount', { count: competitorSites.length }),
+        title: "Analysis Complete",
+        description: `Successfully analyzed ${competitorSites.length} websites`,
       });
     }, 4000);
   };
@@ -161,8 +158,8 @@ export function CompetitorAnalysis() {
     
     if (analysisData.length === 0) {
       toast({
-        title: t('competitorAnalysis.noDataAvailable'),
-        description: t('competitorAnalysis.noDataDesc'),
+        title: "No Data Available",
+        description: "Please run an analysis first before exporting a report.",
         variant: "destructive",
       });
       return;
@@ -172,14 +169,14 @@ export function CompetitorAnalysis() {
       generatePdfReport(analysisData, 'competitor');
       
       toast({
-        title: t('analysis.pdfReportDownloaded'),
+        title: "PDF Report Downloaded",
         description: "Comprehensive competitor analysis report saved as PDF",
       });
     } catch (error) {
       console.error("Failed to generate PDF report:", error);
       toast({
-        title: t('analysis.exportFailed'),
-        description: t('analysis.exportFailedDesc'),
+        title: "Export Failed",
+        description: "Unable to generate PDF report. Please try again.",
         variant: "destructive",
       });
     }
