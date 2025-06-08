@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -149,7 +148,7 @@ export function ModernSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* AI Assistant Section */}
+        {/* AI Assistant Section - Only shows content when clicked */}
         <SidebarGroup className="mt-6">
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider mb-2 flex items-center gap-2">
             <Brain className="w-3 h-3" />
@@ -157,7 +156,7 @@ export function ModernSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <div className="space-y-3">
-              {/* AI Chat Toggle */}
+              {/* AI Chat Toggle Button */}
               <Button
                 onClick={() => setAiChatOpen(!aiChatOpen)}
                 variant={aiChatOpen ? "default" : "outline"}
@@ -171,12 +170,14 @@ export function ModernSidebar() {
                 </div>
                 <div className="flex-1 text-left">
                   <div className="font-medium text-sm">CRO Expert</div>
-                  <div className="text-xs text-muted-foreground">Ask optimization questions</div>
+                  <div className="text-xs text-muted-foreground">
+                    {aiChatOpen ? "Click to close" : "Ask optimization questions"}
+                  </div>
                 </div>
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
               </Button>
 
-              {/* AI Chat Interface */}
+              {/* AI Chat Interface - Only shows when aiChatOpen is true */}
               {aiChatOpen && (
                 <div className="space-y-3 p-3 bg-muted/30 rounded-lg border border-border/50">
                   <div className="max-h-40 overflow-y-auto space-y-2 text-xs">
@@ -232,7 +233,7 @@ export function ModernSidebar() {
                 </div>
               )}
 
-              {/* Quick AI Insights */}
+              {/* Quick AI Insights - Always visible */}
               <div className="space-y-2">
                 <div className="p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg">
                   <div className="flex items-center gap-2 mb-1">
