@@ -25,7 +25,10 @@ import {
   Settings,
   BarChart3,
   Zap,
+  Sparkles,
+  MessageCircle,
 } from "lucide-react";
+import { CROExpertChat } from "../CROExpertChat/CROExpertChat";
 
 const navigation = [
   { 
@@ -56,6 +59,7 @@ const navigation = [
 
 export function ModernSidebar() {
   const location = useLocation();
+  const [showCROChat, setShowCROChat] = useState(false);
 
   return (
     <Sidebar className="border-r border-border/40 bg-gradient-to-b from-sidebar to-sidebar/95">
@@ -115,6 +119,35 @@ export function ModernSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="p-4 border-t border-sidebar-border/50">
+        <Button
+          variant="ghost"
+          onClick={() => setShowCROChat(true)}
+          className="flex items-center space-x-3 p-3 bg-gradient-to-r from-muted/50 to-muted/30 rounded-lg border border-border/30 h-auto hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 transition-all duration-200"
+        >
+          <div className="relative">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center shadow-sm">
+              <MessageCircle className="w-4 h-4 text-white" />
+            </div>
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border border-sidebar" />
+          </div>
+          <div className="flex-1 min-w-0 text-left">
+            <p className="text-sm font-medium">CRO Expert</p>
+            <p className="text-xs text-muted-foreground">AI Assistant • Online</p>
+          </div>
+          <div className="text-xs text-muted-foreground">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+          </div>
+        </Button>
+      </SidebarFooter>
+
+      {showCROChat && (
+        <CROExpertChat 
+          isOpen={showCROChat} 
+          onClose={() => setShowCROChat(false)} 
+        />
+      )}
     </Sidebar>
   );
 }
