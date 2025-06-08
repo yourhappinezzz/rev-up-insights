@@ -17,20 +17,16 @@ import deSettings from '../locales/de/settings.json';
 
 const resources = {
   en: {
-    translation: {
-      common: enCommon,
-      analysis: enAnalysis,
-      competitorAnalysis: enCompetitorAnalysis,
-      settings: enSettings
-    }
+    common: enCommon,
+    analysis: enAnalysis,
+    competitorAnalysis: enCompetitorAnalysis,
+    settings: enSettings
   },
   de: {
-    translation: {
-      common: deCommon,
-      analysis: deAnalysis,
-      competitorAnalysis: deCompetitorAnalysis,
-      settings: deSettings
-    }
+    common: deCommon,
+    analysis: deAnalysis,
+    competitorAnalysis: deCompetitorAnalysis,
+    settings: deSettings
   }
 };
 
