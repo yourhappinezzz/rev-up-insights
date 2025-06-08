@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Bell, Check, X, AlertCircle, Info, CheckCircle, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -141,18 +142,39 @@ export function NotificationCenter({
   onAction 
 }: NotificationCenterProps) {
   const unreadCount = notifications.filter(n => !n.read).length;
-  const [filter, setFilter] = useState<"all" | "unread" | "read">("all");
+  const readCount = notifications.length - unreadCount;
 
-  const filteredNotifications = notifications.filter(notification => {
+  const getFilteredNotifications = (filter: string) => {
     switch (filter) {
       case "unread":
-        return !notification.read;
+        return notifications.filter(notification => !notification.read);
       case "read":
-        return notification.read;
+        return notifications.filter(notification => notification.read);
       default:
-        return true;
+        return notifications;
     }
-  });
+  };
+
+  const renderNotificationList = (filteredNotifications: Notification[]) => (
+    <div className="space-y-3 max-h-96 overflow-y-auto">
+      {filteredNotifications.length === 0 ? (
+        <div className="text-center py-8 text-muted-foreground">
+          <Bell className="w-12 h-12 mx-auto mb-3 opacity-50" />
+          <p>No notifications found</p>
+        </div>
+      ) : (
+        filteredNotifications.map((notification) => (
+          <NotificationItem
+            key={notification.id}
+            notification={notification}
+            onMarkAsRead={onMarkAsRead}
+            onDismiss={onDismiss}
+            onAction={onAction}
+          />
+        ))
+      )}
+    </div>
+  );
 
   return (
     <div className="space-y-4">
@@ -178,50 +200,27 @@ export function NotificationCenter({
         </div>
       </div>
 
-      <div className="flex space-x-2">
-        <Button
-          variant={filter === "all" ? "default" : "ghost"}
-          size="sm"
-          onClick={() => setFilter("all")}
-        >
-          All ({notifications.length})
-        </Button>
-        <Button
-          variant={filter === "unread" ? "default" : "ghost"}
-          size="sm"
-          onClick={() => setFilter("unread")}
-        >
-          Unread ({unreadCount})
-        </Button>
-        <Button
-          variant={filter === "read" ? "default" : "ghost"}
-          size="sm"
-          onClick={() => setFilter("read")}
-        >
-          Read ({notifications.length - unreadCount})
-        </Button>
-      </div>
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="all">All ({notifications.length})</TabsTrigger>
+          <TabsTrigger value="unread">Unread ({unreadCount})</TabsTrigger>
+          <TabsTrigger value="read">Read ({readCount})</TabsTrigger>
+        </TabsList>
 
-      <Separator />
+        <Separator className="my-4" />
 
-      <div className="space-y-3 max-h-96 overflow-y-auto">
-        {filteredNotifications.length === 0 ? (
-          <div className="text-center py-8 text-muted-foreground">
-            <Bell className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>No notifications found</p>
-          </div>
-        ) : (
-          filteredNotifications.map((notification) => (
-            <NotificationItem
-              key={notification.id}
-              notification={notification}
-              onMarkAsRead={onMarkAsRead}
-              onDismiss={onDismiss}
-              onAction={onAction}
-            />
-          ))
-        )}
-      </div>
+        <TabsContent value="all" className="mt-0">
+          {renderNotificationList(getFilteredNotifications("all"))}
+        </TabsContent>
+
+        <TabsContent value="unread" className="mt-0">
+          {renderNotificationList(getFilteredNotifications("unread"))}
+        </TabsContent>
+
+        <TabsContent value="read" className="mt-0">
+          {renderNotificationList(getFilteredNotifications("read"))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
