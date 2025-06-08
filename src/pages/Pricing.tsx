@@ -7,7 +7,7 @@ import LandingFooter from "@/components/Landing/LandingFooter";
 
 export default function Pricing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       <PricingHeader />
       <PricingHero />
       <PricingPlans />
