@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { mockSites } from "@/lib/mockData";
+import { useTranslation } from "react-i18next";
 import {
   BarChart3,
   ShoppingCart,
@@ -28,6 +30,7 @@ import {
 } from "lucide-react";
 
 export default function Settings() {
+  const { t } = useTranslation();
   const [sites, setSites] = useState(mockSites);
   const [currentPlan, setCurrentPlan] = useState("Professional");
   const [selectedPlan, setSelectedPlan] = useState("Professional");
@@ -35,55 +38,41 @@ export default function Settings() {
   
   const plans = [
     {
-      name: "Starter",
+      name: t('plans.starter.name'),
       price: 29,
-      features: [
-        "3 websites",
-        "Basic recommendations", 
-        "Email support"
-      ]
+      features: t('plans.starter.features', { returnObjects: true }) as string[]
     },
     {
-      name: "Professional",
+      name: t('plans.professional.name'),
       price: 99,
-      features: [
-        "10 websites",
-        "Advanced AI recommendations",
-        "Real-time metrics",
-        "Priority support"
-      ]
+      features: t('plans.professional.features', { returnObjects: true }) as string[]
     },
     {
-      name: "Agency",
+      name: t('plans.agency.name'),
       price: 299,
-      features: [
-        "Unlimited websites",
-        "White-label reports",
-        "Multi-client management",
-        "Dedicated support"
-      ]
+      features: t('plans.agency.features', { returnObjects: true }) as string[]
     }
   ];
 
   const integrations = [
     {
-      name: "Google Analytics 4",
+      name: t('settings.dataIntegrations.googleAnalytics'),
       icon: BarChart3,
-      description: "Connect GA4 to track conversion metrics and user behavior",
+      description: t('settings.dataIntegrations.googleAnalyticsDesc'),
       status: "connected",
       lastSync: "2 hours ago"
     },
     {
-      name: "Shopify",
+      name: t('settings.dataIntegrations.shopify'),
       icon: ShoppingCart, 
-      description: "Sync e-commerce data, orders, and revenue metrics",
+      description: t('settings.dataIntegrations.shopifyDesc'),
       status: "disconnected",
       lastSync: null
     },
     {
-      name: "Stripe",
+      name: t('settings.dataIntegrations.stripe'),
       icon: CreditCard,
-      description: "Track payment conversions and revenue attribution",
+      description: t('settings.dataIntegrations.stripeDesc'),
       status: "connected",
       lastSync: "5 minutes ago"
     }
@@ -118,8 +107,8 @@ export default function Settings() {
     
     // Show success message
     toast({
-      title: "Site added",
-      description: `${data.siteName} was successfully added.`,
+      title: t('settings.addSite.siteAdded'),
+      description: t('settings.addSite.siteAddedDesc', { siteName: data.siteName }),
     });
     
     // Reset the form
@@ -129,8 +118,8 @@ export default function Settings() {
   const deleteSite = (siteId: string) => {
     setSites(sites.filter(site => site.id !== siteId));
     toast({
-      title: "Site removed",
-      description: "The site was successfully removed.",
+      title: t('settings.addSite.siteRemoved'),
+      description: t('settings.addSite.siteRemovedDesc'),
       variant: "destructive"
     });
   };
@@ -146,21 +135,21 @@ export default function Settings() {
       setCurrentPlan(planName);
       setIsChangingPlan(false);
       
-      if (planName === "Agency") {
+      if (planName === t('plans.agency.name')) {
         toast({
-          title: "Plan upgraded!",
-          description: `Successfully upgraded to ${planName} plan.`,
+          title: t('settings.chooseYourPlan.planUpgraded'),
+          description: t('settings.chooseYourPlan.planUpgradedDesc', { planName }),
         });
-      } else if (planName === "Starter") {
+      } else if (planName === t('plans.starter.name')) {
         toast({
-          title: "Plan downgraded",
-          description: `Successfully changed to ${planName} plan.`,
+          title: t('settings.chooseYourPlan.planDowngraded'),
+          description: t('settings.chooseYourPlan.planDowngradedDesc', { planName }),
           variant: "destructive"
         });
       } else {
         toast({
-          title: "Plan changed",
-          description: `Successfully changed to ${planName} plan.`,
+          title: t('settings.chooseYourPlan.planChanged'),
+          description: t('settings.chooseYourPlan.planChangedDesc', { planName }),
         });
       }
     }, 2000);
@@ -174,38 +163,38 @@ export default function Settings() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Settings</h1>
+              <h1 className="text-3xl font-bold">{t('settings.title')}</h1>
               <p className="text-muted-foreground">
-                Manage your account, integrations, and preferences
+                {t('settings.subtitle')}
               </p>
             </div>
 
             <Tabs defaultValue="sites" className="w-full">
               <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="sites">Sites</TabsTrigger>
-                <TabsTrigger value="integrations">Integrations</TabsTrigger>
-                <TabsTrigger value="notifications">Notifications</TabsTrigger>
-                <TabsTrigger value="api">API & Webhooks</TabsTrigger>
-                <TabsTrigger value="billing">Billing</TabsTrigger>
+                <TabsTrigger value="sites">{t('settings.sites')}</TabsTrigger>
+                <TabsTrigger value="integrations">{t('settings.integrations')}</TabsTrigger>
+                <TabsTrigger value="notifications">{t('common.notifications')}</TabsTrigger>
+                <TabsTrigger value="api">{t('settings.api')}</TabsTrigger>
+                <TabsTrigger value="billing">{t('settings.billing')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="sites" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Managed Sites</CardTitle>
+                    <CardTitle>{t('settings.managedSites.title')}</CardTitle>
                     <CardDescription>
-                      View and manage the websites AICO is monitoring for conversion optimization
+                      {t('settings.managedSites.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>URL</TableHead>
-                          <TableHead>Status</TableHead>
-                          <TableHead>Conversion Rate</TableHead>
-                          <TableHead>Last Analyzed</TableHead>
+                          <TableHead>{t('settings.managedSites.name')}</TableHead>
+                          <TableHead>{t('settings.managedSites.url')}</TableHead>
+                          <TableHead>{t('settings.managedSites.status')}</TableHead>
+                          <TableHead>{t('settings.managedSites.conversionRate')}</TableHead>
+                          <TableHead>{t('settings.managedSites.lastAnalyzed')}</TableHead>
                           <TableHead></TableHead>
                         </TableRow>
                       </TableHeader>
@@ -232,7 +221,7 @@ export default function Settings() {
                         ) : (
                           <TableRow>
                             <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
-                              No sites added yet. Add your first site below.
+                              {t('settings.managedSites.noSites')}
                             </TableCell>
                           </TableRow>
                         )}
@@ -243,35 +232,35 @@ export default function Settings() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Add New Site</CardTitle>
+                    <CardTitle>{t('settings.addSite.title')}</CardTitle>
                     <CardDescription>
-                      Add a website to monitor for conversion optimization opportunities
+                      {t('settings.addSite.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="siteName">Site Name</Label>
+                          <Label htmlFor="siteName">{t('settings.addSite.siteName')}</Label>
                           <Input 
                             id="siteName" 
-                            placeholder="My E-commerce Store" 
-                            {...register("siteName", { required: "Site name is required" })}
+                            placeholder={t('settings.addSite.siteNamePlaceholder')}
+                            {...register("siteName", { required: t('settings.addSite.siteNameRequired') })}
                           />
                           {errors.siteName && (
                             <p className="text-sm text-destructive">{errors.siteName.message}</p>
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="siteUrl">Site URL</Label>
+                          <Label htmlFor="siteUrl">{t('settings.addSite.siteUrl')}</Label>
                           <Input 
                             id="siteUrl" 
-                            placeholder="https://example.com" 
+                            placeholder={t('settings.addSite.siteUrlPlaceholder')}
                             {...register("siteUrl", { 
-                              required: "Site URL is required",
+                              required: t('settings.addSite.siteUrlRequired'),
                               pattern: {
                                 value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-                                message: "Please enter a valid URL"
+                                message: t('settings.addSite.siteUrlInvalid')
                               }
                             })}
                           />
@@ -281,7 +270,7 @@ export default function Settings() {
                         </div>
                       </div>
                       <Button type="submit" className="flex items-center">
-                        <Plus className="mr-2 h-4 w-4" /> Add Site
+                        <Plus className="mr-2 h-4 w-4" /> {t('settings.addSite.addSite')}
                       </Button>
                     </form>
                   </CardContent>
@@ -291,9 +280,9 @@ export default function Settings() {
               <TabsContent value="integrations" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Data Integrations</CardTitle>
+                    <CardTitle>{t('settings.dataIntegrations.title')}</CardTitle>
                     <CardDescription>
-                      Connect your analytics and e-commerce platforms to enable accurate conversion tracking
+                      {t('settings.dataIntegrations.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
@@ -308,17 +297,17 @@ export default function Settings() {
                             <p className="text-sm text-muted-foreground">{integration.description}</p>
                             {integration.lastSync && (
                               <p className="text-xs text-muted-foreground mt-1">
-                                Last sync: {integration.lastSync}
+                                {t('settings.dataIntegrations.lastSync', { time: integration.lastSync })}
                               </p>
                             )}
                           </div>
                         </div>
                         <div className="flex items-center space-x-3">
                           <Badge variant={integration.status === "connected" ? "default" : "secondary"}>
-                            {integration.status}
+                            {t(`settings.dataIntegrations.${integration.status}`)}
                           </Badge>
                           <Button variant="outline" size="sm">
-                            {integration.status === "connected" ? "Configure" : "Connect"}
+                            {integration.status === "connected" ? t('settings.dataIntegrations.configure') : t('settings.dataIntegrations.connect')}
                           </Button>
                         </div>
                       </div>
@@ -328,13 +317,13 @@ export default function Settings() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Connection Test</CardTitle>
+                    <CardTitle>{t('settings.dataIntegrations.connectionTest.title')}</CardTitle>
                     <CardDescription>
-                      Test your integrations to ensure data is flowing correctly
+                      {t('settings.dataIntegrations.connectionTest.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Button>Run Connection Test</Button>
+                    <Button>{t('settings.dataIntegrations.connectionTest.run')}</Button>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -342,35 +331,35 @@ export default function Settings() {
               <TabsContent value="notifications" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Email Notifications</CardTitle>
+                    <CardTitle>{t('settings.emailNotifications.title')}</CardTitle>
                     <CardDescription>
-                      Configure when you want to receive email updates
+                      {t('settings.emailNotifications.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium">Weekly CRO Reports</h4>
+                        <h4 className="font-medium">{t('settings.emailNotifications.weeklyReports')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Summary of conversion improvements and recommendations
+                          {t('settings.emailNotifications.weeklyReportsDesc')}
                         </p>
                       </div>
                       <Switch defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium">Critical Issues</h4>
+                        <h4 className="font-medium">{t('settings.emailNotifications.criticalIssues')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Immediate alerts for significant conversion drops
+                          {t('settings.emailNotifications.criticalIssuesDesc')}
                         </p>
                       </div>
                       <Switch defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium">New Recommendations</h4>
+                        <h4 className="font-medium">{t('settings.emailNotifications.newRecommendations')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          When AI identifies new optimization opportunities
+                          {t('settings.emailNotifications.newRecommendationsDesc')}
                         </p>
                       </div>
                       <Switch />
@@ -380,17 +369,17 @@ export default function Settings() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Push Notifications</CardTitle>
+                    <CardTitle>{t('settings.pushNotifications.title')}</CardTitle>
                     <CardDescription>
-                      Real-time browser notifications for urgent updates
+                      {t('settings.pushNotifications.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium">Conversion Anomalies</h4>
+                        <h4 className="font-medium">{t('settings.pushNotifications.conversionAnomalies')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Unusual patterns in conversion data
+                          {t('settings.pushNotifications.conversionAnomaliesDesc')}
                         </p>
                       </div>
                       <Switch />
@@ -402,9 +391,9 @@ export default function Settings() {
               <TabsContent value="api" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>API Keys</CardTitle>
+                    <CardTitle>{t('settings.apiKeys.title')}</CardTitle>
                     <CardDescription>
-                      Manage API keys for programmatic access to AICO
+                      {t('settings.apiKeys.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -412,36 +401,36 @@ export default function Settings() {
                       <div className="flex items-center space-x-3">
                         <Key className="w-5 h-5" />
                         <div>
-                          <h4 className="font-medium">Production API Key</h4>
+                          <h4 className="font-medium">{t('settings.apiKeys.productionKey')}</h4>
                           <p className="text-sm text-muted-foreground">aico_prod_********************************</p>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm">Regenerate</Button>
+                      <Button variant="outline" size="sm">{t('settings.apiKeys.regenerate')}</Button>
                     </div>
-                    <Button>Create New API Key</Button>
+                    <Button>{t('settings.apiKeys.createNew')}</Button>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Webhooks</CardTitle>
+                    <CardTitle>{t('settings.webhooks.title')}</CardTitle>
                     <CardDescription>
-                      Configure webhooks to receive real-time updates
+                      {t('settings.webhooks.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="webhook-url">Webhook URL</Label>
+                      <Label htmlFor="webhook-url">{t('settings.webhooks.webhookUrl')}</Label>
                       <Input
                         id="webhook-url"
-                        placeholder="https://your-app.com/webhooks/aico"
+                        placeholder={t('settings.webhooks.webhookUrlPlaceholder')}
                       />
                     </div>
                     <div className="flex items-center space-x-2">
                       <Webhook className="w-4 h-4" />
-                      <span className="text-sm">Events: Recommendations, Metric Updates, Alerts</span>
+                      <span className="text-sm">{t('settings.webhooks.events')}</span>
                     </div>
-                    <Button>Save Webhook</Button>
+                    <Button>{t('settings.webhooks.saveWebhook')}</Button>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -449,9 +438,9 @@ export default function Settings() {
               <TabsContent value="billing" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Choose Your Plan</CardTitle>
+                    <CardTitle>{t('settings.chooseYourPlan.title')}</CardTitle>
                     <CardDescription>
-                      Select the plan that best fits your conversion optimization needs
+                      {t('settings.chooseYourPlan.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -468,13 +457,13 @@ export default function Settings() {
                           <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-lg">{plan.name}</h3>
                             {currentPlan === plan.name && (
-                              <Badge className="bg-blue-500">Current</Badge>
+                              <Badge className="bg-blue-500">{t('settings.chooseYourPlan.current')}</Badge>
                             )}
                           </div>
                           
                           <p className="text-3xl font-bold mb-4">
                             ${plan.price}
-                            <span className="text-sm font-normal text-muted-foreground">/month</span>
+                            <span className="text-sm font-normal text-muted-foreground">{t('settings.chooseYourPlan.month')}</span>
                           </p>
                           
                           <ul className="space-y-3 mb-6 flex-1">
@@ -493,11 +482,11 @@ export default function Settings() {
                             onClick={() => handlePlanChange(plan.name)}
                           >
                             {isChangingPlan && selectedPlan === plan.name ? (
-                              "Changing Plan..."
+                              t('settings.chooseYourPlan.changingPlan')
                             ) : currentPlan === plan.name ? (
-                              "Current Plan"
+                              t('settings.chooseYourPlan.currentPlan')
                             ) : (
-                              "Select Plan"
+                              t('settings.chooseYourPlan.selectPlan')
                             )}
                           </Button>
                         </div>
@@ -508,9 +497,9 @@ export default function Settings() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Billing History</CardTitle>
+                    <CardTitle>{t('settings.billingHistory.title')}</CardTitle>
                     <CardDescription>
-                      Download invoices and view payment history
+                      {t('settings.billingHistory.description')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -518,25 +507,25 @@ export default function Settings() {
                       <div className="flex items-center justify-between p-3 border rounded">
                         <div>
                           <p className="font-medium">Dec 2024 - {currentPlan} Plan</p>
-                          <p className="text-sm text-muted-foreground">Paid on Dec 1, 2024</p>
+                          <p className="text-sm text-muted-foreground">{t('settings.billingHistory.paidOn', { date: 'Dec 1, 2024' })}</p>
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className="font-medium">
                             ${plans.find(p => p.name === currentPlan)?.price}.00
                           </span>
-                          <Button variant="outline" size="sm">Download</Button>
+                          <Button variant="outline" size="sm">{t('settings.billingHistory.download')}</Button>
                         </div>
                       </div>
                       <div className="flex items-center justify-between p-3 border rounded">
                         <div>
                           <p className="font-medium">Nov 2024 - {currentPlan} Plan</p>
-                          <p className="text-sm text-muted-foreground">Paid on Nov 1, 2024</p>
+                          <p className="text-sm text-muted-foreground">{t('settings.billingHistory.paidOn', { date: 'Nov 1, 2024' })}</p>
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className="font-medium">
                             ${plans.find(p => p.name === currentPlan)?.price}.00
                           </span>
-                          <Button variant="outline" size="sm">Download</Button>
+                          <Button variant="outline" size="sm">{t('settings.billingHistory.download')}</Button>
                         </div>
                       </div>
                     </div>

@@ -68,6 +68,140 @@
     "legal": "Legal",
     "madeWithLove": "Made with ❤️ for better web experiences"
   },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account, integrations, and preferences",
+    "sites": "Sites",
+    "integrations": "Integrations",
+    "api": "API & Webhooks",
+    "billing": "Billing",
+    "managedSites": {
+      "title": "Managed Sites",
+      "description": "View and manage the websites AICO is monitoring for conversion optimization",
+      "name": "Name",
+      "url": "URL",
+      "status": "Status",
+      "conversionRate": "Conversion Rate",
+      "lastAnalyzed": "Last Analyzed",
+      "noSites": "No sites added yet. Add your first site below."
+    },
+    "addSite": {
+      "title": "Add New Site",
+      "description": "Add a website to monitor for conversion optimization opportunities",
+      "siteName": "Site Name",
+      "siteNamePlaceholder": "My E-commerce Store",
+      "siteNameRequired": "Site name is required",
+      "siteUrl": "Site URL",
+      "siteUrlPlaceholder": "https://example.com",
+      "siteUrlRequired": "Site URL is required",
+      "siteUrlInvalid": "Please enter a valid URL",
+      "addSite": "Add Site",
+      "siteAdded": "Site added",
+      "siteAddedDesc": "{{siteName}} was successfully added.",
+      "siteRemoved": "Site removed",
+      "siteRemovedDesc": "The site was successfully removed."
+    },
+    "dataIntegrations": {
+      "title": "Data Integrations",
+      "description": "Connect your analytics and e-commerce platforms to enable accurate conversion tracking",
+      "googleAnalytics": "Google Analytics 4",
+      "googleAnalyticsDesc": "Connect GA4 to track conversion metrics and user behavior",
+      "shopify": "Shopify",
+      "shopifyDesc": "Sync e-commerce data, orders, and revenue metrics",
+      "stripe": "Stripe",
+      "stripeDesc": "Track payment conversions and revenue attribution",
+      "connected": "connected",
+      "disconnected": "disconnected",
+      "configure": "Configure",
+      "connect": "Connect",
+      "lastSync": "Last sync: {{time}}",
+      "connectionTest": {
+        "title": "Connection Test",
+        "description": "Test your integrations to ensure data is flowing correctly",
+        "run": "Run Connection Test"
+      }
+    },
+    "emailNotifications": {
+      "title": "Email Notifications",
+      "description": "Configure when you want to receive email updates",
+      "weeklyReports": "Weekly CRO Reports",
+      "weeklyReportsDesc": "Summary of conversion improvements and recommendations",
+      "criticalIssues": "Critical Issues",
+      "criticalIssuesDesc": "Immediate alerts for significant conversion drops",
+      "newRecommendations": "New Recommendations",
+      "newRecommendationsDesc": "When AI identifies new optimization opportunities"
+    },
+    "pushNotifications": {
+      "title": "Push Notifications",
+      "description": "Real-time browser notifications for urgent updates",
+      "conversionAnomalies": "Conversion Anomalies",
+      "conversionAnomaliesDesc": "Unusual patterns in conversion data"
+    },
+    "apiKeys": {
+      "title": "API Keys",
+      "description": "Manage API keys for programmatic access to AICO",
+      "productionKey": "Production API Key",
+      "regenerate": "Regenerate",
+      "createNew": "Create New API Key"
+    },
+    "webhooks": {
+      "title": "Webhooks",
+      "description": "Configure webhooks to receive real-time updates",
+      "webhookUrl": "Webhook URL",
+      "webhookUrlPlaceholder": "https://your-app.com/webhooks/aico",
+      "events": "Events: Recommendations, Metric Updates, Alerts",
+      "saveWebhook": "Save Webhook"
+    },
+    "chooseYourPlan": {
+      "title": "Choose Your Plan",
+      "description": "Select the plan that best fits your conversion optimization needs",
+      "current": "Current",
+      "month": "/month",
+      "selectPlan": "Select Plan",
+      "currentPlan": "Current Plan",
+      "changingPlan": "Changing Plan...",
+      "planUpgraded": "Plan upgraded!",
+      "planUpgradedDesc": "Successfully upgraded to {{planName}} plan.",
+      "planDowngraded": "Plan downgraded",
+      "planDowngradedDesc": "Successfully changed to {{planName}} plan.",
+      "planChanged": "Plan changed",
+      "planChangedDesc": "Successfully changed to {{planName}} plan."
+    },
+    "billingHistory": {
+      "title": "Billing History",
+      "description": "Download invoices and view payment history",
+      "paidOn": "Paid on {{date}}",
+      "download": "Download"
+    }
+  },
+  "plans": {
+    "starter": {
+      "name": "Starter",
+      "features": [
+        "3 websites",
+        "Basic recommendations",
+        "Email support"
+      ]
+    },
+    "professional": {
+      "name": "Professional", 
+      "features": [
+        "10 websites",
+        "Advanced AI recommendations",
+        "Real-time metrics",
+        "Priority support"
+      ]
+    },
+    "agency": {
+      "name": "Agency",
+      "features": [
+        "Unlimited websites",
+        "White-label reports",
+        "Multi-client management",
+        "Dedicated support"
+      ]
+    }
+  },
   "pricing": {
     "title": "Simple, Transparent Pricing",
     "subtitle": "Choose the perfect plan for your business. No hidden fees.",
