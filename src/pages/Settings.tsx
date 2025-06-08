@@ -39,17 +39,40 @@ export default function Settings() {
     {
       name: t('settings:plans.starter.name'),
       price: 29,
-      features: t('settings:plans.starter.features', { returnObjects: true }) as string[]
+      features: [
+        "1 website analysis",
+        "Basic AI recommendations", 
+        "Weekly performance reports",
+        "Email support",
+        "Dashboard access"
+      ]
     },
     {
       name: t('settings:plans.professional.name'),
       price: 99,
-      features: t('settings:plans.professional.features', { returnObjects: true }) as string[]
+      features: [
+        "5 website analyses",
+        "Advanced AI recommendations",
+        "Real-time analytics", 
+        "A/B testing suggestions",
+        "Priority support",
+        "Custom reports",
+        "Integration support"
+      ]
     },
     {
       name: t('settings:plans.agency.name'),
       price: 299,
-      features: t('settings:plans.agency.features', { returnObjects: true }) as string[]
+      features: [
+        "Unlimited website analyses",
+        "White-label reports",
+        "Advanced competitor analysis",
+        "Custom AI model training", 
+        "24/7 dedicated support",
+        "API access",
+        "Multi-user collaboration",
+        "Custom integrations"
+      ]
     }
   ];
 
