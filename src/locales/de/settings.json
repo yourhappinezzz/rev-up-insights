@@ -1,0 +1,35 @@
+
+{
+  "title": "Einstellungen",
+  "subtitle": "Verwalten Sie Ihr Konto, Integrationen und Einstellungen",
+  "sites": "Websites",
+  "integrations": "Integrationen",
+  "api": "API & Webhooks",
+  "billing": "Abrechnung",
+  "managedSites": {
+    "title": "Verwaltete Websites",
+    "description": "Anzeigen und Verwalten der Websites, die AICO für Conversion-Optimierung überwacht",
+    "name": "Name",
+    "url": "URL",
+    "status": "Status",
+    "conversionRate": "Conversion-Rate",
+    "lastAnalyzed": "Zuletzt analysiert",
+    "noSites": "Noch keine Websites hinzugefügt. Fügen Sie Ihre erste Website unten hinzu."
+  },
+  "addSite": {
+    "title": "Neue Website hinzufügen",
+    "description": "Fügen Sie eine Website hinzu, um Conversion-Optimierungsmöglichkeiten zu überwachen",
+    "siteName": "Website-Name",
+    "siteNamePlaceholder": "Mein E-Commerce-Shop",
+    "siteNameRequired": "Website-Name ist erforderlich",
+    "siteUrl": "Website-URL",
+    "siteUrlPlaceholder": "https://beispiel.com",
+    "siteUrlRequired": "Website-URL ist erforderlich",
+    "siteUrlInvalid": "Bitte geben Sie eine gültige URL ein",
+    "addSite": "Website hinzufügen",
+    "siteAdded": "Website hinzugefügt",
+    "siteAddedDesc": "{{siteName}} wurde erfolgreich hinzugefügt.",
+    "siteRemoved": "Website entfernt",
+    "siteRemovedDesc": "Die Website wurde erfolgreich entfernt."
+  }
+}

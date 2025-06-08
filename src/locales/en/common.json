@@ -1,0 +1,26 @@
+
+{
+  "getStarted": "Get Started",
+  "learnMore": "Learn More",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signOut": "Sign Out",
+  "pricing": "Pricing",
+  "about": "About",
+  "contact": "Contact",
+  "dashboard": "Dashboard",
+  "settings": "Settings",
+  "profile": "Profile",
+  "analysis": "Analysis",
+  "competitorAnalysis": "Competitor Analysis",
+  "startFreeTrial": "Start Free Trial",
+  "viewPricing": "View Pricing",
+  "termsOfService": "Terms of Service",
+  "privacyPolicy": "Privacy Policy",
+  "allRightsReserved": "All rights reserved",
+  "notifications": "Notifications",
+  "viewAllNotifications": "View all notifications",
+  "search": "Search",
+  "searchPlaceholder": "Search websites, recommendations...",
+  "language": "Language"
+}

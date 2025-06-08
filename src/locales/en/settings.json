@@ -1,0 +1,35 @@
+
+{
+  "title": "Settings",
+  "subtitle": "Manage your account, integrations, and preferences",
+  "sites": "Sites",
+  "integrations": "Integrations",
+  "api": "API & Webhooks",
+  "billing": "Billing",
+  "managedSites": {
+    "title": "Managed Sites",
+    "description": "View and manage the websites AICO is monitoring for conversion optimization",
+    "name": "Name",
+    "url": "URL",
+    "status": "Status",
+    "conversionRate": "Conversion Rate",
+    "lastAnalyzed": "Last Analyzed",
+    "noSites": "No sites added yet. Add your first site below."
+  },
+  "addSite": {
+    "title": "Add New Site",
+    "description": "Add a website to monitor for conversion optimization opportunities",
+    "siteName": "Site Name",
+    "siteNamePlaceholder": "My E-commerce Store",
+    "siteNameRequired": "Site name is required",
+    "siteUrl": "Site URL",
+    "siteUrlPlaceholder": "https://example.com",
+    "siteUrlRequired": "Site URL is required",
+    "siteUrlInvalid": "Please enter a valid URL",
+    "addSite": "Add Site",
+    "siteAdded": "Site added",
+    "siteAddedDesc": "{{siteName}} was successfully added.",
+    "siteRemoved": "Site removed",
+    "siteRemovedDesc": "The site was successfully removed."
+  }
+}
