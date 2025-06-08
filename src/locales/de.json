@@ -1,0 +1,196 @@
+
+{
+  "common": {
+    "getStarted": "Loslegen",
+    "learnMore": "Mehr erfahren",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "pricing": "Preise",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "analysis": "Analyse",
+    "competitorAnalysis": "Konkurrenzanalyse",
+    "startFreeTrial": "Kostenlose Testversion starten",
+    "viewPricing": "Preise ansehen",
+    "termsOfService": "Nutzungsbedingungen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "allRightsReserved": "Alle Rechte vorbehalten",
+    "notifications": "Benachrichtigungen",
+    "viewAllNotifications": "Alle Benachrichtigungen anzeigen",
+    "search": "Suchen",
+    "searchPlaceholder": "Websites, Empfehlungen suchen...",
+    "language": "Sprache"
+  },
+  "hero": {
+    "title": "Optimieren Sie die Conversion-Rate Ihrer Website mit KI",
+    "subtitle": "Analysieren Sie jede Website, erhalten Sie KI-gestützte Empfehlungen und sehen Sie den Umsatzeinfluss in Echtzeit in einem schönen Dashboard. Verwandeln Sie Besucher mühelos in Kunden.",
+    "ctaMain": "Kostenlose Testversion starten",
+    "ctaSecondary": "Preise ansehen"
+  },
+  "features": {
+    "title": "Leistungsstarke Funktionen",
+    "subtitle": "Alles was Sie brauchen, um die Leistung Ihrer Website zu optimieren und den Umsatz zu maximieren.",
+    "realTimeAnalytics": "Echtzeit-Analytik",
+    "realTimeAnalyticsDesc": "Überwachen Sie die Leistung Ihrer Website mit Live-Daten und Erkenntnissen.",
+    "revenueOptimization": "Umsatzoptimierung",
+    "revenueOptimizationDesc": "KI-gestützte Empfehlungen zur Steigerung Ihrer Conversion-Raten.",
+    "smartTargeting": "Intelligente Zielgruppenansprache",
+    "smartTargetingDesc": "Identifizieren und konzentrieren Sie sich auf Ihre wertvollsten Besucher."
+  },
+  "testimonials": {
+    "title": "Was unsere Kunden sagen",
+    "subtitle": "Schließen Sie sich Tausenden zufriedener Kunden an, die ihr Geschäft mit AICO transformiert haben."
+  },
+  "benefits": {
+    "title": "Warum AICO wählen?",
+    "increaseConversions": "Conversion-Raten um bis zu 40% steigern",
+    "realTimeMonitoring": "Echtzeit-Leistungsüberwachung",
+    "aiOptimization": "KI-gestützte Optimierungsvorschläge",
+    "easyIntegration": "Einfache Integration in bestehende Websites",
+    "comprehensiveAnalytics": "Umfassendes Analyse-Dashboard",
+    "getStartedToday": "Heute loslegen",
+    "averageIncrease": "Durchschnittlicher Anstieg der Conversions",
+    "revenueGenerated": "Generierter Umsatz",
+    "websitesOptimized": "Optimierte Websites"
+  },
+  "cta": {
+    "title": "Bereit, Ihre Website zu optimieren?",
+    "subtitle": "Schließen Sie sich Tausenden von Unternehmen an, die bereits AICO nutzen, um ihre Conversion-Raten zu steigern."
+  },
+  "footer": {
+    "description": "KI-gestützte Website-Optimierung für bessere Conversions und Benutzererfahrung.",
+    "product": "Produkt",
+    "company": "Unternehmen",
+    "legal": "Rechtliches",
+    "madeWithLove": "Mit ❤️ für bessere Web-Erfahrungen gemacht"
+  },
+  "pricing": {
+    "title": "Einfache, transparente Preise",
+    "subtitle": "Wählen Sie den perfekten Plan für Ihr Unternehmen. Keine versteckten Gebühren.",
+    "monthly": "Monatlich",
+    "annually": "Jährlich",
+    "save20": "20% sparen",
+    "starter": {
+      "name": "Starter",
+      "description": "Perfekt für kleine Websites und Einzelpersonen",
+      "features": [
+        "Bis zu 3 Website-Analysen",
+        "Grundlegende KI-Empfehlungen",
+        "E-Mail-Support",
+        "Monatliche Berichte",
+        "Standard-Integrationen"
+      ],
+      "buttonText": "Kostenlos testen"
+    },
+    "professional": {
+      "name": "Professional",
+      "description": "Ideal für wachsende Unternehmen und Marketing-Teams",
+      "features": [
+        "Unbegrenzte Website-Analysen",
+        "Erweiterte KI-Empfehlungen",
+        "Prioritäts-Support",
+        "Wöchentliche Berichte",
+        "Erweiterte Integrationen",
+        "A/B-Testing-Tools",
+        "Benutzerdefinierte Dashboards"
+      ],
+      "buttonText": "Kostenlos testen"
+    },
+    "agency": {
+      "name": "Agency",
+      "description": "Für Agenturen und Unternehmen mit mehreren Websites",
+      "features": [
+        "Alles in Professional",
+        "White-Label-Berichte",
+        "Dedicated Account Manager",
+        "Benutzerdefinierte KI-Modelle",
+        "API-Zugang",
+        "Multi-Benutzer-Teams",
+        "24/7 Telefon-Support"
+      ],
+      "buttonText": "Vertrieb kontaktieren"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "changePlans": "Kann ich jederzeit den Tarif wechseln?",
+      "changePlansAnswer": "Ja, Sie können jederzeit upgraden oder downgraden. Änderungen werden sofort wirksam und wir verrechnen alle Gebühren oder Guthaben anteilig.",
+      "afterTrial": "Was passiert nach meiner kostenlosen Testversion?",
+      "afterTrialAnswer": "Nach Ihrer 14-tägigen kostenlosen Testversion werden Sie automatisch in den von Ihnen gewählten Tarif eingeschrieben. Sie können jederzeit während der Testphase kündigen, ohne dass Ihnen Kosten entstehen.",
+      "enterprise": "Bieten Sie maßgeschneiderte Unternehmenslösungen an?",
+      "enterpriseAnswer": "Ja, wir bieten maßgeschneiderte Unternehmenslösungen mit dediziertem Support, benutzerdefinierten Integrationen und maßgeschneiderten KI-Modellen. Kontaktieren Sie unser Vertriebsteam, um Ihre spezifischen Bedürfnisse zu besprechen."
+    }
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert: Dezember 2024",
+    "acceptance": {
+      "title": "1. Annahme der Bedingungen",
+      "content": "Durch den Zugriff auf und die Nutzung der Dienste von AICO akzeptieren Sie die Bedingungen und Bestimmungen dieser Vereinbarung und erklären sich damit einverstanden, daran gebunden zu sein. Wenn Sie den oben genannten Bestimmungen nicht zustimmen, verwenden Sie diesen Dienst bitte nicht."
+    },
+    "description": {
+      "title": "2. Beschreibung des Dienstes",
+      "content": "AICO bietet KI-gestützte Website-Optimierung und Conversion-Rate-Optimierungsdienste. Wir analysieren Ihre Website und geben Empfehlungen zur Verbesserung der Leistung, Benutzererfahrung und Conversion-Raten."
+    },
+    "userAccounts": {
+      "title": "3. Benutzerkonten",
+      "items": [
+        "Sie müssen genaue und vollständige Registrierungsinformationen angeben",
+        "Sie sind verantwortlich für die Sicherheit Ihres Kontos",
+        "Sie müssen uns unverzüglich über jede unbefugte Nutzung Ihres Kontos informieren",
+        "Eine Person oder juristische Person darf nicht mehr als ein kostenloses Konto führen"
+      ]
+    },
+    "acceptableUse": {
+      "title": "4. Akzeptable Nutzung",
+      "intro": "Sie verpflichten sich, den Dienst nicht zu nutzen:",
+      "items": [
+        "Für rechtswidrige Zwecke oder um andere zu rechtswidrigen Handlungen zu verleiten",
+        "Um internationale, bundesstaatliche, provinzielle oder staatliche Vorschriften, Regeln, Gesetze oder örtliche Verordnungen zu verletzen",
+        "Um unsere geistigen Eigentumsrechte oder die geistigen Eigentumsrechte anderer zu verletzen oder zu verletzen",
+        "Um zu belästigen, zu missbrauchen, zu beleidigen, zu schädigen, zu verleumden, zu verleumden, zu verunglimpfen, einzuschüchtern oder zu diskriminieren",
+        "Um falsche oder irreführende Informationen zu übermitteln"
+      ]
+    },
+    "payment": {
+      "title": "5. Zahlungsbedingungen",
+      "items": [
+        "Kostenpflichtige Pläne werden im Voraus monatlich oder jährlich abgerechnet",
+        "Alle Zahlungen sind nicht erstattungsfähig, außer wie gesetzlich vorgeschrieben",
+        "Wir behalten uns das Recht vor, unsere Preise jederzeit zu ändern",
+        "Preisänderungen wirken sich erst bei der Verlängerung auf bestehende Abonnements aus"
+      ]
+    },
+    "dataPrivacy": {
+      "title": "6. Daten und Datenschutz",
+      "content": "Ihre Privatsphäre ist uns wichtig. Bitte lesen Sie unsere Datenschutzrichtlinie, die auch Ihre Nutzung des Dienstes regelt, um unsere Praktiken zu verstehen."
+    },
+    "limitation": {
+      "title": "7. Haftungsbeschränkung",
+      "content": "AICO haftet nicht für indirekte, zufällige, besondere, Folge- oder Strafschäden, einschließlich, aber nicht beschränkt auf Verlust von Gewinnen, Daten, Nutzung, Goodwill oder anderen immateriellen Verlusten."
+    },
+    "termination": {
+      "title": "8. Kündigung",
+      "content": "Wir können Ihr Konto kündigen oder sperren und den Zugang zum Dienst sofort, ohne vorherige Ankündigung oder Haftung, nach unserem alleinigen Ermessen, aus beliebigen Gründen und ohne Einschränkung, einschließlich, aber nicht beschränkt auf einen Verstoß gegen die Bedingungen, sperren."
+    },
+    "contact": {
+      "title": "9. Kontaktinformationen",
+      "content": "Wenn Sie Fragen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns bitte unter",
+      "email": "legal@aico.com"
+    }
+  },
+  "notifications": {
+    "newRecommendation": "Neue Empfehlung verfügbar",
+    "newRecommendationDesc": "Website-Optimierungsvorschläge für Ihre Homepage",
+    "analysisCompleted": "Analyse abgeschlossen",
+    "analysisCompletedDesc": "Ihre Website-Analyse wurde verarbeitet",
+    "weeklyReport": "Wochenbericht bereit",
+    "weeklyReportDesc": "Ihr wöchentlicher Leistungsbericht ist verfügbar",
+    "unreadNotifications": "Sie haben {{count}} ungelesene Benachrichtigungen",
+    "minutesAgo": "vor {{count}} Minuten",
+    "hoursAgo": "vor {{count}} Stunden"
+  }
+}

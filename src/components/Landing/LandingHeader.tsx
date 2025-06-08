@@ -2,8 +2,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function LandingHeader() {
+  const { t } = useTranslation();
+
   return (
     <header className="container mx-auto px-4 py-6">
       <nav className="flex items-center justify-between">
@@ -17,19 +21,20 @@ export default function LandingHeader() {
         </div>
         <div className="flex items-center space-x-4">
           <Link to="/about">
-            <Button variant="ghost">About</Button>
+            <Button variant="ghost">{t('common.about')}</Button>
           </Link>
           <Link to="/pricing">
-            <Button variant="ghost">Pricing</Button>
+            <Button variant="ghost">{t('common.pricing')}</Button>
           </Link>
           <Link to="/contact">
-            <Button variant="ghost">Contact</Button>
+            <Button variant="ghost">{t('common.contact')}</Button>
           </Link>
+          <LanguageSwitcher />
           <Link to="/login">
-            <Button variant="ghost">Sign In</Button>
+            <Button variant="ghost">{t('common.signIn')}</Button>
           </Link>
           <Link to="/signup">
-            <Button>Get Started</Button>
+            <Button>{t('common.getStarted')}</Button>
           </Link>
         </div>
       </nav>
