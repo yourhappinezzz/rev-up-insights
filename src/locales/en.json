@@ -1,0 +1,196 @@
+
+{
+  "common": {
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "profile": "Profile",
+    "analysis": "Analysis",
+    "competitorAnalysis": "Competitor Analysis",
+    "startFreeTrial": "Start Free Trial",
+    "viewPricing": "View Pricing",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "allRightsReserved": "All rights reserved",
+    "notifications": "Notifications",
+    "viewAllNotifications": "View all notifications",
+    "search": "Search",
+    "searchPlaceholder": "Search websites, recommendations...",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Optimize Your Website's Conversion Rate with AI",
+    "subtitle": "Analyze any website, get AI-powered recommendations, and see revenue impact in real-time in a beautiful dashboard. Transform visitors into customers effortlessly.",
+    "ctaMain": "Start Free Trial",
+    "ctaSecondary": "View Pricing"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "subtitle": "Everything you need to optimize your website's performance and maximize revenue.",
+    "realTimeAnalytics": "Real-time Analytics",
+    "realTimeAnalyticsDesc": "Monitor your website's performance with live data and insights.",
+    "revenueOptimization": "Revenue Optimization",
+    "revenueOptimizationDesc": "AI-powered recommendations to boost your conversion rates.",
+    "smartTargeting": "Smart Targeting",
+    "smartTargetingDesc": "Identify and focus on your most valuable visitors."
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "subtitle": "Join thousands of satisfied customers who have transformed their business with AICO."
+  },
+  "benefits": {
+    "title": "Why Choose AICO?",
+    "increaseConversions": "Increase conversion rates by up to 40%",
+    "realTimeMonitoring": "Real-time performance monitoring",
+    "aiOptimization": "AI-powered optimization suggestions",
+    "easyIntegration": "Easy integration with existing websites",
+    "comprehensiveAnalytics": "Comprehensive analytics dashboard",
+    "getStartedToday": "Get Started Today",
+    "averageIncrease": "Average increase in conversions",
+    "revenueGenerated": "Revenue generated",
+    "websitesOptimized": "Websites optimized"
+  },
+  "cta": {
+    "title": "Ready to Optimize Your Website?",
+    "subtitle": "Join thousands of businesses already using AICO to boost their conversion rates."
+  },
+  "footer": {
+    "description": "AI-powered website optimization for better conversions and user experience.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "madeWithLove": "Made with ❤️ for better web experiences"
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the perfect plan for your business. No hidden fees.",
+    "monthly": "Monthly",
+    "annually": "Annually",
+    "save20": "Save 20%",
+    "starter": {
+      "name": "Starter",
+      "description": "Perfect for small websites and individuals",
+      "features": [
+        "Up to 3 website analyses",
+        "Basic AI recommendations",
+        "Email support",
+        "Monthly reports",
+        "Standard integrations"
+      ],
+      "buttonText": "Start Free Trial"
+    },
+    "professional": {
+      "name": "Professional",
+      "description": "Ideal for growing businesses and marketing teams",
+      "features": [
+        "Unlimited website analyses",
+        "Advanced AI recommendations",
+        "Priority support",
+        "Weekly reports",
+        "Advanced integrations",
+        "A/B testing tools",
+        "Custom dashboards"
+      ],
+      "buttonText": "Start Free Trial"
+    },
+    "agency": {
+      "name": "Agency",
+      "description": "For agencies and enterprises with multiple websites",
+      "features": [
+        "Everything in Professional",
+        "White-label reports",
+        "Dedicated account manager",
+        "Custom AI models",
+        "API access",
+        "Multi-user teams",
+        "24/7 phone support"
+      ],
+      "buttonText": "Contact Sales"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "changePlans": "Can I change plans at any time?",
+      "changePlansAnswer": "Yes, you can upgrade or downgrade at any time. Changes take effect immediately and we'll prorate any charges or credits.",
+      "afterTrial": "What happens after my free trial?",
+      "afterTrialAnswer": "After your 14-day free trial, you'll automatically be enrolled in the plan you selected. You can cancel anytime during the trial period without any charges.",
+      "enterprise": "Do you offer custom enterprise solutions?",
+      "enterpriseAnswer": "Yes, we offer custom enterprise solutions with dedicated support, custom integrations, and tailored AI models. Contact our sales team to discuss your specific needs."
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: December 2024",
+    "acceptance": {
+      "title": "1. Acceptance of Terms",
+      "content": "By accessing and using AICO's services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service."
+    },
+    "description": {
+      "title": "2. Description of Service",
+      "content": "AICO provides AI-powered website optimization and conversion rate optimization services. We analyze your website and provide recommendations to improve performance, user experience, and conversion rates."
+    },
+    "userAccounts": {
+      "title": "3. User Accounts",
+      "items": [
+        "You must provide accurate and complete registration information",
+        "You are responsible for the security of your account",
+        "You must notify us immediately of any unauthorized use of your account",
+        "One person or legal entity may not maintain more than one free account"
+      ]
+    },
+    "acceptableUse": {
+      "title": "4. Acceptable Use",
+      "intro": "You agree not to use the service:",
+      "items": [
+        "For any unlawful purposes or to solicit others to unlawful acts",
+        "To violate any international, federal, provincial or state regulations, rules, laws, or local ordinances",
+        "To infringe upon or violate our intellectual property rights or the intellectual property rights of others",
+        "To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate",
+        "To submit false or misleading information"
+      ]
+    },
+    "payment": {
+      "title": "5. Payment Terms",
+      "items": [
+        "Paid plans are billed in advance on a monthly or annual basis",
+        "All payments are non-refundable except as required by law",
+        "We reserve the right to change our prices at any time",
+        "Price changes will only affect existing subscriptions upon renewal"
+      ]
+    },
+    "dataPrivacy": {
+      "title": "6. Data and Privacy",
+      "content": "Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the Service, to understand our practices."
+    },
+    "limitation": {
+      "title": "7. Limitation of Liability",
+      "content": "AICO shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses."
+    },
+    "termination": {
+      "title": "8. Termination",
+      "content": "We may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms."
+    },
+    "contact": {
+      "title": "9. Contact Information",
+      "content": "If you have any questions about these Terms of Service, please contact us at",
+      "email": "legal@aico.com"
+    }
+  },
+  "notifications": {
+    "newRecommendation": "New recommendation available",
+    "newRecommendationDesc": "Website optimization suggestions for your homepage",
+    "analysisCompleted": "Analysis completed",
+    "analysisCompletedDesc": "Your website analysis has been processed",
+    "weeklyReport": "Weekly report ready",
+    "weeklyReportDesc": "Your weekly performance report is available",
+    "unreadNotifications": "You have {{count}} unread notifications",
+    "minutesAgo": "{{count}} minutes ago",
+    "hoursAgo": "{{count}} hours ago"
+  }
+}
