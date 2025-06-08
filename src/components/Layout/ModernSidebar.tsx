@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -122,22 +123,22 @@ export function ModernSidebar() {
                 return (
                   <SidebarMenuItem key={item.name}>
                     <SidebarMenuButton asChild className={cn(
-                      "group relative h-11 rounded-lg transition-all duration-200",
+                      "group relative h-12 rounded-lg transition-all duration-200",
                       isActive ? 
                         "bg-primary/10 text-primary border border-primary/20 shadow-sm" : 
                         "hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                     )}>
-                      <Link to={item.href} className="flex items-center space-x-3 px-3">
+                      <Link to={item.href} className="flex items-center space-x-3 px-3 py-2">
                         <item.icon className={cn(
-                          "w-5 h-5 transition-colors",
+                          "w-5 h-5 transition-colors flex-shrink-0",
                           isActive ? "text-primary" : "text-muted-foreground group-hover:text-sidebar-accent-foreground"
                         )} />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium text-sm">{item.name}</div>
-                          <div className="text-xs text-muted-foreground/70">{item.description}</div>
+                        <div className="flex-1 min-w-0 text-left">
+                          <div className="font-medium text-sm leading-tight">{item.name}</div>
+                          <div className="text-xs text-muted-foreground/70 leading-tight">{item.description}</div>
                         </div>
                         {isActive && (
-                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse flex-shrink-0" />
                         )}
                       </Link>
                     </SidebarMenuButton>
