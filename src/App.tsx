@@ -5,7 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { ModernSidebar } from "@/components/Layout/ModernSidebar";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
@@ -38,15 +39,71 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/analysis/:siteId?" element={<Analysis />} />
-            <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/notifications" element={<Notifications />} />
             <Route path="*" element={<NotFound />} />
+            
+            {/* Dashboard routes with sidebar */}
+            <Route path="/dashboard" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <Dashboard />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
+            <Route path="/analysis/:siteId?" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <Analysis />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
+            <Route path="/competitor-analysis" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <CompetitorAnalysis />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
+            <Route path="/settings" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <Settings />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
+            <Route path="/profile" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <Profile />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
+            <Route path="/notifications" element={
+              <SidebarProvider>
+                <div className="min-h-screen flex w-full">
+                  <ModernSidebar />
+                  <SidebarInset>
+                    <Notifications />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            } />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
