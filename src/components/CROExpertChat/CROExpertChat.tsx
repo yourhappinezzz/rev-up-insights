@@ -184,25 +184,27 @@ export function CROExpertChat({ isOpen, onClose }: CROExpertChatProps) {
             </div>
           </ScrollArea>
 
-          <div className="p-4 border-t">
-            <div className="flex gap-2">
+          <div className="p-4 border-t bg-muted/20">
+            <div className="flex gap-3">
               <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about conversion optimization, A/B testing, user experience..."
-                className="flex-1 min-h-[60px] resize-none"
+                className="flex-1 min-h-[60px] max-h-[120px] resize-none bg-background/50 border-border/50 focus:bg-background focus:border-primary/50 transition-all duration-200"
                 disabled={isLoading}
               />
               <Button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                className="self-end"
+                className="self-end px-4 py-3 h-auto"
+                size="sm"
               >
                 <Send className="w-4 h-4" />
+                <span className="sr-only">Send message</span>
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className="text-xs text-muted-foreground/70 mt-2 px-1">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>
