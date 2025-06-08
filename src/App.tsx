@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { ModernSidebar } from "@/components/Layout/ModernSidebar";
+import { Header } from "@/components/Layout/Header";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
@@ -31,6 +32,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
     <div className="min-h-screen flex w-full">
       <ModernSidebar />
       <SidebarInset>
+        <Header />
         {children}
       </SidebarInset>
     </div>
