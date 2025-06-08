@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useTranslation } from "react-i18next";
 import { Search, Zap } from "lucide-react";
 
 interface AnalysisProgressProps {
@@ -16,6 +17,8 @@ export function AnalysisProgress({
   onRunAnalysis, 
   canAnalyze 
 }: AnalysisProgressProps) {
+  const { t } = useTranslation();
+
   const handleRunAnalysis = () => {
     console.log("Button clicked - canAnalyze:", canAnalyze, "isAnalyzing:", isAnalyzing);
     if (!isAnalyzing && canAnalyze) {
@@ -28,6 +31,13 @@ export function AnalysisProgress({
 
   console.log("AnalysisProgress rendered - canAnalyze:", canAnalyze, "isAnalyzing:", isAnalyzing);
 
+  const getProgressText = () => {
+    if (analysisProgress < 30) return t('competitorAnalysis.crawlingWebsites');
+    if (analysisProgress < 60) return t('competitorAnalysis.analyzingMetrics');
+    if (analysisProgress < 90) return t('competitorAnalysis.comparingElements');
+    return t('competitorAnalysis.generatingInsights');
+  };
+
   return (
     <div className="space-y-4">
       <Button 
@@ -38,12 +48,12 @@ export function AnalysisProgress({
         {isAnalyzing ? (
           <>
             <Zap className="w-4 h-4 mr-2 animate-spin" />
-            Analyzing...
+            {t('analysis.analyzing')}
           </>
         ) : (
           <>
             <Search className="w-4 h-4 mr-2" />
-            Run Competitive Analysis
+            {t('competitorAnalysis.runCompetitiveAnalysis')}
           </>
         )}
       </Button>
@@ -52,10 +62,7 @@ export function AnalysisProgress({
         <div className="space-y-2">
           <Progress value={analysisProgress} className="h-2" />
           <p className="text-sm text-muted-foreground">
-            {analysisProgress < 30 && "Crawling websites..."}
-            {analysisProgress >= 30 && analysisProgress < 60 && "Analyzing performance metrics..."}
-            {analysisProgress >= 60 && analysisProgress < 90 && "Comparing conversion elements..."}
-            {analysisProgress >= 90 && "Generating insights..."}
+            {getProgressText()}
           </p>
         </div>
       )}

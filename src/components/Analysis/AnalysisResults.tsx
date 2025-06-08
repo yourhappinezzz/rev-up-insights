@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Share2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 import { ComparisonChart } from "./ComparisonChart";
 import { MetricsTable } from "./MetricsTable";
@@ -35,6 +36,7 @@ interface AnalysisResultsProps {
 }
 
 export function AnalysisResults({ analysisData, onExportReport }: AnalysisResultsProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
 
   const handleShare = async () => {
@@ -45,15 +47,15 @@ export function AnalysisResults({ analysisData, onExportReport }: AnalysisResult
       await navigator.clipboard.writeText(shareUrl);
       
       toast({
-        title: "Link Copied",
-        description: "Analysis link has been copied to your clipboard",
+        title: t('competitorAnalysis.linkCopied'),
+        description: t('competitorAnalysis.linkCopiedDesc'),
       });
     } catch (error) {
       console.error("Failed to copy to clipboard:", error);
       
       toast({
-        title: "Share Failed",
-        description: "Unable to copy link. Please share the URL manually.",
+        title: t('competitorAnalysis.shareFailed'),
+        description: t('competitorAnalysis.shareFailedDesc'),
         variant: "destructive",
       });
     }
@@ -63,18 +65,18 @@ export function AnalysisResults({ analysisData, onExportReport }: AnalysisResult
     <Tabs defaultValue="comparison" className="w-full">
       <div className="flex items-center justify-between mb-4">
         <TabsList className="grid w-full max-w-md grid-cols-3">
-          <TabsTrigger value="comparison">Comparison</TabsTrigger>
-          <TabsTrigger value="gaps">Gap Analysis</TabsTrigger>
-          <TabsTrigger value="insights">Insights</TabsTrigger>
+          <TabsTrigger value="comparison">{t('competitorAnalysis.comparison')}</TabsTrigger>
+          <TabsTrigger value="gaps">{t('competitorAnalysis.gaps')}</TabsTrigger>
+          <TabsTrigger value="insights">{t('competitorAnalysis.insights')}</TabsTrigger>
         </TabsList>
         <div className="flex space-x-2">
           <Button variant="outline" size="sm" onClick={onExportReport}>
             <Download className="w-4 h-4 mr-2" />
-            Export Report
+            {t('competitorAnalysis.exportReport')}
           </Button>
           <Button variant="outline" size="sm" onClick={handleShare}>
             <Share2 className="w-4 h-4 mr-2" />
-            Share
+            {t('competitorAnalysis.share')}
           </Button>
         </div>
       </div>

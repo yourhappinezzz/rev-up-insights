@@ -1,5 +1,7 @@
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +35,7 @@ import {
 
 export default function Analysis() {
   const { siteId } = useParams();
+  const { t } = useTranslation();
   const [url, setUrl] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
@@ -49,9 +52,9 @@ export default function Analysis() {
   ];
 
   const deviceData = [
-    { name: 'Desktop', value: 45, color: '#3b82f6' },
-    { name: 'Mobile', value: 35, color: '#10b981' },
-    { name: 'Tablet', value: 20, color: '#f59e0b' },
+    { name: t('analysis.desktop'), value: 45, color: '#3b82f6' },
+    { name: t('analysis.mobile'), value: 35, color: '#10b981' },
+    { name: t('analysis.tablet'), value: 20, color: '#f59e0b' },
   ];
 
   const revenueData = [
@@ -153,8 +156,8 @@ export default function Analysis() {
   const handleAnalyze = async () => {
     if (!url.trim()) {
       toast({
-        title: "URL Required",
-        description: "Please enter a valid URL to analyze.",
+        title: t('analysis.urlRequired'),
+        description: t('analysis.urlRequiredDesc'),
         variant: "destructive",
       });
       return;
@@ -165,8 +168,8 @@ export default function Analysis() {
       new URL(url.startsWith('http') ? url : `https://${url}`);
     } catch {
       toast({
-        title: "Invalid URL",
-        description: "Please enter a valid URL (e.g., https://example.com).",
+        title: t('analysis.invalidUrl'),
+        description: t('analysis.invalidUrlDesc'),
         variant: "destructive",
       });
       return;
@@ -178,8 +181,8 @@ export default function Analysis() {
     setTimeout(() => {
       setIsAnalyzing(false);
       toast({
-        title: "Analysis Complete",
-        description: `Successfully analyzed ${url}`,
+        title: t('analysis.analysisComplete'),
+        description: t('analysis.analysisCompleteDesc', { url }),
       });
     }, 3000);
   };
@@ -195,8 +198,8 @@ export default function Analysis() {
     );
     
     toast({
-      title: "Recommendation Completed",
-      description: "Marked recommendation as implemented.",
+      title: t('analysis.recommendationCompleted'),
+      description: t('analysis.recommendationCompletedDesc'),
     });
   };
 
@@ -240,14 +243,14 @@ export default function Analysis() {
       generatePdfReport(analysisData, 'analysis');
       
       toast({
-        title: "PDF Report Downloaded",
-        description: "Comprehensive website analysis report saved as PDF",
+        title: t('analysis.pdfReportDownloaded'),
+        description: t('analysis.pdfReportDownloadedDesc'),
       });
     } catch (error) {
       console.error("Failed to generate PDF report:", error);
       toast({
-        title: "Export Failed",
-        description: "Unable to generate PDF report. Please try again.",
+        title: t('analysis.exportFailed'),
+        description: t('analysis.exportFailedDesc'),
         variant: "destructive",
       });
     }
@@ -263,14 +266,14 @@ export default function Analysis() {
             {/* Header with Export Button */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Website Analysis</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{t('analysis.title')}</h1>
                 <p className="text-muted-foreground">
-                  AI-powered conversion rate optimization analysis and recommendations
+                  {t('analysis.subtitle')}
                 </p>
               </div>
               <Button onClick={exportAnalysisReport} className="flex items-center space-x-2">
                 <Download className="w-4 h-4" />
-                <span>Export PDF Report</span>
+                <span>{t('analysis.exportPdfReport')}</span>
               </Button>
             </div>
 
@@ -279,10 +282,10 @@ export default function Analysis() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Search className="w-5 h-5" />
-                  <span>Website Analysis</span>
+                  <span>{t('analysis.websiteAnalysis')}</span>
                 </CardTitle>
                 <CardDescription>
-                  Enter a URL to get AI-powered CRO recommendations
+                  {t('analysis.websiteAnalysisDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -299,12 +302,12 @@ export default function Analysis() {
                     {isAnalyzing ? (
                       <>
                         <Zap className="w-4 h-4 mr-2 animate-spin" />
-                        Analyzing...
+                        {t('analysis.analyzing')}
                       </>
                     ) : (
                       <>
                         <Globe className="w-4 h-4 mr-2" />
-                        Analyze
+                        {t('analysis.analyze')}
                       </>
                     )}
                   </Button>
@@ -313,7 +316,7 @@ export default function Analysis() {
                   <div className="mt-4 space-y-2">
                     <Progress value={33} className="h-2" />
                     <p className="text-sm text-muted-foreground">
-                      Crawling website and analyzing conversion potential...
+                      {t('analysis.crawlingWebsite')}
                     </p>
                   </div>
                 )}
@@ -328,7 +331,7 @@ export default function Analysis() {
                     <CardTitle>{siteData.name}</CardTitle>
                     <CardDescription>{siteData.url}</CardDescription>
                   </div>
-                  <Badge variant="outline">Last analyzed: {siteData.lastAnalyzed}</Badge>
+                  <Badge variant="outline">{t('analysis.lastAnalyzed', { time: siteData.lastAnalyzed })}</Badge>
                 </div>
               </CardHeader>
               <CardContent>
@@ -337,29 +340,29 @@ export default function Analysis() {
                     <div className="text-center p-4 border rounded-lg">
                       <div className="text-3xl font-bold mb-2">{siteData.score}</div>
                       <Progress value={siteData.score} className="h-2 mb-2" />
-                      <p className="text-sm text-muted-foreground">CRO Score</p>
+                      <p className="text-sm text-muted-foreground">{t('analysis.croScore')}</p>
                     </div>
                   </div>
                   <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="text-center p-4 border rounded-lg">
                       <MousePointer className="w-6 h-6 mx-auto mb-2 text-blue-500" />
                       <div className="text-lg font-semibold">{siteData.metrics.conversionRate}%</div>
-                      <p className="text-sm text-muted-foreground">Conversion Rate</p>
+                      <p className="text-sm text-muted-foreground">{t('analysis.conversionRate')}</p>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
                       <TrendingUp className="w-6 h-6 mx-auto mb-2 text-green-500" />
                       <div className="text-lg font-semibold">{siteData.metrics.bounceRate}%</div>
-                      <p className="text-sm text-muted-foreground">Bounce Rate</p>
+                      <p className="text-sm text-muted-foreground">{t('analysis.bounceRate')}</p>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
                       <Clock className="w-6 h-6 mx-auto mb-2 text-purple-500" />
                       <div className="text-lg font-semibold">{siteData.metrics.avgSessionDuration}</div>
-                      <p className="text-sm text-muted-foreground">Avg. Session</p>
+                      <p className="text-sm text-muted-foreground">{t('analysis.avgSession')}</p>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
                       <Users className="w-6 h-6 mx-auto mb-2 text-orange-500" />
                       <div className="text-lg font-semibold">{siteData.metrics.pageViews.toLocaleString()}</div>
-                      <p className="text-sm text-muted-foreground">Page Views</p>
+                      <p className="text-sm text-muted-foreground">{t('analysis.pageViews')}</p>
                     </div>
                   </div>
                 </div>
@@ -375,9 +378,9 @@ export default function Analysis() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Activity className="w-5 h-5" />
-                    <span>Conversion Trends</span>
+                    <span>{t('analysis.conversionTrends')}</span>
                   </CardTitle>
-                  <CardDescription>Monthly conversion rate performance</CardDescription>
+                  <CardDescription>{t('analysis.conversionTrendsDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ChartContainer
@@ -410,9 +413,9 @@ export default function Analysis() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <PieChartIcon className="w-5 h-5" />
-                    <span>Traffic by Device</span>
+                    <span>{t('analysis.trafficByDevice')}</span>
                   </CardTitle>
-                  <CardDescription>Visitor distribution across devices</CardDescription>
+                  <CardDescription>{t('analysis.trafficByDeviceDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ChartContainer
@@ -449,15 +452,15 @@ export default function Analysis() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <BarChart3 className="w-5 h-5" />
-                  <span>Revenue Analytics</span>
+                  <span>{t('analysis.revenueAnalytics')}</span>
                 </CardTitle>
-                <CardDescription>Monthly revenue vs costs comparison</CardDescription>
+                <CardDescription>{t('analysis.revenueAnalyticsDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ChartContainer
                   config={{
-                    revenue: { label: "Revenue", color: "hsl(var(--primary))" },
-                    costs: { label: "Costs", color: "hsl(var(--destructive))" }
+                    revenue: { label: t('analysis.revenue'), color: "hsl(var(--primary))" },
+                    costs: { label: t('analysis.costs'), color: "hsl(var(--destructive))" }
                   }}
                   className="h-[400px]"
                 >
@@ -478,18 +481,18 @@ export default function Analysis() {
             {/* Recommendations */}
             <Card className="card-shake">
               <CardHeader>
-                <CardTitle>AI Recommendations</CardTitle>
+                <CardTitle>{t('analysis.aiRecommendations')}</CardTitle>
                 <CardDescription>
-                  Prioritized list of conversion optimization opportunities
+                  {t('analysis.aiRecommendationsDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="all">All ({recommendations.length})</TabsTrigger>
-                    <TabsTrigger value="pending">Pending ({recommendations.filter(r => !r.implemented).length})</TabsTrigger>
-                    <TabsTrigger value="implemented">Done ({recommendations.filter(r => r.implemented).length})</TabsTrigger>
-                    <TabsTrigger value="high">High Impact</TabsTrigger>
+                    <TabsTrigger value="all">{t('analysis.all')} ({recommendations.length})</TabsTrigger>
+                    <TabsTrigger value="pending">{t('analysis.pending')} ({recommendations.filter(r => !r.implemented).length})</TabsTrigger>
+                    <TabsTrigger value="implemented">{t('analysis.done')} ({recommendations.filter(r => r.implemented).length})</TabsTrigger>
+                    <TabsTrigger value="high">{t('analysis.highImpact')}</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value={activeTab} className="mt-6">
@@ -510,16 +513,18 @@ export default function Analysis() {
                                   
                                   <div className="flex flex-wrap gap-2 mb-3">
                                     <Badge variant={rec.impact === "High" ? "destructive" : "default"}>
-                                      {rec.impact} Impact
+                                      {rec.impact === "High" ? t('analysis.highImpactText') : rec.impact === "Medium" ? t('analysis.mediumImpact') : t('analysis.lowImpact')} Impact
                                     </Badge>
                                     <Badge variant="outline">{rec.expectedUplift}</Badge>
-                                    <Badge variant="secondary">{rec.difficulty}</Badge>
+                                    <Badge variant="secondary">
+                                      {rec.difficulty === "Easy" ? t('analysis.easy') : rec.difficulty === "Medium" ? t('analysis.medium') : t('analysis.hard')}
+                                    </Badge>
                                     <Badge variant="outline">{rec.estimatedTime}</Badge>
                                   </div>
 
                                   <details className="mt-3">
                                     <summary className="cursor-pointer text-sm font-medium text-blue-600 hover:text-blue-800">
-                                      View Implementation Details
+                                      {t('analysis.viewImplementationDetails')}
                                     </summary>
                                     <ul className="mt-2 ml-4 space-y-1">
                                       {rec.details.map((detail, index) => (
@@ -540,7 +545,7 @@ export default function Analysis() {
                                     size="sm" 
                                     onClick={() => handleMarkAsDone(rec.id)}
                                   >
-                                    Mark as Done
+                                    {t('analysis.markAsDone')}
                                   </Button>
                                 )}
                               </div>

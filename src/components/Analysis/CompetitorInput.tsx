@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ interface CompetitorInputProps {
 }
 
 export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: CompetitorInputProps) {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [newCompetitorUrl, setNewCompetitorUrl] = useState("");
   const [newCompetitorName, setNewCompetitorName] = useState("");
@@ -27,7 +29,7 @@ export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: Co
   const addCompetitor = () => {
     if (!newCompetitorUrl.trim()) {
       toast({
-        title: "URL Required",
+        title: t('analysis.urlRequired'),
         description: "Please enter a competitor URL.",
         variant: "destructive",
       });
@@ -36,8 +38,8 @@ export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: Co
 
     if (competitorSites.length >= 4) {
       toast({
-        title: "Maximum Reached",
-        description: "You can analyze up to 3 competitors at once.",
+        title: t('competitorAnalysis.maximumReached'),
+        description: t('competitorAnalysis.maximumReachedDesc'),
         variant: "destructive",
       });
       return;
@@ -47,7 +49,7 @@ export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: Co
       new URL(newCompetitorUrl.startsWith('http') ? newCompetitorUrl : `https://${newCompetitorUrl}`);
     } catch {
       toast({
-        title: "Invalid URL",
+        title: t('analysis.invalidUrl'),
         description: "Please enter a valid URL.",
         variant: "destructive",
       });
@@ -74,10 +76,10 @@ export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: Co
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Globe className="w-5 h-5" />
-          <span>Competitor Websites</span>
+          <span>{t('competitorAnalysis.competitorWebsites')}</span>
         </CardTitle>
         <CardDescription>
-          Add up to 3 competitor websites to analyze against your site
+          {t('competitorAnalysis.competitorWebsitesDesc')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -90,7 +92,7 @@ export function CompetitorInput({ competitorSites, onCompetitorSitesChange }: Co
                   <p className="font-medium">{site.name}</p>
                   <p className="text-sm text-muted-foreground">{site.url}</p>
                 </div>
-                {site.isYourSite && <Badge variant="outline">Your Site</Badge>}
+                {site.isYourSite && <Badge variant="outline">{t('competitorAnalysis.yourSite')}</Badge>}
               </div>
               {!site.isYourSite && (
                 <Button
