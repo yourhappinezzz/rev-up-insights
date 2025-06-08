@@ -5,8 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { Sidebar } from "@/components/Layout/Sidebar";
-import { Header } from "@/components/Layout/Header";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/Layout/AppSidebar";
+import { MobileHeader } from "@/components/Layout/MobileHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
@@ -51,30 +52,51 @@ function AppContent() {
     );
   }
 
+  if (isMobile) {
+    return (
+      <SidebarProvider>
+        <div className="min-h-screen w-full flex flex-col bg-background">
+          <AppSidebar />
+          <MobileHeader />
+          <main className="flex-1 overflow-auto px-3 py-4">
+            <div className="w-full max-w-full space-y-4">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/analysis/:siteId?" element={<Analysis />} />
+                <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </main>
+        </div>
+      </SidebarProvider>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex w-full bg-background">
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header />
-        <main className={`flex-1 overflow-auto bg-background ${
-          isMobile ? 'p-4' : 'p-6'
-        }`}>
-          <div className={`w-full max-w-full ${
-            isMobile ? 'space-y-4' : 'space-y-6'
-          }`}>
-            <Routes>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/analysis/:siteId?" element={<Analysis />} />
-              <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/notifications" element={<Notifications />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </main>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+          <main className="flex-1 overflow-auto bg-background p-6">
+            <div className="w-full max-w-full space-y-6">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/analysis/:siteId?" element={<Analysis />} />
+                <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
 
