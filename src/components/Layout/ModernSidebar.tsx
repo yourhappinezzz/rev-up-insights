@@ -149,113 +149,116 @@ export function ModernSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* AI Assistant Section - Only shows content when clicked */}
+        {/* AI Assistant Section */}
         <SidebarGroup className="mt-6">
           <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider mb-2 flex items-center gap-2">
             <Brain className="w-3 h-3" />
             AI Assistant
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <div className="space-y-3">
-              {/* AI Chat Toggle Button */}
-              <Button
-                onClick={() => setAiChatOpen(!aiChatOpen)}
-                variant={aiChatOpen ? "default" : "outline"}
-                className="w-full h-auto p-3 flex items-start space-x-3 rounded-lg border border-border/50 bg-gradient-to-r from-background to-muted/20 hover:from-primary/5 hover:to-primary/10 transition-all duration-200"
-              >
-                <div className="relative">
-                  <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
-                    <Bot className="w-4 h-4 text-purple-600" />
+            <SidebarMenu className="space-y-3">
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => setAiChatOpen(!aiChatOpen)}
+                  className={cn(
+                    "w-full h-auto p-3 flex items-start space-x-3 rounded-lg border border-border/50 bg-gradient-to-r from-background to-muted/20 hover:from-primary/5 hover:to-primary/10 transition-all duration-200",
+                    aiChatOpen ? "bg-primary/10 border-primary/20" : ""
+                  )}
+                >
+                  <div className="relative">
+                    <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
+                      <Bot className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                </div>
-                <div className="flex-1 text-left">
-                  <div className="font-medium text-sm">CRO Expert</div>
-                  <div className="text-xs text-muted-foreground">
-                    {aiChatOpen ? "Click to close" : "Ask optimization questions"}
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm">CRO Expert</div>
+                    <div className="text-xs text-muted-foreground">
+                      {aiChatOpen ? "Click to close" : "Ask optimization questions"}
+                    </div>
                   </div>
-                </div>
-                <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              </Button>
+                  <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
 
-              {/* AI Chat Interface - Only shows when aiChatOpen is true */}
-              {aiChatOpen && (
-                <div className="space-y-3 p-3 bg-muted/30 rounded-lg border border-border/50">
-                  <div className="max-h-40 overflow-y-auto space-y-2 text-xs">
-                    {aiResponses.length === 0 && (
-                      <div className="text-muted-foreground text-center py-2">
-                        👋 Ask me about conversion optimization!
+            {/* AI Chat Interface - Only shows when aiChatOpen is true */}
+            {aiChatOpen && (
+              <div className="space-y-3 p-3 bg-muted/30 rounded-lg border border-border/50 mt-3">
+                <div className="max-h-40 overflow-y-auto space-y-2 text-xs">
+                  {aiResponses.length === 0 && (
+                    <div className="text-muted-foreground text-center py-2">
+                      👋 Ask me about conversion optimization!
+                    </div>
+                  )}
+                  {aiResponses.map((response, index) => (
+                    <div key={index} className={cn(
+                      "p-2 rounded-md",
+                      response.type === 'user' ? 
+                        "bg-primary/10 text-primary ml-2" : 
+                        "bg-background border border-border/50 mr-2"
+                    )}>
+                      <div className="flex items-start gap-2">
+                        {response.type === 'ai' && <Bot className="w-3 h-3 mt-0.5 text-primary" />}
+                        <span className="text-xs leading-relaxed">{response.message}</span>
                       </div>
-                    )}
-                    {aiResponses.map((response, index) => (
-                      <div key={index} className={cn(
-                        "p-2 rounded-md",
-                        response.type === 'user' ? 
-                          "bg-primary/10 text-primary ml-2" : 
-                          "bg-background border border-border/50 mr-2"
-                      )}>
-                        <div className="flex items-start gap-2">
-                          {response.type === 'ai' && <Bot className="w-3 h-3 mt-0.5 text-primary" />}
-                          <span className="text-xs leading-relaxed">{response.message}</span>
+                    </div>
+                  ))}
+                  {isAiThinking && (
+                    <div className="bg-background border border-border/50 mr-2 p-2 rounded-md">
+                      <div className="flex items-center gap-2">
+                        <Bot className="w-3 h-3 text-primary" />
+                        <div className="flex space-x-1">
+                          <div className="w-1 h-1 bg-primary rounded-full animate-bounce" />
+                          <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                          <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                         </div>
                       </div>
-                    ))}
-                    {isAiThinking && (
-                      <div className="bg-background border border-border/50 mr-2 p-2 rounded-md">
-                        <div className="flex items-center gap-2">
-                          <Bot className="w-3 h-3 text-primary" />
-                          <div className="flex space-x-1">
-                            <div className="w-1 h-1 bg-primary rounded-full animate-bounce" />
-                            <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                            <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={aiMessage}
-                      onChange={(e) => setAiMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleAiChat()}
-                      placeholder="Ask about CRO..."
-                      className="flex-1 px-2 py-1 text-xs bg-background border border-border/50 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none"
-                    />
-                    <Button
-                      onClick={handleAiChat}
-                      size="sm"
-                      className="px-2 py-1 h-auto"
-                      disabled={!aiMessage.trim() || isAiThinking}
-                    >
-                      <MessageCircle className="w-3 h-3" />
-                    </Button>
-                  </div>
+                    </div>
+                  )}
                 </div>
-              )}
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={aiMessage}
+                    onChange={(e) => setAiMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAiChat()}
+                    placeholder="Ask about CRO..."
+                    className="flex-1 px-2 py-1 text-xs bg-background border border-border/50 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+                  />
+                  <Button
+                    onClick={handleAiChat}
+                    size="sm"
+                    className="px-2 py-1 h-auto"
+                    disabled={!aiMessage.trim() || isAiThinking}
+                  >
+                    <MessageCircle className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            )}
 
-              {/* Quick AI Insights - Always visible */}
-              <div className="space-y-2">
-                <div className="p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <TrendingUp className="w-3 h-3 text-green-600" />
-                    <span className="text-xs font-medium text-green-700">Live Insight</span>
-                    <Badge variant="secondary" className="text-xs px-1 py-0">NEW</Badge>
-                  </div>
-                  <p className="text-xs text-green-600/80 leading-relaxed">
-                    Your conversion rate improved 12% this week. Consider scaling the winning variant.
-                  </p>
+            {/* Quick AI Insights - Always visible */}
+            <div className="space-y-2 mt-3">
+              <div className="p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <TrendingUp className="w-3 h-3 text-green-600" />
+                  <span className="text-xs font-medium text-green-700">Live Insight</span>
+                  <Badge variant="secondary" className="text-xs px-1 py-0">NEW</Badge>
                 </div>
+                <p className="text-xs text-green-600/80 leading-relaxed">
+                  Your conversion rate improved 12% this week. Consider scaling the winning variant.
+                </p>
+              </div>
 
-                <div className="p-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Target className="w-3 h-3 text-blue-600" />
-                    <span className="text-xs font-medium text-blue-700">Opportunity</span>
-                  </div>
-                  <p className="text-xs text-blue-600/80 leading-relaxed">
-                    Mobile users show 23% higher intent. Optimize mobile checkout flow.
-                  </p>
+              <div className="p-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <Target className="w-3 h-3 text-blue-600" />
+                  <span className="text-xs font-medium text-blue-700">Opportunity</span>
                 </div>
+                <p className="text-xs text-blue-600/80 leading-relaxed">
+                  Mobile users show 23% higher intent. Optimize mobile checkout flow.
+                </p>
               </div>
             </div>
           </SidebarGroupContent>
