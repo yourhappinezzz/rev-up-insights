@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +13,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Bell, Search, Sun, Moon, User, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
