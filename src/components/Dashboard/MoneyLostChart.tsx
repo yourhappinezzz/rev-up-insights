@@ -13,11 +13,11 @@ interface MoneyLostData {
 export function MoneyLostChart() {
   const [currentLoss, setCurrentLoss] = useState(0);
   const [lossData, setLossData] = useState<MoneyLostData[]>([
-    { category: "Cart Abandonment", amount: 15420, color: "#ef4444" },
-    { category: "Slow Loading", amount: 8750, color: "#f97316" },
-    { category: "Poor Mobile UX", amount: 12300, color: "#eab308" },
-    { category: "Checkout Issues", amount: 9680, color: "#dc2626" },
-    { category: "Missing Trust Signals", amount: 6420, color: "#b91c1c" }
+    { category: "Cart Abandonment", amount: 15420, color: "#16a34a" },
+    { category: "Slow Loading", amount: 8750, color: "#22c55e" },
+    { category: "Poor Mobile UX", amount: 12300, color: "#4ade80" },
+    { category: "Checkout Issues", amount: 9680, color: "#15803d" },
+    { category: "Missing Trust Signals", amount: 6420, color: "#166534" }
   ]);
 
   // Simulate real-time money loss
@@ -44,7 +44,7 @@ export function MoneyLostChart() {
       return (
         <div className="bg-background border rounded-lg p-3 shadow-lg">
           <p className="font-medium">{data.category}</p>
-          <p className="text-red-500 font-bold">
+          <p className="text-green-600 font-bold">
             ${data.amount.toLocaleString()}
           </p>
         </div>
@@ -56,24 +56,24 @@ export function MoneyLostChart() {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-red-600">
+        <CardTitle className="flex items-center gap-2 text-green-600">
           <AlertTriangle className="w-5 h-5" />
-          Live Money Lost
+          Revenue Loss Analytics
         </CardTitle>
         <CardDescription>
-          Real-time revenue loss due to optimization issues
+          Real-time revenue loss tracking due to optimization opportunities
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
           {/* Live Counter */}
           <div className="text-center space-y-2">
-            <div className="text-3xl font-bold text-red-600 animate-pulse">
+            <div className="text-3xl font-bold text-green-600 animate-pulse">
               ${totalLoss.toLocaleString()}
             </div>
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <TrendingDown className="w-4 h-4 text-red-500" />
-              Lost this month
+              <TrendingDown className="w-4 h-4 text-green-500" />
+              Potential loss this month
             </div>
           </div>
 
@@ -110,7 +110,7 @@ export function MoneyLostChart() {
                   />
                   <span>{item.category}</span>
                 </div>
-                <span className="font-medium text-red-600">
+                <span className="font-medium text-green-600">
                   ${item.amount.toLocaleString()}
                 </span>
               </div>
@@ -119,7 +119,7 @@ export function MoneyLostChart() {
 
           {/* Real-time indicator */}
           <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             Updates every 2 seconds
           </div>
         </div>

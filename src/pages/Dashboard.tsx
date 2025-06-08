@@ -188,6 +188,11 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Revenue Loss Analytics at the top */}
+            <div className="grid grid-cols-1 gap-6">
+              <MoneyLostChart />
+            </div>
+
             {/* Key Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <Card className="card-hover">
@@ -247,11 +252,8 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            {/* Charts Row - Updated to include Money Lost Chart */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Money Lost Chart - New Addition */}
-              <MoneyLostChart />
-
+            {/* Charts Row - Performance Trends and Conversion Funnel */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Performance Trends */}
               <Card>
                 <CardHeader>
