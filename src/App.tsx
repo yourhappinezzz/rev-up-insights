@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Analysis from "./pages/Analysis";
@@ -27,42 +28,50 @@ const queryClient = new QueryClient();
 
 function AppContent() {
   const location = useLocation();
+  const isMobile = useIsMobile();
   
-  // Pages that don't need the dashboard layout
   const publicPages = ['/', '/login', '/signup', '/pricing', '/contact', '/about', '/terms', '/privacy'];
   const isPublicPage = publicPages.includes(location.pathname);
 
   if (isPublicPage) {
     return (
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="min-h-screen w-full">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     );
   }
 
   return (
     <div className="min-h-screen flex w-full bg-background">
       <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-auto p-3 sm:p-6">
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/analysis/:siteId?" element={<Analysis />} />
-            <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <main className={`flex-1 overflow-auto bg-background ${
+          isMobile ? 'p-4' : 'p-6'
+        }`}>
+          <div className={`w-full max-w-full ${
+            isMobile ? 'space-y-4' : 'space-y-6'
+          }`}>
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/analysis/:siteId?" element={<Analysis />} />
+              <Route path="/competitor-analysis" element={<CompetitorAnalysis />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </main>
       </div>
     </div>
