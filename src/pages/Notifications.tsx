@@ -1,5 +1,4 @@
 
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { NotificationCenter, useNotifications } from "@/components/ui/notifications";
 import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
@@ -22,12 +21,6 @@ export default function NotificationsPage() {
 
   return (
     <div className="flex-1 bg-gradient-to-br from-background via-background to-muted/20">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-        <SidebarTrigger className="-ml-1" />
-        <div className="flex-1">
-          <h1 className="text-xl font-semibold">Notifications</h1>
-        </div>
-      </header>
       <main className="flex-1 overflow-y-auto p-8">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-2">

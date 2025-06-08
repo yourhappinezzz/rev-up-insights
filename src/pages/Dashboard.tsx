@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { MoneyLostChart } from "@/components/Dashboard/MoneyLostChart";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
@@ -152,43 +151,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex-1 bg-gradient-to-br from-background via-background to-muted/20">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-        <SidebarTrigger className="-ml-1" />
-        <div className="flex-1 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <h1 className="text-xl font-semibold">Analytics Dashboard</h1>
-            <Badge variant="secondary" className="text-xs">
-              Live
-            </Badge>
-          </div>
-          <div className="flex items-center space-x-3">
-            <Button 
-              variant={timeRange === "7d" ? "default" : "outline"} 
-              size="sm"
-              onClick={() => setTimeRange("7d")}
-              className="rounded-full"
-            >
-              7 Days
-            </Button>
-            <Button 
-              variant={timeRange === "30d" ? "default" : "outline"} 
-              size="sm"
-              onClick={() => setTimeRange("30d")}
-              className="rounded-full"
-            >
-              30 Days
-            </Button>
-            <Button 
-              variant={timeRange === "90d" ? "default" : "outline"} 
-              size="sm"
-              onClick={() => setTimeRange("90d")}
-              className="rounded-full"
-            >
-              90 Days
-            </Button>
-          </div>
-        </div>
-      </header>
       <main className="flex-1 overflow-y-auto p-8">
         <div className="space-y-8 max-w-7xl mx-auto">
           {/* Modern Header */}
@@ -200,6 +162,32 @@ export default function Dashboard() {
               <p className="text-muted-foreground text-lg">
                 Conversion optimization insights for {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <Button 
+                variant={timeRange === "7d" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => setTimeRange("7d")}
+                className="rounded-full"
+              >
+                7 Days
+              </Button>
+              <Button 
+                variant={timeRange === "30d" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => setTimeRange("30d")}
+                className="rounded-full"
+              >
+                30 Days
+              </Button>
+              <Button 
+                variant={timeRange === "90d" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => setTimeRange("90d")}
+                className="rounded-full"
+              >
+                90 Days
+              </Button>
             </div>
           </div>
 
