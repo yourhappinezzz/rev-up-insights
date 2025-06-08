@@ -16,8 +16,14 @@ export default function LandingHeader() {
           </span>
         </div>
         <div className="flex items-center space-x-4">
+          <Link to="/about">
+            <Button variant="ghost">About</Button>
+          </Link>
           <Link to="/pricing">
             <Button variant="ghost">Pricing</Button>
+          </Link>
+          <Link to="/contact">
+            <Button variant="ghost">Contact</Button>
           </Link>
           <Link to="/login">
             <Button variant="ghost">Sign In</Button>
