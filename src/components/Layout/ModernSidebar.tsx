@@ -25,7 +25,6 @@ import {
   Settings,
   BarChart3,
   Zap,
-  Sparkles,
 } from "lucide-react";
 
 const navigation = [
@@ -116,24 +115,6 @@ export function ModernSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter className="p-4 border-t border-sidebar-border/50">
-        <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-muted/50 to-muted/30 rounded-lg border border-border/30">
-          <div className="relative">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center shadow-sm">
-              <span className="text-white text-xs font-bold">AI</span>
-            </div>
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border border-sidebar" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium">AI Assistant</p>
-            <p className="text-xs text-muted-foreground">CRO Expert • Online</p>
-          </div>
-          <div className="text-xs text-muted-foreground">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-          </div>
-        </div>
-      </SidebarFooter>
     </Sidebar>
   );
 }
