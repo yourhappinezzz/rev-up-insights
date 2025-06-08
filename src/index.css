@@ -94,164 +94,304 @@
 
   body {
     @apply bg-background text-foreground font-inter;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Mobile-first responsive typography */
-  html {
-    font-size: 14px;
-  }
-
-  @media (min-width: 640px) {
-    html {
-      font-size: 16px;
-    }
   }
 }
 
-/* Mobile-First Animations and Effects */
-@keyframes gentle-float {
+/* Professional Business Dashboard Animations */
+@keyframes gloss {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-1px); }
+  50% { transform: translateY(-4px); }
 }
 
-@keyframes subtle-glow {
-  0%, 100% { box-shadow: 0 1px 3px rgba(79, 70, 229, 0.1); }
-  50% { box-shadow: 0 2px 6px rgba(79, 70, 229, 0.15); }
+@keyframes analytics-glow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1); }
+  50% { box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15); }
 }
 
-@keyframes soft-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.02); opacity: 0.95; }
+@keyframes data-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
 }
 
-/* Enhanced Mobile Card Effects */
-.mobile-card {
+@keyframes metric-lift {
+  0% { 
+    transform: translateY(0) scale(1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  100% { 
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+  }
+}
+
+/* Professional Card Hover Effects */
+.card-hover {
   @apply relative overflow-hidden transition-all duration-300 ease-out;
-  @apply rounded-xl bg-card/95 backdrop-blur-sm border border-border/50;
-  @apply shadow-sm hover:shadow-md;
+  background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%);
 }
 
-.mobile-card:hover {
-  animation: gentle-float 0.3s ease-out forwards;
+.card-hover:hover {
+  animation: metric-lift 0.3s ease-out forwards;
 }
 
-/* Clean Mobile Button Effects */
-.mobile-button {
-  @apply relative overflow-hidden transition-all duration-200 ease-out;
-  @apply rounded-lg bg-primary text-primary-foreground;
-  @apply shadow-sm hover:shadow-md;
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(79, 70, 229, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease-in-out;
+  z-index: 1;
 }
 
-.mobile-button:hover {
-  transform: translateY(-0.5px) scale(1.005);
+.card-hover:hover::before {
+  left: 100%;
 }
 
-.mobile-button:active {
+/* Enhanced Button Hover Effects */
+.button-hover {
+  @apply relative overflow-hidden transition-all duration-300 ease-out;
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
+}
+
+.button-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transition: left 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.button-hover:hover::before {
+  left: 100%;
+}
+
+.button-hover:hover {
+  transform: translateY(-0.5px) scale(1.01);
+  box-shadow: 
+    0 4px 12px rgba(79, 70, 229, 0.15),
+    0 0 0 1px rgba(79, 70, 229, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.button-hover:active {
   transform: translateY(0) scale(1);
   transition: transform 0.1s ease-out;
 }
 
-/* Refined Interactive Elements */
-.interactive-element {
-  @apply transition-all duration-200 ease-out;
+/* Interactive Element Gloss */
+.interactive-gloss {
+  @apply relative overflow-hidden transition-all duration-300 ease-out;
 }
 
-.interactive-element:hover {
+.interactive-gloss::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: left 0.4s ease-in-out;
+  pointer-events: none;
+}
+
+.interactive-gloss:hover::after {
+  left: 100%;
+}
+
+.interactive-gloss:hover {
   transform: translateY(-0.5px);
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.08);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(79, 70, 229, 0.05);
 }
 
-/* Clean Navigation Effects */
-.nav-item {
-  @apply relative transition-all duration-200 ease-out;
-  @apply rounded-lg hover:bg-accent/50;
+/* Metric Card Professional Glow Effect */
+.metric-glow {
+  @apply transition-all duration-300 ease-out;
 }
 
-.nav-item.active {
-  @apply bg-primary text-primary-foreground;
+.metric-glow:hover {
+  animation: analytics-glow 2s ease-in-out infinite;
+  transform: translateY(-1px) scale(1.01);
 }
 
-/* Polished Input Effects */
-.mobile-input {
-  @apply transition-all duration-200 ease-out;
-  @apply rounded-lg border-border/50 bg-background/50;
-  @apply focus:border-primary/30 focus:bg-background;
+/* Navigation Item Professional Hover */
+.nav-item-hover {
+  @apply relative transition-all duration-300 ease-out;
 }
 
-.mobile-input:focus {
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.06);
-  transform: translateY(-0.5px);
+.nav-item-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)));
+  transform: scaleY(0);
+  transition: transform 0.3s ease-out;
 }
 
-/* Clean Badge Animation */
-.notification-badge {
-  animation: soft-pulse 2s ease-in-out infinite;
+.nav-item-hover:hover::before,
+.nav-item-hover.active::before {
+  transform: scaleY(1);
 }
 
-/* Smooth Transitions */
-.smooth-transition {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.nav-item-hover:hover {
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.04), transparent);
+  transform: translateX(2px);
 }
 
-/* Mobile-optimized scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
+/* Input Focus Effects */
+.input-focus {
+  @apply transition-all duration-300 ease-out;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+.input-focus:focus {
+  box-shadow: 
+    0 0 0 3px rgba(79, 70, 229, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+  transform: translateY(-0.5px) scale(1.005);
 }
 
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 2px;
+/* Avatar Professional Glow */
+.avatar-glow {
+  @apply transition-all duration-300 ease-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+.avatar-glow:hover {
+  box-shadow: 
+    0 0 12px rgba(79, 70, 229, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
 }
 
-/* Mobile-specific utilities */
-@media (max-width: 768px) {
-  .mobile-container {
-    @apply px-3 py-4;
+/* Badge Pulse */
+.badge-pulse {
+  animation: data-pulse 2s ease-in-out infinite;
+}
+
+/* Professional lost revenue ticker animation */
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .mobile-spacing {
-    @apply space-y-3;
-  }
-  
-  .mobile-text {
-    @apply text-sm leading-relaxed;
-  }
-  
-  .mobile-title {
-    @apply text-lg font-semibold;
-  }
-  
-  .mobile-subtitle {
-    @apply text-sm text-muted-foreground;
+  50% {
+    opacity: 0.95;
+    transform: scale(1.01);
   }
 }
 
-/* Glass morphism for premium feel */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.animate-pulse-red {
+  animation: pulse-red 2s ease-in-out infinite;
 }
 
-.dark .glass-effect {
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Smooth transitions for all interactive elements */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }
 
-/* Gradient text for branding */
+/* Gradient text effects */
 .gradient-text {
   background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-morphism {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* Loading shimmer effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--accent)) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
