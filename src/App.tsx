@@ -25,6 +25,18 @@ import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
 
+// Dashboard Layout Component
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
+  <SidebarProvider>
+    <div className="min-h-screen flex w-full">
+      <ModernSidebar />
+      <SidebarInset>
+        {children}
+      </SidebarInset>
+    </div>
+  </SidebarProvider>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="aico-ui-theme">
@@ -43,66 +55,36 @@ const App = () => (
             <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<NotFound />} />
             
-            {/* Dashboard routes with sidebar */}
+            {/* Dashboard routes with single sidebar implementation */}
             <Route path="/dashboard" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <Dashboard />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
             } />
             <Route path="/analysis/:siteId?" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <Analysis />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <Analysis />
+              </DashboardLayout>
             } />
             <Route path="/competitor-analysis" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <CompetitorAnalysis />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <CompetitorAnalysis />
+              </DashboardLayout>
             } />
             <Route path="/settings" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <Settings />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <Settings />
+              </DashboardLayout>
             } />
             <Route path="/profile" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <Profile />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <Profile />
+              </DashboardLayout>
             } />
             <Route path="/notifications" element={
-              <SidebarProvider>
-                <div className="min-h-screen flex w-full">
-                  <ModernSidebar />
-                  <SidebarInset>
-                    <Notifications />
-                  </SidebarInset>
-                </div>
-              </SidebarProvider>
+              <DashboardLayout>
+                <Notifications />
+              </DashboardLayout>
             } />
           </Routes>
         </BrowserRouter>
