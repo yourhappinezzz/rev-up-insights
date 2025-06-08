@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,7 @@ import {
   Trash2,
   Plus,
   Check,
-  Settings
+  Settings as SettingsIcon
 } from "lucide-react";
 
 export default function Settings() {
@@ -178,7 +177,7 @@ export default function Settings() {
             <div className="space-y-2">
               <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent flex items-center gap-3">
                 <div className="p-2 bg-primary/20 rounded-xl">
-                  <Settings className="h-8 w-8 text-primary" />
+                  <SettingsIcon className="h-8 w-8 text-primary" />
                 </div>
                 Settings
               </h1>
