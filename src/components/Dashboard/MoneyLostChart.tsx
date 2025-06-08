@@ -13,11 +13,11 @@ interface MoneyLostData {
 export function MoneyLostChart() {
   const [currentLoss, setCurrentLoss] = useState(0);
   const [lossData, setLossData] = useState<MoneyLostData[]>([
-    { category: "Cart Abandonment", amount: 15420, color: "#16a34a" },
-    { category: "Slow Loading", amount: 8750, color: "#22c55e" },
-    { category: "Poor Mobile UX", amount: 12300, color: "#4ade80" },
-    { category: "Checkout Issues", amount: 9680, color: "#15803d" },
-    { category: "Missing Trust Signals", amount: 6420, color: "#166534" }
+    { category: "Cart Abandonment", amount: 15420, color: "#dc2626" }, // Red - Critical
+    { category: "Slow Loading", amount: 8750, color: "#ea580c" }, // Orange - High
+    { category: "Poor Mobile UX", amount: 12300, color: "#d97706" }, // Amber - High
+    { category: "Checkout Issues", amount: 9680, color: "#dc2626" }, // Red - Critical
+    { category: "Missing Trust Signals", amount: 6420, color: "#ca8a04" } // Yellow - Medium
   ]);
 
   // Simulate real-time money loss
@@ -44,7 +44,7 @@ export function MoneyLostChart() {
       return (
         <div className="bg-background border rounded-lg p-3 shadow-lg">
           <p className="font-medium">{data.category}</p>
-          <p className="text-green-600 font-bold">
+          <p className="text-red-600 font-bold">
             ${data.amount.toLocaleString()}
           </p>
         </div>
@@ -55,38 +55,38 @@ export function MoneyLostChart() {
 
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-green-600">
-          <AlertTriangle className="w-5 h-5" />
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2 text-red-600 text-lg">
+          <AlertTriangle className="w-4 h-4" />
           Revenue Loss Analytics
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-sm">
           Real-time revenue loss tracking due to optimization opportunities
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
+      <CardContent className="pt-0">
+        <div className="space-y-4">
           {/* Live Counter */}
-          <div className="text-center space-y-2">
-            <div className="text-3xl font-bold text-green-600 animate-pulse">
+          <div className="text-center space-y-1">
+            <div className="text-2xl font-bold text-red-600 animate-pulse">
               ${totalLoss.toLocaleString()}
             </div>
-            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <TrendingDown className="w-4 h-4 text-green-500" />
+            <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+              <TrendingDown className="w-3 h-3 text-red-500" />
               Potential loss this month
             </div>
           </div>
 
           {/* Circular Chart */}
-          <div className="h-80">
+          <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={lossData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={120}
+                  innerRadius={40}
+                  outerRadius={80}
                   paddingAngle={2}
                   dataKey="amount"
                 >
@@ -100,17 +100,17 @@ export function MoneyLostChart() {
           </div>
 
           {/* Legend */}
-          <div className="space-y-2">
+          <div className="space-y-1">
             {lossData.map((item, index) => (
-              <div key={index} className="flex items-center justify-between text-sm">
+              <div key={index} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <div 
-                    className="w-3 h-3 rounded-full" 
+                    className="w-2 h-2 rounded-full" 
                     style={{ backgroundColor: item.color }}
                   />
-                  <span>{item.category}</span>
+                  <span className="truncate">{item.category}</span>
                 </div>
-                <span className="font-medium text-green-600">
+                <span className="font-medium text-red-600 ml-2">
                   ${item.amount.toLocaleString()}
                 </span>
               </div>
@@ -118,8 +118,8 @@ export function MoneyLostChart() {
           </div>
 
           {/* Real-time indicator */}
-          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground pt-2">
+            <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
             Updates every 2 seconds
           </div>
         </div>
