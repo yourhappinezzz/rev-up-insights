@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -91,6 +90,10 @@ export function ModernSidebar() {
     }, 1500);
   };
 
+  const toggleAiChat = () => {
+    setAiChatOpen(prev => !prev);
+  };
+
   return (
     <Sidebar className="border-r border-border/40 bg-gradient-to-b from-sidebar to-sidebar/95">
       <SidebarHeader className="p-6 border-b border-sidebar-border/50">
@@ -159,9 +162,9 @@ export function ModernSidebar() {
             <SidebarMenu className="space-y-3">
               <SidebarMenuItem>
                 <SidebarMenuButton 
-                  onClick={() => setAiChatOpen(!aiChatOpen)}
+                  onClick={toggleAiChat}
                   className={cn(
-                    "w-full h-auto p-3 flex items-start space-x-3 rounded-lg border border-border/50 bg-gradient-to-r from-background to-muted/20 hover:from-primary/5 hover:to-primary/10 transition-all duration-200",
+                    "w-full h-auto p-3 flex items-start space-x-3 rounded-lg border border-border/50 bg-gradient-to-r from-background to-muted/20 hover:from-primary/5 hover:to-primary/10 transition-all duration-200 cursor-pointer",
                     aiChatOpen ? "bg-primary/10 border-primary/20" : ""
                   )}
                 >
