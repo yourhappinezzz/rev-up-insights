@@ -25,6 +25,10 @@ export function Header() {
     navigate("/settings");
   };
 
+  const handleNotificationsClick = () => {
+    navigate("/notifications");
+  };
+
   const handleSignOut = () => {
     // Clear any authentication tokens/session data here
     localStorage.clear();
@@ -88,7 +92,12 @@ export function Header() {
               </div>
             </DropdownMenuItem>
             <div className="p-3 border-t">
-              <Button variant="ghost" size="sm" className="w-full text-xs">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full text-xs"
+                onClick={handleNotificationsClick}
+              >
                 View all notifications
               </Button>
             </div>
