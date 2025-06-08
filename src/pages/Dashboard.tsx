@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
+import { MoneyLostChart } from "@/components/Dashboard/MoneyLostChart";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from "recharts";
 import { useNavigate } from "react-router-dom";
@@ -246,8 +247,11 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            {/* Charts Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Charts Row - Updated to include Money Lost Chart */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Money Lost Chart - New Addition */}
+              <MoneyLostChart />
+
               {/* Performance Trends */}
               <Card>
                 <CardHeader>
