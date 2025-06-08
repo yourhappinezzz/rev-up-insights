@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,7 +29,7 @@ import {
 } from "lucide-react";
 
 export default function Settings() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['settings', 'common']);
   const [sites, setSites] = useState(mockSites);
   const [currentPlan, setCurrentPlan] = useState("Professional");
   const [selectedPlan, setSelectedPlan] = useState("Professional");
@@ -38,41 +37,41 @@ export default function Settings() {
   
   const plans = [
     {
-      name: t('plans.starter.name'),
+      name: t('settings:plans.starter.name'),
       price: 29,
-      features: t('plans.starter.features', { returnObjects: true }) as string[]
+      features: t('settings:plans.starter.features', { returnObjects: true }) as string[]
     },
     {
-      name: t('plans.professional.name'),
+      name: t('settings:plans.professional.name'),
       price: 99,
-      features: t('plans.professional.features', { returnObjects: true }) as string[]
+      features: t('settings:plans.professional.features', { returnObjects: true }) as string[]
     },
     {
-      name: t('plans.agency.name'),
+      name: t('settings:plans.agency.name'),
       price: 299,
-      features: t('plans.agency.features', { returnObjects: true }) as string[]
+      features: t('settings:plans.agency.features', { returnObjects: true }) as string[]
     }
   ];
 
   const integrations = [
     {
-      name: t('settings.dataIntegrations.googleAnalytics'),
+      name: t('settings:dataIntegrations.googleAnalytics'),
       icon: BarChart3,
-      description: t('settings.dataIntegrations.googleAnalyticsDesc'),
+      description: t('settings:dataIntegrations.googleAnalyticsDesc'),
       status: "connected",
       lastSync: "2 hours ago"
     },
     {
-      name: t('settings.dataIntegrations.shopify'),
+      name: t('settings:dataIntegrations.shopify'),
       icon: ShoppingCart, 
-      description: t('settings.dataIntegrations.shopifyDesc'),
+      description: t('settings:dataIntegrations.shopifyDesc'),
       status: "disconnected",
       lastSync: null
     },
     {
-      name: t('settings.dataIntegrations.stripe'),
+      name: t('settings:dataIntegrations.stripe'),
       icon: CreditCard,
-      description: t('settings.dataIntegrations.stripeDesc'),
+      description: t('settings:dataIntegrations.stripeDesc'),
       status: "connected",
       lastSync: "5 minutes ago"
     }
@@ -107,8 +106,8 @@ export default function Settings() {
     
     // Show success message
     toast({
-      title: t('settings.addSite.siteAdded'),
-      description: t('settings.addSite.siteAddedDesc', { siteName: data.siteName }),
+      title: t('settings:addSite.siteAdded'),
+      description: t('settings:addSite.siteAddedDesc', { siteName: data.siteName }),
     });
     
     // Reset the form
@@ -118,8 +117,8 @@ export default function Settings() {
   const deleteSite = (siteId: string) => {
     setSites(sites.filter(site => site.id !== siteId));
     toast({
-      title: t('settings.addSite.siteRemoved'),
-      description: t('settings.addSite.siteRemovedDesc'),
+      title: t('settings:addSite.siteRemoved'),
+      description: t('settings:addSite.siteRemovedDesc'),
       variant: "destructive"
     });
   };
@@ -135,21 +134,21 @@ export default function Settings() {
       setCurrentPlan(planName);
       setIsChangingPlan(false);
       
-      if (planName === t('plans.agency.name')) {
+      if (planName === t('settings:plans.agency.name')) {
         toast({
-          title: t('settings.chooseYourPlan.planUpgraded'),
-          description: t('settings.chooseYourPlan.planUpgradedDesc', { planName }),
+          title: t('settings:chooseYourPlan.planUpgraded'),
+          description: t('settings:chooseYourPlan.planUpgradedDesc', { planName }),
         });
-      } else if (planName === t('plans.starter.name')) {
+      } else if (planName === t('settings:plans.starter.name')) {
         toast({
-          title: t('settings.chooseYourPlan.planDowngraded'),
-          description: t('settings.chooseYourPlan.planDowngradedDesc', { planName }),
+          title: t('settings:chooseYourPlan.planDowngraded'),
+          description: t('settings:chooseYourPlan.planDowngradedDesc', { planName }),
           variant: "destructive"
         });
       } else {
         toast({
-          title: t('settings.chooseYourPlan.planChanged'),
-          description: t('settings.chooseYourPlan.planChangedDesc', { planName }),
+          title: t('settings:chooseYourPlan.planChanged'),
+          description: t('settings:chooseYourPlan.planChangedDesc', { planName }),
         });
       }
     }, 2000);
@@ -163,19 +162,19 @@ export default function Settings() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">{t('settings.title')}</h1>
+              <h1 className="text-3xl font-bold">{t('settings:title')}</h1>
               <p className="text-muted-foreground">
-                {t('settings.subtitle')}
+                {t('settings:subtitle')}
               </p>
             </div>
 
             <Tabs defaultValue="sites" className="w-full">
               <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="sites">{t('settings.sites')}</TabsTrigger>
-                <TabsTrigger value="integrations">{t('settings.integrations')}</TabsTrigger>
-                <TabsTrigger value="notifications">{t('common.notifications')}</TabsTrigger>
-                <TabsTrigger value="api">{t('settings.api')}</TabsTrigger>
-                <TabsTrigger value="billing">{t('settings.billing')}</TabsTrigger>
+                <TabsTrigger value="sites">{t('settings:sites')}</TabsTrigger>
+                <TabsTrigger value="integrations">{t('settings:integrations')}</TabsTrigger>
+                <TabsTrigger value="notifications">{t('common:notifications')}</TabsTrigger>
+                <TabsTrigger value="api">{t('settings:api')}</TabsTrigger>
+                <TabsTrigger value="billing">{t('settings:billing')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="sites" className="space-y-6">
@@ -241,26 +240,26 @@ export default function Settings() {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="siteName">{t('settings.addSite.siteName')}</Label>
+                          <Label htmlFor="siteName">{t('settings:addSite.siteName')}</Label>
                           <Input 
                             id="siteName" 
-                            placeholder={t('settings.addSite.siteNamePlaceholder')}
-                            {...register("siteName", { required: t('settings.addSite.siteNameRequired') })}
+                            placeholder={t('settings:addSite.siteNamePlaceholder')}
+                            {...register("siteName", { required: t('settings:addSite.siteNameRequired') })}
                           />
                           {errors.siteName && (
                             <p className="text-sm text-destructive">{errors.siteName.message}</p>
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="siteUrl">{t('settings.addSite.siteUrl')}</Label>
+                          <Label htmlFor="siteUrl">{t('settings:addSite.siteUrl')}</Label>
                           <Input 
                             id="siteUrl" 
-                            placeholder={t('settings.addSite.siteUrlPlaceholder')}
+                            placeholder={t('settings:addSite.siteUrlPlaceholder')}
                             {...register("siteUrl", { 
-                              required: t('settings.addSite.siteUrlRequired'),
+                              required: t('settings:addSite.siteUrlRequired'),
                               pattern: {
                                 value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-                                message: t('settings.addSite.siteUrlInvalid')
+                                message: t('settings:addSite.siteUrlInvalid')
                               }
                             })}
                           />
@@ -270,7 +269,7 @@ export default function Settings() {
                         </div>
                       </div>
                       <Button type="submit" className="flex items-center">
-                        <Plus className="mr-2 h-4 w-4" /> {t('settings.addSite.addSite')}
+                        <Plus className="mr-2 h-4 w-4" /> {t('settings:addSite.addSite')}
                       </Button>
                     </form>
                   </CardContent>
