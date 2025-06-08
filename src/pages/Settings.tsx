@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Sidebar } from "@/components/Layout/Sidebar";
-import { Header } from "@/components/Layout/Header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 import { toast } from "@/hooks/use-toast";
@@ -168,37 +166,33 @@ export default function Settings() {
   };
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="space-y-2">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent flex items-center gap-3">
-                <div className="p-2 bg-primary/20 rounded-xl">
-                  <SettingsIcon className="h-8 w-8 text-primary" />
-                </div>
-                Settings
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                Manage your account, integrations, and preferences
-              </p>
+    <main className="flex-1 overflow-y-auto p-8">
+      <div className="max-w-6xl mx-auto space-y-8">
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent flex items-center gap-3">
+            <div className="p-2 bg-primary/20 rounded-xl">
+              <SettingsIcon className="h-8 w-8 text-primary" />
+            </div>
+            Settings
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Manage your account, integrations, and preferences
+          </p>
+        </div>
+
+        <div className="border-0 shadow-lg rounded-xl bg-card/50 backdrop-blur-sm">
+          <Tabs defaultValue="sites" className="w-full">
+            <div className="p-6 pb-0">
+              <TabsList className="grid w-full grid-cols-5 bg-muted/50">
+                <TabsTrigger value="sites" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Sites</TabsTrigger>
+                <TabsTrigger value="integrations" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Integrations</TabsTrigger>
+                <TabsTrigger value="notifications" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Notifications</TabsTrigger>
+                <TabsTrigger value="api" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">API & Webhooks</TabsTrigger>
+                <TabsTrigger value="billing" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Billing</TabsTrigger>
+              </TabsList>
             </div>
 
-            <div className="border-0 shadow-lg rounded-xl bg-card/50 backdrop-blur-sm">
-              <Tabs defaultValue="sites" className="w-full">
-                <div className="p-6 pb-0">
-                  <TabsList className="grid w-full grid-cols-5 bg-muted/50">
-                    <TabsTrigger value="sites" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Sites</TabsTrigger>
-                    <TabsTrigger value="integrations" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Integrations</TabsTrigger>
-                    <TabsTrigger value="notifications" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Notifications</TabsTrigger>
-                    <TabsTrigger value="api" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">API & Webhooks</TabsTrigger>
-                    <TabsTrigger value="billing" className="data-[state=active]:bg-background data-[state=active]:shadow-sm">Billing</TabsTrigger>
-                  </TabsList>
-                </div>
-
-                <TabsContent value="sites" className="p-6 pt-6 space-y-6">
+            <TabsContent value="sites" className="p-6 pt-6 space-y-6">
                   <Card className="border-0 shadow-md bg-gradient-to-br from-card to-card/80">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
@@ -594,10 +588,8 @@ export default function Settings() {
                   </Card>
                 </TabsContent>
               </Tabs>
-            </div>
-          </div>
-        </main>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
