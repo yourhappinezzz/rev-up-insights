@@ -2,34 +2,36 @@
 import { useState } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, TrendingUp, Target } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function FeaturesSection() {
+  const { t } = useTranslation();
   const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
     {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Real-time Analytics",
-      description: "Monitor your website performance with live data and insights."
+      title: t('features.realTimeAnalytics'),
+      description: t('features.realTimeAnalyticsDesc')
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      title: "Revenue Optimization",
-      description: "AI-powered recommendations to boost your conversion rates."
+      title: t('features.revenueOptimization'),
+      description: t('features.revenueOptimizationDesc')
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: "Smart Targeting",
-      description: "Identify and focus on your highest-value visitors."
+      title: t('features.smartTargeting'),
+      description: t('features.smartTargetingDesc')
     }
   ];
 
   return (
     <section className="container mx-auto px-4 py-20">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
+        <h2 className="text-4xl font-bold mb-4">{t('features.title')}</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Everything you need to optimize your website's performance and maximize revenue.
+          {t('features.subtitle')}
         </p>
       </div>
       
